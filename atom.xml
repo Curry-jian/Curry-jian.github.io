@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-24T05:48:20.807Z</updated>
+  <updated>2020-02-02T14:08:05.702Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Flask学习</title>
+    <link href="http://yoursite.com/2020/02/02/Flask%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2020/02/02/Flask%E5%AD%A6%E4%B9%A0/</id>
+    <published>2020-02-02T09:32:35.000Z</published>
+    <updated>2020-02-02T14:08:05.702Z</updated>
+    
+    <content type="html"><![CDATA[<p>一.urls 与 视图<br>    1.对代码的解析：<br>    #encoding UTF-8<br>    #模块的导入<br>    from flask import Flask<br>    #初始化一个Flask对象<br>    #Flask()<br>    #需要传递一个参数<strong>name</strong><br>    #1. 方便flask框架去寻找资源<br>    #2. 方便flask插件 比如Flask-Sqlalchemy出现错误的时候，去寻找问题所在的位置<br>    app = Flask(<strong>name</strong>)</p><pre><code># @app.route是一个装饰器# @开头，并且在函数的上面，说明是一个装饰器# 这个装饰器的作用，是做一个URL与视图函数的映射# 127.0.0.1:5000/  去请求hello_woeld 这个函数  然后将结果返回到浏览器@app.route(&apos;/&apos;)def hello_world():    return &apos;我是第一个程序&apos;# 如果当前这个文件是作为入口程序进行运行， 那么就执行app.run()if __name__ == &apos;__main__&apos;:    #app.run()    #启动一个应用服务器  来接受用户的请求    #while True    #   listen()    #设置debug模式  将错误直接显示到网页上面    app.run(debug= True)2.设置debug模式    a.在app.run()中传入一个关键字参数debug,例如：run(debug = Ture)，就设置当前项目为debug模式。    b.debug模式的两大功能：        * 当程序出现问题的时候，可以在页面中看到错误的信息和出错的位置        * 只要修改项目中的python文件，程序就会自动的加载，不需要手动的重新启动服务器。      具体的案例如下：          from flask import Flask        app = Flask(__name__)        @app.route(&apos;/&apos;)        def hello_world():            return &apos;我是第一个程序&apos;        if __name__ == &apos;__main__&apos;:            #设置debug模式  将错误直接显示到网页上面            app.run(debug= True)3.使用配置文件    * 新建一个&apos;config.py&apos;文件    * 在主要的app文件中导入这个文件，并且配置到app文件中        &apos;&apos;&apos;        import config        app.config.from_object(config)        &apos;&apos;&apos;    * 还有许多的其他参数也可以放置在文件中，比如&apos;SECRET_KEY&apos; 和 &apos;SQLALCHEMY&apos;这些配置文件    主app文件实例如下：（其实主要的作用还是和debug模式一样的作用）        from flask import Flask        #导入config文件        import config        app = Flask(__name__)        #加入config文件的配置        app.config.from_object(config)        @app.route(&apos;/&apos;)        def hello_world():            return &apos;我是第一个程序&apos;        if __name__ == &apos;__main__&apos;:            app.run()    config文件的配置：（可以加入很多的参数 注意的是需要将文件导入和对文件配置的导入使用）        DEBUG = True4.url传递参数    * 参数的作用： 可以在相同的URL，当时不指定相同的参数，来加载不同的数据。                例如：http://127.0.0.1:5000/URL/参数            * 在flask中如何使用参数：        &apos;&apos;&apos;            @app.route(&apos;/article/&lt;id&gt;&apos;)            def article(id):                return &apos;您请求的参数是 ： %S&apos; % id        &apos;&apos;&apos;           注意：参数必须放在&lt;&gt;中                    视图函数中需要放在和URL中的id相同的参数（就是函数括号里面的参数必须与id相同）    url传递参数的例子：            from flask import Flask            app = Flask(__name__)            #视图函数            @app.route(&apos;/login/&lt;id&gt;&apos;)            def login(id):                return &quot;您请求的参数是 % S&quot; % id            if __name__ == &apos;__main__&apos;:                app.run(debug=True)5.URL反转（需要一个模板：url_for）    * 什么叫做反转URL： 从视图函数到url的转换叫做反转URL      （根据视图的函数名字 可以直接切换到URL的参数）    * 反转URL的用处：        * 在页面重定向的时候，会使用url反转        * 在模板中，也会使用url反转    Url反转例子：            from flask import Flask,url_for            app = Flask(__name__)            @app.route(&apos;/&apos;)            def index():                print(url_for(&apos;my_list&apos;))                print(url_for(&apos;question&apos;),id = &quot;aaaa&quot;)                return &apos;这是首页&apos;            @app.route(&apos;/list/&apos;)            def my_list():                return &quot;这是登陆页面&quot;            @app.route(&apos;/question/&lt;id&gt;&apos;)            def question(id):                return &apos;这是发布问答的页面:%S&apos; % id            if __name__ == &apos;__main__&apos;:                app.run(debug= True)6.重定向和页面跳转：(需要两个模板： redirect  url_for)    * 用处： 在用户访问一些需要登陆的页面的时候，如果用户没有登陆用户则会跳转到用户的登陆界面    * 代码的实现：        &apos;&apos;&apos;            from flask import redirect,url_for            redirect(url_for(&apos;login&apos;))        &apos;&apos;&apos;    重定向和页面跳转的代码演示：        from flask import Flask,redirect,url_for        app = Flask(__name__)            @app.route(&apos;/&apos;)            def index():                   question_url = url_for(&apos;question&apos;,id = 1)                   return redirect(question_url)                   return &apos;这是首页&apos;            @app.route(&apos;/login/&apos;)            def login():                return &quot;这是登陆页面&quot;            @app.route(&apos;/question/&lt;id&gt;&apos;)            # 关键点   条件性代码            def question(id):                if id==&quot;1&quot;:                    return &apos;这是发布问答的页面&apos;                else:                    return redirect(url_for(&quot;login&quot;))            if __name__ == &apos;__main__&apos;:                app.run(debug=True)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一.urls 与 视图&lt;br&gt;    1.对代码的解析：&lt;br&gt;    #encoding UTF-8&lt;br&gt;    #模块的导入&lt;br&gt;    from flask import Flask&lt;br&gt;    #初始化一个Flask对象&lt;br&gt;    #Flask()&lt;br&gt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>hexo的基本操作</title>
