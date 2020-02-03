@@ -77,7 +77,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask学习</a>
+      <a class="article-title" href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask--urls和视图</a>
     </h1>
   
 
@@ -85,8 +85,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一.urls 与 视图<br>    1.对代码的解析：<br>    #encoding UTF-8<br>    #模块的导入<br>    from flask import Flask<br>    #初始化一个Flask对象<br>    #Flask()<br>    #需要传递一个参数<strong>name</strong><br>    #1. 方便flask框架去寻找资源<br>    #2. 方便flask插件 比如Flask-Sqlalchemy出现错误的时候，去寻找问题所在的位置<br>    app = Flask(<strong>name</strong>)</p>
-<pre><code># @app.route是一个装饰器
+        <pre><code>1.对代码的解析：
+#encoding UTF-8
+#模块的导入
+from flask import Flask
+#初始化一个Flask对象
+#Flask()
+#需要传递一个参数__name__
+#1. 方便flask框架去寻找资源
+#2. 方便flask插件 比如Flask-Sqlalchemy出现错误的时候，去寻找问题所在的位置
+app = Flask(__name__)
+
+# @app.route是一个装饰器
 # @开头，并且在函数的上面，说明是一个装饰器
 # 这个装饰器的作用，是做一个URL与视图函数的映射
 # 127.0.0.1:5000/  去请求hello_woeld 这个函数  然后将结果返回到浏览器
@@ -335,7 +345,7 @@ if __name__ == &apos;__main__&apos;:
       <ul>
         
           <li>
-            <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask学习</a>
+            <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask--urls和视图</a>
           </li>
         
           <li>
