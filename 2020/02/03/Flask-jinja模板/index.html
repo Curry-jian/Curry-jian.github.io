@@ -7,14 +7,14 @@
   
   <title>Flask--Jinja模板 | Curry-jian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.如何渲染Jinja2模板和传参：(主要是 ‘render_template’函数) * 渲染模板：     * 模板放在 templates 文件夹下面     * 从 flask 中导入 render_template 函数     * 在视图函数中，使用 render_template     #注意：在templates文件夹下面没有其他文件夹的话可以直接render_template(">
+  <meta name="description" content="1.如何渲染Jinja2模板和传参：(主要是 &amp;apos;render_template&amp;apos;函数)  * 渲染模板：     * 模板放在 templates 文件夹下面     * 从 flask 中导入 render_template 函数     * 在视图函数中，使用 render_template     #注意：在templates文件夹下面没有其他文件夹的话可以直接rende">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flask--Jinja模板">
 <meta property="og:url" content="http://yoursite.com/2020/02/03/Flask-jinja%E6%A8%A1%E6%9D%BF/index.html">
 <meta property="og:site_name" content="Curry-jian">
-<meta property="og:description" content="1.如何渲染Jinja2模板和传参：(主要是 ‘render_template’函数) * 渲染模板：     * 模板放在 templates 文件夹下面     * 从 flask 中导入 render_template 函数     * 在视图函数中，使用 render_template     #注意：在templates文件夹下面没有其他文件夹的话可以直接render_template(">
+<meta property="og:description" content="1.如何渲染Jinja2模板和传参：(主要是 &amp;apos;render_template&amp;apos;函数)  * 渲染模板：     * 模板放在 templates 文件夹下面     * 从 flask 中导入 render_template 函数     * 在视图函数中，使用 render_template     #注意：在templates文件夹下面没有其他文件夹的话可以直接rende">
 <meta property="article:published_time" content="2020-02-03T12:23:41.000Z">
-<meta property="article:modified_time" content="2020-02-04T05:13:21.600Z">
+<meta property="article:modified_time" content="2020-02-04T05:42:33.760Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -87,8 +87,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.如何渲染Jinja2模板和传参：(主要是 ‘render_template’函数)</p>
-<pre><code>* 渲染模板：
+        <pre><code>1.如何渲染Jinja2模板和传参：(主要是 &apos;render_template&apos;函数)
+
+* 渲染模板：
     * 模板放在 templates 文件夹下面
     * 从 flask 中导入 render_template 函数
     * 在视图函数中，使用 render_template
@@ -112,21 +113,28 @@
 * 在模板中，如果需要使用变量，语法是&apos;{{params}}&apos;
                 &lt;p&gt;用户名：&apos;{{ username }}&apos;&lt;/p&gt;
         * 在访问类的属性或则是字典或则是列表的时候，可以通过&apos;{{params.proper}}&apos;的形式，或则是&apos;{{params[]}}&apos;
-                   &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;</code></pre><p>模板的渲染和传参的实例：</p>
-<pre><code>from flask import Flask,render_template
-app = Flask(__name__)
-@app.route(&apos;/&apos;)
-def index():
-    context = {
-        &apos;username&apos;:&apos;李坚&apos;,
-        &apos;gender&apos;:&apos;男&apos;,
-        &apos;age&apos;: 18
-    }
-    return render_template(&apos;index.html&apos;,**context)
+                   &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;
 
-if __name__ == &apos;__main__&apos;:
-    app.run(debug= True)</code></pre><p>Jinja模板：</p>
-<pre><code>        &lt;!DOCTYPE html&gt;
+模板的渲染和传参的实例：
+
+    from flask import Flask,render_template
+    app = Flask(__name__)
+    @app.route(&apos;/&apos;)
+    def index():
+        context = {
+            &apos;username&apos;:&apos;李坚&apos;,
+            &apos;gender&apos;:&apos;男&apos;,
+            &apos;age&apos;: 18
+        }
+        return render_template(&apos;index.html&apos;,**context)
+
+    if __name__ == &apos;__main__&apos;:
+        app.run(debug= True)
+
+
+Jinja模板：
+
+        &lt;!DOCTYPE html&gt;
     &lt;html lang=&quot;en&quot;&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -158,30 +166,40 @@ if __name__ == &apos;__main__&apos;:
         }
         return render_template(&apos;index.html&apos;,**context)
     if __name__ == &apos;__main__&apos;:
-        app.run(debug= True)</code></pre><p>Jinja模板：</p>
-<pre><code>    &lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Title&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    这是HTML文件中的文字
-    &lt;p&gt;用户名：{{ username }}&lt;/p&gt;
-    &lt;p&gt;用户名：{{ age}} &lt;/p&gt;
-    &lt;p&gt;用户名：{{ gender }}&lt;/p&gt;
+        app.run(debug= True)
 
-    &lt;hr&gt;
-    &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;
-    &lt;p&gt;年您：{{ person.age }}&lt;/p&gt;
-    &lt;/hr&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre><p>2.if判断语句</p>
-<pre><code>* 语法格式：（Jinja模板中）
+
+Jinja模板：
+
+        &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        这是HTML文件中的文字
+        &lt;p&gt;用户名：{{ username }}&lt;/p&gt;
+        &lt;p&gt;用户名：{{ age}} &lt;/p&gt;
+        &lt;p&gt;用户名：{{ gender }}&lt;/p&gt;
+
+        &lt;hr&gt;
+        &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;
+        &lt;p&gt;年您：{{ person.age }}&lt;/p&gt;
+        &lt;/hr&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+
+
+2.if判断语句
+
+* 语法格式：（Jinja模板中）
     {% if xxx %}
 		{% else %}
-		{% endif %}</code></pre><p>if判断语句的具体实例（根据id的不同显示不同的页面）</p>
-<pre><code>from flask import Flask,render_template
+		{% endif %}
+if判断语句的具体实例（根据id的不同显示不同的页面）
+
+from flask import Flask,render_template
 app = Flask(__name__)
 @app.route(&apos;/&lt;id&gt;/&apos;)
 def index(id):
@@ -212,16 +230,23 @@ if __name__ == &apos;__main__&apos;:
 	        <a href="#">注册</a>
 	    {% endif %}
 &lt;/body&gt;
-&lt;/html&gt;</code></pre><p>3.for循环遍历列表和字典：</p>
-<pre><code>* 字典的遍历和语法与&apos;python&apos;一样，可以使用&apos;item()&apos; &apos;keys()&apos; &apos;values()&apos;等函数
+&lt;/html&gt;
+
+
+3.for循环遍历列表和字典：
+
+* 字典的遍历和语法与&apos;python&apos;一样，可以使用&apos;item()&apos; &apos;keys()&apos; &apos;values()&apos;等函数
     {% for k,v in user.item() %}
 			<p>{{ k }}:{{ v }}</p>
 		{% endfor %}
 * 列表的遍历：
     {% for webisit in webisits %}
 			<p>{{ webisit }}</p>
-		{% endfor %}</code></pre><p>for循环的案例：（四大名著的表格排序）</p>
-<pre><code>from flask import Flask,render_template
+		{% endfor %}
+
+for循环的案例：（四大名著的表格排序）
+
+from flask import Flask,render_template
 app = Flask(__name__)
 @app.route(&apos;/&apos;)
 def index():
@@ -249,8 +274,11 @@ def index():
     ]
     return render_template(&apos;index2.html&apos;,books=books)
 if __name__ == &apos;__main__&apos;:
-    app.run(debug= True)</code></pre><p>Jinja模板</p>
-<pre><code>&lt;!DOCTYPE html&gt;
+    app.run(debug= True)
+
+Jinja模板
+
+&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -292,8 +320,11 @@ app = Flask(__name__)
 def index():
     return render_template(&apos;index2.html&apos;,family=&apos;https://avatars2.githubusercontent.com/u/60211293?s=40&amp;v=4&apos;)
 if __name__ == &apos;__main__&apos;:
-    app.run(debug= True)</code></pre><p>Jinja模板：</p>
-<pre><code>&lt;!DOCTYPE html&gt;
+    app.run(debug= True)
+
+Jinja模板：
+
+&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -325,8 +356,12 @@ Jinja模板：
 		    {% endfor %}
     &lt;/ul&gt;
     &lt;/body&gt;
-    &lt;/html&gt;</code></pre><p>python文件：</p>
-<pre><code>from flask import Flask,render_template
+    &lt;/html&gt;
+
+
+python文件：
+
+from flask import Flask,render_template
 app = Flask(__name__)
 @app.route(&apos;/&apos;)
 def index():
@@ -342,8 +377,11 @@ def index():
     ]
     return render_template(&apos;index2.html&apos;,comments=comments)
 if __name__ == &apos;__main__&apos;:
-    app.run(debug= True)</code></pre><p>5.继承和block块</p>
-<pre><code>* 作用：可以把一些公共的代码放在父模板中（base.HTML）文件
+    app.run(debug= True)
+
+5.继承和block块
+
+* 作用：可以把一些公共的代码放在父模板中（base.HTML）文件
 * 语法：
 #    {% extend 'base.html'%}
 block 实现：
