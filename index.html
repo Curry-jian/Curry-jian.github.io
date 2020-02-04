@@ -378,13 +378,157 @@ if __name__ == &apos;__main__&apos;:
     app.run(debug= True)
 
 5.继承和block块
-
 * 作用：可以把一些公共的代码放在父模板中（base.HTML）文件
 * 语法：
 #    {% extend 'base.html'%}
 block 实现：
     * 作用：可以让子模版实现自己的需求，父模板需要提前定义好
-    * 注意：子模板中的代码必须放在block块中，不然没有效果</code></pre>
+    * 注意：子模板中的代码必须放在block块中，不然没有效果
+    具体的block语法例子：{% block 模块名 %}{% endblock %}
+
+	继承和block的具体实例：
+	py文件：
+	from flask import Flask,render_template
+
+	app = Flask(__name__)
+
+	@app.route('/')
+	def index():
+	    return render_template('index.html')
+
+	@app.route('/login/')
+	def login():
+	    return render_template('login.html')
+	if __name__ == '__main__':
+	    app.run(debug= True)
+
+	 base.html 文件：
+	 	<!DOCTYPE html>
+			<html lang="en">
+			<head>
+			    <meta charset="UTF-8">
+			    <title>{% block title %}{% endblock %}&lt;/title&gt;
+                &lt;style&gt;
+                .nav{
+                    background: #3a3a3a;
+                    height: 65px;
+                }
+                ul{
+                    overflow: hidden;
+                }
+                ul li{
+                    float: left;
+                    list-style: none;
+                    padding: 0 10px;
+                    line-height: 65px;
+                }
+                ul li a{
+                    color: white;
+                }
+            &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;div class=&quot;nav&quot;&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;发布问答&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        {% block main %}{% endblock %}
+			</body>
+			</html>
+
+		login.html:
+			{% extends 'base.html' %}
+			{% block title %}
+			    登陆页面
+			{% endblock %}
+        {% block main %}
+			    <p>这是登陆页面</p>
+			{% endblock %}
+
+    index.html:
+        {% extends 'base.html' %}
+        {% block title %}
+			    首页
+			{% endblock %}
+        {% block main %}
+			    <p>这是首页面</p>
+			{% endblock %}
+
+6.URL链接和加载静态文件
+    * 加载静态文件语法：&apos;url_for(&apos;static&apos;，filename=&apos;路径&apos;)&apos;
+    * 静态文件 flask会在static文件夹中开始寻找，所有不需要再写static这个路径
+    * 可以加载css文件，js文件 image文件
+    image文件：
+    &lt;img src=&quot;{{ url_for('static',filename='images/lijian.jpg') }}&quot; alt=&quot;&quot;&gt;
+
+    js文件：
+     &lt;script src=&quot;{{ url_for('static',filename='js/index.js') }}&quot;&gt;&lt;/script&gt;
+
+    css文件：
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ url_for('static',filename='css/index.css') }}&quot;&gt;
+
+*url链接：使用url_for(视图函数名)，从而反转url 跳转页面
+        &lt;a href=&quot;{{ url_for('login') }}&quot;&gt;登陆&lt;/a&gt;
+
+url链接和加载静态文件的例子：
+    Py文件：
+        from flask import Flask,render_template
+
+        app = Flask(__name__)
+
+
+        @app.route(&apos;/&apos;)
+        def index():
+            return render_template(&apos;index.html&apos;)
+
+        @app.route(&apos;/login/&apos;)
+        def login():
+            return render_template(&apos;login.html&apos;)
+
+        if __name__ == &apos;__main__&apos;:
+            app.run(debug=True)
+
+    index.html文件：
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;Title&lt;/title&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ url_for('static',filename='css/index.css') }}&quot;&gt;
+            &lt;script src=&quot;{{ url_for('static',filename='js/index.js') }}&quot;&gt;&lt;/script&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+        &lt;a href=&quot;{{ url_for('login') }}&quot;&gt;登陆&lt;/a&gt;
+        &lt;img src=&quot;{{ url_for('static',filename='images/lijian.jpg') }}&quot; alt=&quot;&quot;&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+
+
+    index.js文件：
+        /**
+         * Created by 栩森 on 2020/2/4.
+         */
+
+        alert(&apos;我是李坚&apos;)
+
+    index.css文件：
+           a{
+                background: red;
+            }
+
+    login.html 文件：
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;Title&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;这是登陆页面&lt;/h1&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;</code></pre>
       
     </div>
     <footer class="article-footer">
