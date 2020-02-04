@@ -85,8 +85,268 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>extent</p>
+        <p>1.如何渲染Jinja2模板和传参：(主要是 ‘render_template’函数)</p>
+<pre><code>* 渲染模板：
+    * 模板放在 templates 文件夹下面
+    * 从 flask 中导入 render_template 函数
+    * 在视图函数中，使用 render_template
+    #注意：在templates文件夹下面没有其他文件夹的话可以直接render_template(文件名)
 
+* 模板传参数：
+    * 如果只有一个或则少量参数的时候，可以直接在render_template函数中添加关键字就好
+         #   return render_template(&apos;index.html&apos;,&apos;user&apos; = &apos;username&apos;)
+    * 如果有多个参数的时候就需要把参数放入一个字典中，然后在&apos;render_template&apos;中使用**
+    把字典中的参数传递
+    &apos;&apos;&apos;
+            @app.route(&apos;/&apos;)
+            def index():
+                context = {
+                    &apos;username&apos;:&apos;李坚&apos;,
+                    &apos;gender&apos;:&apos;男&apos;,
+                    &apos;age&apos;: 18
+                }
+                return render_template(&apos;index.html&apos;,**context)
+    &apos;&apos;&apos;
+* 在模板中，如果需要使用变量，语法是&apos;{{params}}&apos;
+                &lt;p&gt;用户名：&apos;{{ username }}&apos;&lt;/p&gt;
+        * 在访问类的属性或则是字典或则是列表的时候，可以通过&apos;{{params.proper}}&apos;的形式，或则是&apos;{{params[]}}&apos;
+                   &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;</code></pre><p>模板的渲染和传参的实例：</p>
+<pre><code>from flask import Flask,render_template
+app = Flask(__name__)
+@app.route(&apos;/&apos;)
+def index():
+    context = {
+        &apos;username&apos;:&apos;李坚&apos;,
+        &apos;gender&apos;:&apos;男&apos;,
+        &apos;age&apos;: 18
+    }
+    return render_template(&apos;index.html&apos;,**context)
+
+if __name__ == &apos;__main__&apos;:
+    app.run(debug= True)</code></pre><p>Jinja模板：</p>
+<pre><code>        &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        这是HTML文件中的文字
+        &lt;p&gt;用户名：{{ username }}&lt;/p&gt;
+        &lt;p&gt;用户名：{{ age}} &lt;/p&gt;
+        &lt;p&gt;用户名：{{ gender }}&lt;/p&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+
+
+模板的渲染和传参的实例：（含有类的例子）
+    from flask import Flask,render_template
+    app = Flask(__name__)
+    @app.route(&apos;/&apos;)
+    def index():
+        class Preson(object):
+            name = &apos;李坚&apos;
+            age = 20
+        p = Preson()
+        context = {
+            &apos;username&apos;:&apos;李坚&apos;,
+            &apos;gender&apos;:&apos;男&apos;,
+            &apos;age&apos;: 18,
+            &apos;person&apos;: p
+        }
+        return render_template(&apos;index.html&apos;,**context)
+    if __name__ == &apos;__main__&apos;:
+        app.run(debug= True)</code></pre><p>Jinja模板：</p>
+<pre><code>    &lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    这是HTML文件中的文字
+    &lt;p&gt;用户名：{{ username }}&lt;/p&gt;
+    &lt;p&gt;用户名：{{ age}} &lt;/p&gt;
+    &lt;p&gt;用户名：{{ gender }}&lt;/p&gt;
+
+    &lt;hr&gt;
+    &lt;p&gt;名字：{{ person.name }}&lt;/p&gt;
+    &lt;p&gt;年您：{{ person.age }}&lt;/p&gt;
+    &lt;/hr&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>2.if判断语句</p>
+<pre><code>* 语法格式：（Jinja模板中）
+    {% if xxx %}
+		{% else %}
+		{% endif %}</code></pre><p>if判断语句的具体实例（根据id的不同显示不同的页面）</p>
+<pre><code>from flask import Flask,render_template
+app = Flask(__name__)
+@app.route(&apos;/&lt;id&gt;/&apos;)
+def index(id):
+    if id == &apos;1&apos;:
+        user = {
+            &apos;username&apos;:&apos;李坚&apos;,
+            &apos;age&apos; : 10
+        }
+    return render_template(&apos;index2.html&apos;,user=user)
+if __name__ == &apos;__main__&apos;:
+    app.run(debug= True)
+
+
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {% if user %}
+	        <a href="#">{{ user.username }}</a>
+	        <a href="#">注销</a>
+	    {% else %}
+	        <a href="#">登陆</a>
+	        <a href="#">注册</a>
+	    {% endif %}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>3.for循环遍历列表和字典：</p>
+<pre><code>* 字典的遍历和语法与&apos;python&apos;一样，可以使用&apos;item()&apos; &apos;keys()&apos; &apos;values()&apos;等函数
+    {% for k,v in user.item() %}
+			<p>{{ k }}:{{ v }}</p>
+		{% endfor %}
+* 列表的遍历：
+    {% for webisit in webisits %}
+			<p>{{ webisit }}</p>
+		{% endfor %}</code></pre><p>for循环的案例：（四大名著的表格排序）</p>
+<pre><code>from flask import Flask,render_template
+app = Flask(__name__)
+@app.route(&apos;/&apos;)
+def index():
+    books=[
+        {
+            &apos;name&apos;:&apos;西游记&apos;,
+            &apos;author&apos;:&apos;吴承恩&apos;,
+            &apos;price&apos;:&apos;100&apos;
+        },
+        {
+            &apos;name&apos;:&apos;红楼梦&apos;,
+            &apos;author&apos;:&apos;曹雪芹&apos;,
+            &apos;price&apos;:&apos;50&apos;
+        },
+        {
+            &apos;name&apos;:&apos;三国演义&apos;,
+            &apos;author&apos;:&apos;罗贯中&apos;,
+            &apos;price&apos;:&apos;150&apos;
+        },
+        {
+            &quot;name&quot;:&apos;水浒传&apos;,
+            &quot;author&quot;:&apos;施耐庵&apos;,
+            &quot;price&quot;:200
+        }
+    ]
+    return render_template(&apos;index2.html&apos;,books=books)
+if __name__ == &apos;__main__&apos;:
+    app.run(debug= True)</code></pre><p>Jinja模板</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;th&gt;书名&lt;/th&gt;
+            &lt;th&gt;作者&lt;/th&gt;
+            &lt;th&gt;价格&lt;/th&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+        {% for book in books %}
+	            <tr>
+	                <td>{{book.name}}</td>
+	                <td>{{book.author}}</td>
+	                <td>{{book.price}}</td>
+	            </tr>
+	        {% endfor %}
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+4.过滤器：
+    * 介绍：过滤器可以处理变量，把原始的变量经过处理后再展示出来（就是设置一个默认的，
+然后再用户没有设置的时候就可以直接过滤 输出默认的值）
+* 语法： 
+    {{ avater(用户输入的值的名字) | default（过滤器）('xxx')}}
+* default（过滤器）:如果当前变量不存在的时候，这个时候就可以指定默认值
+* length: 求列表或则字符串或则字典 元组的长度
+
+过滤器的例子：（将图片的参数进行传递 ）    
+from flask import Flask,render_template
+app = Flask(__name__)
+@app.route(&apos;/&apos;)
+def index():
+    return render_template(&apos;index2.html&apos;,family=&apos;https://avatars2.githubusercontent.com/u/60211293?s=40&amp;v=4&apos;)
+if __name__ == &apos;__main__&apos;:
+    app.run(debug= True)</code></pre><p>Jinja模板：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;img src=&quot;{{ family|default('https://avatars0.githubusercontent.com/u/472721?v=4')}}&quot; alt=&quot;&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+过滤器的例子：（关于评论的显示 ）
+Jinja模板：
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;img src=&quot;{{ family|default('https://avatars0.githubusercontent.com/u/472721?v=4')}}&quot; alt=&quot;&quot;&gt;
+    &lt;hr&gt;
+    &lt;p&gt;评论数:({{comments|length}})&lt;/p&gt;
+    &lt;ul&gt;
+        {% for comment in comments %}
+		        <li>
+		            <a href="#">{{comment.user}}</a>
+		            <p>{{ comment.content }}</p>
+		        </li>
+		    {% endfor %}
+    &lt;/ul&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</code></pre><p>python文件：</p>
+<pre><code>from flask import Flask,render_template
+app = Flask(__name__)
+@app.route(&apos;/&apos;)
+def index():
+    comments = [
+        {
+            &apos;user&apos;: &apos;李建安&apos;,
+            &apos;content&apos;:&apos;xxx&apos;
+        },
+        {
+            &apos;user&apos;: &apos;李坚&apos;,
+            &apos;content&apos;:&apos;xxx&apos;
+        }
+    ]
+    return render_template(&apos;index2.html&apos;,comments=comments)
+if __name__ == &apos;__main__&apos;:
+    app.run(debug= True)</code></pre><p>5.继承和block块</p>
+<pre><code>* 作用：可以把一些公共的代码放在父模板中（base.HTML）文件
+* 语法：
+#    {% extend 'base.html'%}
+block 实现：
+    * 作用：可以让子模版实现自己的需求，父模板需要提前定义好
+    * 注意：子模板中的代码必须放在block块中，不然没有效果</code></pre>
       
     </div>
     <footer class="article-footer">
