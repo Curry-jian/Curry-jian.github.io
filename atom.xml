@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-04T13:43:09.330Z</updated>
+  <updated>2020-02-04T13:48:53.912Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2020/02/04/Flask-SQLAlchemy-DateBase/"/>
     <id>http://yoursite.com/2020/02/04/Flask-SQLAlchemy-DateBase/</id>
     <published>2020-02-04T07:21:13.000Z</published>
-    <updated>2020-02-04T13:43:09.330Z</updated>
+    <updated>2020-02-04T13:48:53.912Z</updated>
     
     <content type="html"><![CDATA[<p>1.MySQL-python中间件的介绍和安装<br>     * 在mac上可以直接输入  ‘sudo pip install mysql-python’进行安装<br>     * 在window下需要到’<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python3&#39;" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python3&#39;</a><br>      这个网址下载对应的python版本的中间件<br>          对应的命令： pip install mysqlclient-1.4.6-cp38-cp38-win_amd64.whl<br>     * 注意：如果与python的版本不符合就会出现报错的现象</p><p>2.ORM与Flask-SQLALchemy的安装和介绍<br>    * ORM: Objct Relationship Mapping (模型关系映射)<br>    * flask-aqlalchemy是一套ORM框架<br>    * ORM的好处：可以不适用sql语句进行对数据的修改 ，可以直接使用类的语句就好.一个表<br>        就是一个类，一条数据就是一个对象<br>    * 安装Flask-SQLALchemy： pip install flask-sqlalchemy</p><pre><code>例子： class Ariticle(Moble):        id = int()        title = String()        content = Text()       #实例化           article = Article(id = 1,title = &apos;aaa&apos;,content = &apos;bbb&apos;)       #加入表格或者说类中            add(article)       #修改数据内容             article.title = &apos;ccc&apos;             update(article)       #删除内容             delete(article)</code></pre><p>3.SQLALchemy连接数据库<br>    SQLALchemy :SQLAlchemy采用简单的Python语言，为高效和高性能的数据库访问设计<br>                是访问和操作数据库的开源脚本<br>    * 在实际操作过程中遇到的问题：<br>        * 在Mysql workbeath 中修改连接密码：右键出现Edit connections 进行点击 进入后点击store in Vault 就可以进行修改<br>        * 如何进入Mysql 命令行的形式：找到Mysql sever 下的bin目录 再就如命令行输入<br>            ./mysql -u root -p<br>        * 创建一个新的数据库 命令     creat datebase  数据库名  charset  utf8<br>    使用flask_sqlalchemy中的SQLALchemy进行初始化：</p><pre><code>    #调用函数    from flask_sqlalchemy import SQLAlchemy    app = Flask(__name__)    #初始化一个对象    db = SQLAlchemy(app)设置配置文件&apos;config.py&apos;文件中添加一下配置    #dialect+driver://username:password@host:post/database    DIALECT = &apos;mysql&apos;    DRIVER = &quot;mysqldb&quot;    USERNAME = &apos;root&apos;    PASSWORD = &apos;root&apos;    HOST = &apos;127.0.0.1&apos;    PORT = &apos;3306&apos;    DATABASE = &apos;db_demo1&apos;    SQLALCHEMY_DATABASE_URI = &quot;{}+{}://{}:{}@{}:{}/{}?charset=utf8&quot;.format(DIALECT,                                                   DRIVER,USERNAME,                                                   PASSWORD,HOST,PORT,                                                   DATABASE)    #去除警告信息    SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><p>   在app文件中，添加配置文件，并且进行测试<br>           from flask import Flask<br>        #调用函数<br>        from flask_sqlalchemy import SQLAlchemy<br>        #引入config文件<br>        import config<br>        app = Flask(<strong>name</strong>)<br>        #重点（不明白）<br>        app.config.from_object(config)<br>        #初始化一个对象<br>        db = SQLAlchemy(app)<br>        #进行测试<br>        db.create_all()</p>]]></content>
     
