@@ -107,8 +107,9 @@
     db = SQLAlchemy(app)
 
 设置配置文件&apos;config.py&apos;文件中添加一下配置
+#dialect+driver://username:password@host:post/database
 
-    #dialect+driver://username:password@host:post/database
+
     DIALECT = &apos;mysql&apos;
     DRIVER = &quot;mysqldb&quot;
     USERNAME = &apos;root&apos;
@@ -145,7 +146,10 @@ db.create_all()</code></pre><p>4.SQLALchemy模型与表映射<br>    * 创建的
 <li><p>在数据库中需要使用的语句：</p>
 <pre><code>创建数据库： create database 数据库名 charset utf8
 查看数据库中的表 ： show tables 
-查看表的内容： desc 表名</code></pre><ul>
+查看表的内容： desc 表名
+使用那个数据库： use 数据库名
+展现创建的表格： show create table 表名
+删除表格： drop table 表名</code></pre><ul>
 <li><p>将SQL语句转化为py文件中类的语句<br>  ‘’’<br>SQL语句中创建表格<br>   create table article(</p>
 <pre><code>id int primary key autoincrement,
 title varchar(100) not null,
@@ -221,7 +225,189 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><p>5.SQLALchemy 数据库的�
      #2.删除数据
     db.session.delete(article1)
     #3.事务处理
-    db.session.commit()</code></pre>
+    db.session.commit()</code></pre><p>6.Flask-SQLALchemy 外键及其关系<br>    * 连接数据库（跟以上的操作一样）<br>    * 创建两个表（user article）</p>
+<pre><code> #创建用户表(user)
+ &apos;&apos;&apos;
+ SQL语句：
+         create table users(
+         id int primary key autoincrement,
+         username varchar(100) not null
+ )
+ &apos;&apos;&apos;
+ class User(db.Model):
+     __tablename__ = &apos;user&apos;
+     id = db.Column(db.Integer,primary_key= True,autoincrement=True)
+     username = db.Column(db.String(100),nullable=True)
+
+  #创建文章表
+     &apos;&apos;&apos;
+     SQL语句：
+             create table article(
+                 id int primary key autoincrement,
+                 title varchar(100) not null,
+                 content text not null,
+                 author_id int,
+                 foreign key &apos;author_id&apos; references &apos;user_id&apos;
+     )        
+     &apos;&apos;&apos;
+     class Article(db.Model):
+         __tablename__ =&apos;article&apos;
+         id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+         title = db.Column(db.String(100),nullable=False)
+         content = db.Column(db.Text,nullable=False)
+         #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
+         author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
+
+    * 映射到数据库中：   db.create_all()
+        注意： db.create_all() 它只会部署一次，如果中途在类里面去需改表的属性是没有任何用处的，只有把表格进行删除，再
+        重新创建一个表格才能添加其他的属性
+
+* 在用户表中添加用户
+     user1 = User(username = &apos;lijian&apos;)
+     db.session.add(user1)
+     db.session.commit()</code></pre><ul>
+<li><p>在文章表中添加文章</p>
+<pre><code>article = Article(title=&apos;aaa&apos;,content=&apos;bbb&apos;,author_id=1)
+db.session.add(article)
+db.session.commit()</code></pre><ul>
+<li><p>实现需求：查找文章名称为aaa的作者</p>
+<pre><code>这是需求的普通写法:没有起到简化的作用 再Flask中不会使用
+    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
+    print(article.author_id)
+    author_id = article.author_id
+    user = User.query.filter(User.id == author_id)[0]
+    print(user.username)
+
+再Flask-SQLALchemy-Darabases中使用的方法:
+    * 先要在class类中就行设置;
+
+            class Article(db.Model):
+            __tablename__ =&apos;article&apos;
+            id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+            title = db.Column(db.String(100),nullable=False)
+            content = db.Column(db.Text,nullable=False)
+            #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
+            author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
+    #重点：db.relationship是表述关系的连接参数  db.backre是表示关系反转的参数
+    #正向引用（relationship）与反向引用（backref）（User表与article表）        #正向关系：是只通过article表里面的外键来与User表中的主键进行连接             然后读取相关信息            
+    #通过文章名称找出作者名称
+    #反转关系：是只通过User中的主键来连接article中的外键，然后读取article中的相关信息             
+    #通过作者找出他写作的文章
+    #模块名=db.relationship(&apos;关联的类名&apos;，backref = db.backref(&apos;自定义参数&apos;))
+            author = db.relationship(&apos;User&apos;,backref = db.backref(&apos;articles&apos;))
+    * 实现通过文章名称查找作者：
+
+            article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
+            #通过 article.author.usename 来找出文章的作者
+            print(article.author.username)</code></pre><ul>
+<li><p>实现需求：通过作者名找出其作品</p>
+<pre><code>user = User.query.filter(User.username == &apos;lijian&apos;)[0]
+#通过 user.articles.title 来查找作者的文章
+result = user.articles
+for article in result:
+    print(article.title)</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>实例：数据库的连接 表的制作 数据的的添加 实现通过作者找出他的所有文章 通过文章找出作者</p>
+<pre><code>from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import config
+
+app = Flask(__name__)
+app.config.from_object(config)
+db = SQLAlchemy(app)
+#创建用户表
+&apos;&apos;&apos;
+SQL语句：
+        create table users(
+        id int primary key autoincrement,
+        username varchar(100) not null
+)
+&apos;&apos;&apos;
+class User(db.Model):
+    __tablename__ = &apos;user&apos;
+    id = db.Column(db.Integer,primary_key= True,autoincrement=True)
+    username = db.Column(db.String(100),nullable=True)
+#创建文章表
+&apos;&apos;&apos;
+SQL语句：
+        create table article(
+            id int primary key autoincrement,
+            title varchar(100) not null,
+            content text not null,
+            author_id int,
+            foreign key &apos;author_id&apos; references &apos;user_id&apos;
+)        
+&apos;&apos;&apos;
+class Article(db.Model):
+    __tablename__ =&apos;article&apos;
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    title = db.Column(db.String(100),nullable=False)
+    content = db.Column(db.Text,nullable=False)
+    #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
+    author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
+    #正向引用（relationship）与反向引用（backref）
+    author = db.relationship(&apos;User&apos;,backref = db.backref(&apos;articles&apos;))
+ #实现映射到表中
+db.create_all()
+##########
+@app.route(&apos;/&apos;)
+def hello_world():
+    &apos;&apos;&apos;
+    #在用户表中添加用户
+    user1 = User(username = &apos;lijian&apos;)
+    db.session.add(user1)
+    db.session.commit()
+    &apos;&apos;&apos;
+
+    #添加作品信息
+    &apos;&apos;&apos;
+    article = Article(title=&apos;aaa&apos;,content=&apos;bbb&apos;,author_id=1)
+    db.session.add(article)
+    db.session.commit()
+    &apos;&apos;&apos;
+    #需求：寻找标题文章为aaa的作者
+    &apos;&apos;&apos;
+    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
+    print(article.author_id)
+    author_id = article.author_id
+    user = User.query.filter(User.id == author_id)[0]
+    print(user.username)
+    &apos;&apos;&apos;
+    #上述需求的简化:
+    #根据文章名称查找作者
+    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
+    print(article.author.username)
+    print(&quot;*&quot;*20)
+
+    #需求 找到lijian写过的所有的文章
+    user = User.query.filter(User.username == &apos;lijian&apos;)[0]
+    result = user.articles
+    for article in result:
+        print(article.title)
+    &apos;&apos;&apos;
+    #先添加一篇文章
+    article = Article(title=&apos;111&apos;,content=&apos;222&apos;,author_id=1 )
+    db.session.add(article)
+    db.session.commit()
+    &apos;&apos;&apos;
+    return &apos;Hello World!&apos;
+if __name__ == &apos;__main__&apos;:
+    app.run(debug=True)</code></pre><p> 数据库连接的config 文件：</p>
+<pre><code> #dialect+driver://username:password@host:post/database
+DIALECT = &apos;mysql&apos;
+DRIVER = &apos;mysqldb&apos;
+USERNAME = &apos;root&apos;
+PASSWORD = &apos;root&apos;
+HOST = &apos;127.0.0.1&apos;
+POST = &apos;3306&apos;
+DATABASE = &apos;db_demo3&apos;
+SQLALCHEMY_DATABASE_URI = &apos;{}+{}://{}:{}@{}:{}/{}?charset utf8&apos;.format(DIALECT,
+                            DRIVER,USERNAME,PASSWORD,HOST,POST,DATABASE)
+SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre>
       
     </div>
     <footer class="article-footer">
