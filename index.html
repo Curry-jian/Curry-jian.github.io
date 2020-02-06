@@ -108,7 +108,6 @@
     3 8899
 
 类型三：使用range()或xrange()
-
          tmplist = [1234, 5677, 8899]
             for i in range(len(tmplist)):
                   print i,tmplist[i]
@@ -116,7 +115,21 @@
         输出： 
         0 1234 
         1 5677 
-        2 8899</code></pre>
+        2 8899</code></pre><hr>
+<p>2.关于def add(x, y) -&gt; int:中符号-&gt;的意思：<br>-&gt;常常出现在python函数定义的函数名后面，为函数添加元数据,描述函数的返回类型，从而方便开发人员使用<br>    简而言之就是这个函数返回的类型会是 int 类型，如果不是可以强制性进行转换为int类型</p>
+<ul>
+<li>-&gt;  _Attr则表明函数返回的是一个外部可访问的类的私有变量</li>
+</ul>
+<hr>
+<p>3.进制转化器：<br>    bin:二进制   cot:八进制   int:十进制  hex:十六进制</p>
+<hr>
+<p>4.Decimal类型数据是精确的小数，可以传递给Decimal整型或者字符串参数   decimal(小数)<br>     * 从浮点数据转换为Decimal类型<br>        #导入模块<br>        from decimal import getcontext,Decimal,Context<br>        mydec = Decimal.from_float(12.222)<br>        print(mydec)<br>        #结果为  12.222153432115212315……..精准的数字<br>    *  从字符串转化为Decimal类型<br>        mydec = Decimal(‘3.14’)<br>        print(mydec)<br>    * raw  将转义字符原样输出  r”hello\tworld”</p>
+<hr>
+<p>5.字符串（列表）里面的切片操作和下标取值操作（重点：包含开始 不包含结束）（切片没有下标越界）<br>    * 语法：[start:stop:step]  start:开始字符  stop:结束字符  step:步长  （其值可以省略）<br>    * step &gt; 0，从左往右切片       step &lt;0，从右往左切片<br>    * 左[0,1,2,3,……]   右[…….,-4-3,-2,-1]<br>    *  my_str=”mystr”<br>       print(my_str.count(‘m’))  查看字符串里面右几个m  也可以指定字符串的长度进行查看<br>       print(my_str.count(‘m’，1，3))     </p>
+<hr>
+<p> 6.判断字符是否为纯数字组成  str.isdigit()<br>   判断字符串是否全为大写    str.isupper()<br>   判断字符串是否只包含字母： str.isalpha()<br>   判断字符串里的单词是否开头大写其他地方小写： str.istitle()<br>   判断字符串是否只只包含字母或者数字： str.isalnum()</p>
+<p>   将字符串转换为大写： str.upper()<br>   将字符串转换为小写： str.lower()<br>   将字符中的单词第一字母大写其他字母小写 ：str.title()<br>   指定sep作为分割符号 将字符串切割成列表，分隔符可以任意设置（默认为空格）：<br>                           str.spilt(‘sep’)<br>       将列表用str拼接成一个大的字符串： ‘str’.join(list)(用str来拼接字符串)<br>       去除字符串中首尾的字符串，不带参数默认去除空格： str.strip([string])<br>       将字符串里的一个字符进行替代： str.replace(‘old’’new’[替换的个数])<br>       将字符中间对齐: str.center(witdth,’填充符号’)<br>       将字符左对齐:str.ljust(witdth,’填充符号’)<br>       将字符右对齐:str.rjust(witdth,’填充符号’)</p>
+
       
     </div>
     <footer class="article-footer">
