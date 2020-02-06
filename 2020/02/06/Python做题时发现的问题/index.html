@@ -5,12 +5,16 @@
   
 
   
-  <title>Archives: 2020/1 | Curry-jian</title>
+  <title>Python做题时发现的问题 | Curry-jian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Curry-jian">
-<meta property="og:url" content="http://yoursite.com/archives/2020/01/index.html">
+  <meta name="description" content="1.枚举函数的使用：enumerate()    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)    具体用用法实例: 类型一：     tmplist &#x3D; [1234, 5677, 8899]     for index,app_id in enumerate(tmplist):         print index, app">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python做题时发现的问题">
+<meta property="og:url" content="http://yoursite.com/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Curry-jian">
+<meta property="og:description" content="1.枚举函数的使用：enumerate()    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)    具体用用法实例: 类型一：     tmplist &#x3D; [1234, 5677, 8899]     for index,app_id in enumerate(tmplist):         print index, app">
+<meta property="article:published_time" content="2020-02-06T02:40:56.000Z">
+<meta property="article:modified_time" content="2020-02-06T02:48:04.009Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -61,40 +65,82 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-cost">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  <time datetime="2020-01-24T05:11:04.000Z" itemprop="datePublished">Jan 24</time>
+        <section id="main"><article id="post-Python做题时发现的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-02-06T02:40:56.000Z" itemprop="datePublished">2020-02-06</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">hexo的基本操作</a>
+    <h1 class="article-title" itemprop="name">
+      Python做题时发现的问题
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>1.枚举函数的使用：enumerate()<br>    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)<br>    具体用用法实例:</p>
+<pre><code>类型一：
+    tmplist = [1234, 5677, 8899]
+    for index,app_id in enumerate(tmplist):
+        print index, app_id
 
+    输出： 
+    0 1234 
+    1 5677 
+    2 8899
+
+类型二：（从下标1开始取值）
+    tmplist = [1234, 5677, 8899]
+    for index,app_id in enumerate(tmplist, 1):
+        print index, app_id
+
+    输出： 
+    1 1234 
+    2 5677 
+    3 8899
+
+类型三：使用range()或xrange()
+
+         tmplist = [1234, 5677, 8899]
+            for i in range(len(tmplist)):
+                  print i,tmplist[i]
+
+        输出： 
+        0 1234 
+        1 5677 
+        2 8899</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/" data-id="ck6a8svyf0000u8v3h9b4554g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/04/Flask-SQLAlchemy-DateBase/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Flask-SQLAlchemy-DateBase</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
