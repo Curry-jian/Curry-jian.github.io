@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="1.MySQL-python中间件的介绍和安装     * 在mac上可以直接输入  ‘sudo pip install mysql-python’进行安装     * 在window下需要到’https:&#x2F;&#x2F;www.lfd.uci.edu&#x2F;~gohlke&#x2F;pythonlibs&#x2F;#mysql-python3&#39;      这个网址下载对应的python版本的中间件          对应的命">
 <meta property="article:published_time" content="2020-02-04T07:21:13.000Z">
-<meta property="article:modified_time" content="2020-02-05T14:28:06.816Z">
+<meta property="article:modified_time" content="2020-02-06T13:15:29.278Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -409,7 +409,116 @@ POST = &apos;3306&apos;
 DATABASE = &apos;db_demo3&apos;
 SQLALCHEMY_DATABASE_URI = &apos;{}+{}://{}:{}@{}:{}/{}?charset utf8&apos;.format(DIALECT,
                             DRIVER,USERNAME,PASSWORD,HOST,POST,DATABASE)
-SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre>
+SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><hr>
+<p>7.SQLALchemy连接数据库中多对多关系<br>    * 配置相关的config 文件 与之前一样</p>
+<pre><code>* 设置关联的语句（重点）（在class Aritcle 中进行设置）（secondary 设置中间表的连接）
+    article = db.relationship(&apos;Tag&apos;,secondary=article_tag ,backref = db.backref(&apos;articles&apos;))
+
+* 需要建立三个表格 article  tag  article_tag
+                                            article与tag 表格的建立与之前的一样.
+  article_tag 表格的建立：（db.Table 进行建立）
+      #关联表
+    article_tag = db.Table(&apos;article_tag&apos;,
+    db.Column(&apos;article_id&apos;,db.Integer,db.ForeignKey(&apos;article.id&apos;),primary_key=True,),
+    db.Column(&apos;tag_id&apos;,db.Integer,db.ForeignKey(&apos;tag.id&apos;),primary_key=True,)
+                   )
+
+    * 数据的插入：（ article1.article.append(tag1) 这个语句是重点）
+    article1 = Article(title = &apos;aaa&apos;)
+    article2 = Article(title = &apos;bbb&apos;)
+    tag1 = Tag(name = &apos;111&apos;)
+    tag2 = Tag(name = &apos;222&apos;)
+    #article1下有哪些标签  一个article1有多个标签（重点）
+    article1.article.append(tag1)
+    article1.article.append(tag2)
+    # article2下有哪些标签  一个article2有多个标签（重点）
+    article2.article.append(tag1)
+    article2.article.append(tag2)
+    db.session.add(article1)
+    db.session.add(article2)
+    db.session.add(tag1)
+    db.session.add(tag2)
+    db.session.commit()</code></pre><p>案例：连接数据库 创建表格包含中间表 插入数据 关联数据 实现通过文章找Tag(免去config文件)</p>
+<pre><code>from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import config
+
+app = Flask(__name__)
+app.config.from_object(config)
+db= SQLAlchemy(app)
+
+&quot;&quot;&quot;
+SQL语句：
+    创建article表
+    create table article(
+        id int primary key autoincrement
+        title varachar(100) not null
+    )
+    创建tag表
+    create table tag(
+        id int primary key autioncrement
+        name varachar(50) not null
+    )
+    创建中间表
+    create table article_tag(
+        article_id int
+        tag_id int
+        primay key (&apos;article_id&apos;,&apos;tag_id&apos;)
+        foreign_key &apos;article_id&apos; references &apos;article&apos;
+        foreign_key &apos;tag_id&apos; references &apos;tag&apos;
+    )
+
+&quot;&quot;&quot;
+#关联表
+article_tag = db.Table(&apos;article_tag&apos;,
+        db.Column(&apos;article_id&apos;,db.Integer,db.ForeignKey(&apos;article.id&apos;),primary_key=True,),
+        db.Column(&apos;tag_id&apos;,db.Integer,db.ForeignKey(&apos;tag.id&apos;),primary_key=True,)
+                       )
+
+class Article(db.Model):
+    __tablename__ = &apos;article&apos;
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    title = db.Column(db.String(100),nullable=False)
+    #这是外键的是指 以及表的关联过程  secondary
+    article = db.relationship(&apos;Tag&apos;,secondary=article_tag ,backref = db.backref(&apos;articles&apos;))
+
+class Tag(db.Model):
+    __tablename__ = &apos;tag&apos;
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.String(50),nullable=False)
+
+db.create_all()
+
+@app.route(&apos;/&apos;)
+def hello_world():
+    &apos;&apos;&apos;
+    article1 = Article(title = &apos;aaa&apos;)
+    article2 = Article(title = &apos;bbb&apos;)
+    tag1 = Tag(name = &apos;111&apos;)
+    tag2 = Tag(name = &apos;222&apos;)
+    #article1下有哪些标签  一个article1有多个标签
+    article1.article.append(tag1)
+    article1.article.append(tag2)
+    # article2下有哪些标签  一个article2有多个标签
+    article2.article.append(tag1)
+    article2.article.append(tag2)
+    db.session.add(article1)
+    db.session.add(article2)
+    db.session.add(tag1)
+    db.session.add(tag2)
+    db.session.commit()
+    &apos;&apos;&apos;
+    article1= Article.query.filter(Article.title == &apos;aaa&apos;)[0]
+    tags = article1.article
+    for tag in tags:
+        print(tag.name)
+
+    return &apos;Hello World!&apos;
+
+if __name__ == &apos;__main__&apos;:
+    app.run(debug=True)</code></pre><hr>
+<p>8.Flask-Script的安装与介绍</p>
+
       
     </div>
     <footer class="article-footer">
