@@ -5,18 +5,17 @@
   
 
   
-  <title>hexo的基本操作 | Curry-jian</title>
+  <title>Flask-Script | Curry-jian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.创建一个新的文件：                hexo new post 文件名                hexo new [layout(布局)] -p 路径 文件名 2.上传到网页并且进行部署（同时出现在GitHub上面）:                hexo d -g 3.注意：在文档中有渲染的语法，或则有重定向的语法就会报错        Template render">
+  <meta name="description" content="Flask-Script的用处：    Flask-Script的作用是可以通过命令行的形式来操作Flask.例如通过命令跑一个开发版本的    服务器，设置数据库，定时任务等Flask-Script的安装 ：     pip install flask-script  操作命令进行安装     flask-Script :在创建好flask项目后 要在创建一个主文件manage.py">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo的基本操作">
-<meta property="og:url" content="http://yoursite.com/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:title" content="Flask-Script">
+<meta property="og:url" content="http://yoursite.com/2020/02/07/Flask-Script/index.html">
 <meta property="og:site_name" content="Curry-jian">
-<meta property="og:description" content="1.创建一个新的文件：                hexo new post 文件名                hexo new [layout(布局)] -p 路径 文件名 2.上传到网页并且进行部署（同时出现在GitHub上面）:                hexo d -g 3.注意：在文档中有渲染的语法，或则有重定向的语法就会报错        Template render">
-<meta property="article:published_time" content="2020-01-24T05:11:04.000Z">
-<meta property="article:modified_time" content="2020-02-04T05:28:06.746Z">
+<meta property="og:description" content="Flask-Script的用处：    Flask-Script的作用是可以通过命令行的形式来操作Flask.例如通过命令跑一个开发版本的    服务器，设置数据库，定时任务等Flask-Script的安装 ：     pip install flask-script  操作命令进行安装     flask-Script :在创建好flask项目后 要在创建一个主文件manage.py">
+<meta property="article:published_time" content="2020-02-07T11:50:40.000Z">
+<meta property="article:modified_time" content="2020-02-07T13:57:36.128Z">
 <meta property="article:author" content="li jian">
-<meta property="article:tag" content="Li jian">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Curry-jian" type="application/atom+xml">
@@ -66,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="cost-hexo的基本操作" class="article article-type-cost" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Flask-Script" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2020-01-24T05:11:04.000Z" itemprop="datePublished">2020-01-24</time>
+    <a href="/2020/02/07/Flask-Script/" class="article-date">
+  <time datetime="2020-02-07T11:50:40.000Z" itemprop="datePublished">2020-02-07</time>
 </a>
     
   </div>
@@ -80,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo的基本操作
+      Flask-Script
     </h1>
   
 
@@ -88,33 +87,81 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.创建一个新的文件：<br>                hexo new post 文件名<br>                hexo new [layout(布局)] -p 路径 文件名</p>
-<p>2.上传到网页并且进行部署（同时出现在GitHub上面）:<br>                hexo d -g</p>
-<p>3.注意：在文档中有渲染的语法，或则有重定向的语法就会报错<br>        Template render error<br>        则需要进行注释或者标注</p>
+        <p>Flask-Script的用处：<br>    Flask-Script的作用是可以通过命令行的形式来操作Flask.例如通过命令跑一个开发版本的<br>    服务器，设置数据库，定时任务等<br>Flask-Script的安装 ：     pip install flask-script  操作命令进行安装    </p>
+<p>flask-Script :在创建好flask项目后 要在创建一个主文件manage.py<br>        manage.py的文件内容：</p>
+<pre><code>#导入script的 Manager文件
+from flask_script import Manager
+#导入flask_scripr_demo文件中 app
+from flask_script_demo import app
+
+#初始化manage
+manage = Manager(app)
+
+#在命令行中可以执行的命令 装饰器
+@manage.command
+def runserver():
+    print(&quot;服务器启动&quot;)
+
+#因为是作为主app文件  则需要一下代码
+if __name__== &apos;__main__&apos;:
+    manage.run()</code></pre><p>在cmd运行命令的方法（必须在项目的目录下）<br>        python manage.py runserver<br>            显示：服务器启动</p>
+<p>flask_script中有一集中控制数据库命令的文件db_script</p>
+<pre><code>manage.py 中的内容：
+    #导入script的 Manager文件
+    from flask_script import Manager
+    #导入flask_scripr_demo文件中 app
+    from flask_script_demo import app
+    #导入文件db_script 文件中的DBmanager对象
+    from db_script import DBmanager
+
+    #初始化manage
+    manage = Manager(app)
+
+    #在命令行中可以执行的命令 装饰器
+    @manage.command
+    def runserver():
+        print(&quot;服务器启动&quot;)
+
+    #将db_script.py中的命令放到主app中来
+    manage.add_command(&apos;db&apos;,DBmanager)
+
+    #因为是作为主app文件  则需要一下代码
+    if __name__== &apos;__main__&apos;:
+        manage.run()
+
+db_script中的内容：
+    #导入flask_script文件 中的manager
+    from flask_script import Manager
+
+    #初始化
+    DBmanager = Manager()
+
+    #设置命令
+    @DBmanager.command
+    def init():
+        print(&quot;初始化服务器&quot;)
+
+    @DBmanager.command
+    def migrate():
+        print(&quot;迁移成功&quot;)</code></pre><p>在cmd中运行的语句： python manage.py db init<br>                     显示结果：初始化服务器成功</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" data-id="ck5rrkdl300009ov3a2yyhyw7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/07/Flask-Script/" data-id="ck6c8iu690000lcv3599ocweg" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Li-jian/" rel="tag">Li jian</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Flask--urls和视图
-        
-      </div>
-    </a>
   
+    <a href="/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python做题时发现的问题</div>
+    </a>
   
 </nav>
 

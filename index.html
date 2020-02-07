@@ -63,6 +63,99 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Flask-Script" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/07/Flask-Script/" class="article-date">
+  <time datetime="2020-02-07T11:50:40.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/07/Flask-Script/">Flask-Script</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Flask-Script的用处：<br>    Flask-Script的作用是可以通过命令行的形式来操作Flask.例如通过命令跑一个开发版本的<br>    服务器，设置数据库，定时任务等<br>Flask-Script的安装 ：     pip install flask-script  操作命令进行安装    </p>
+<p>flask-Script :在创建好flask项目后 要在创建一个主文件manage.py<br>        manage.py的文件内容：</p>
+<pre><code>#导入script的 Manager文件
+from flask_script import Manager
+#导入flask_scripr_demo文件中 app
+from flask_script_demo import app
+
+#初始化manage
+manage = Manager(app)
+
+#在命令行中可以执行的命令 装饰器
+@manage.command
+def runserver():
+    print(&quot;服务器启动&quot;)
+
+#因为是作为主app文件  则需要一下代码
+if __name__== &apos;__main__&apos;:
+    manage.run()</code></pre><p>在cmd运行命令的方法（必须在项目的目录下）<br>        python manage.py runserver<br>            显示：服务器启动</p>
+<p>flask_script中有一集中控制数据库命令的文件db_script</p>
+<pre><code>manage.py 中的内容：
+    #导入script的 Manager文件
+    from flask_script import Manager
+    #导入flask_scripr_demo文件中 app
+    from flask_script_demo import app
+    #导入文件db_script 文件中的DBmanager对象
+    from db_script import DBmanager
+
+    #初始化manage
+    manage = Manager(app)
+
+    #在命令行中可以执行的命令 装饰器
+    @manage.command
+    def runserver():
+        print(&quot;服务器启动&quot;)
+
+    #将db_script.py中的命令放到主app中来
+    manage.add_command(&apos;db&apos;,DBmanager)
+
+    #因为是作为主app文件  则需要一下代码
+    if __name__== &apos;__main__&apos;:
+        manage.run()
+
+db_script中的内容：
+    #导入flask_script文件 中的manager
+    from flask_script import Manager
+
+    #初始化
+    DBmanager = Manager()
+
+    #设置命令
+    @DBmanager.command
+    def init():
+        print(&quot;初始化服务器&quot;)
+
+    @DBmanager.command
+    def migrate():
+        print(&quot;迁移成功&quot;)</code></pre><p>在cmd中运行的语句： python manage.py db init<br>                     显示结果：初始化服务器成功</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/07/Flask-Script/" data-id="ck6c8iu690000lcv3599ocweg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Python做题时发现的问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="article-date">
@@ -605,7 +698,6 @@ def hello_world():
 
 if __name__ == &apos;__main__&apos;:
     app.run(debug=True)</code></pre><hr>
-<p>8.Flask-Script的安装与介绍</p>
 
       
     </div>
@@ -1382,6 +1474,10 @@ if __name__ == &apos;__main__&apos;:
       <ul>
         
           <li>
+            <a href="/2020/02/07/Flask-Script/">Flask-Script</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/06/Python%E5%81%9A%E9%A2%98%E6%97%B6%E5%8F%91%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98/">Python做题时发现的问题</a>
           </li>
         
@@ -1395,10 +1491,6 @@ if __name__ == &apos;__main__&apos;:
         
           <li>
             <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask--urls和视图</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">hexo的基本操作</a>
           </li>
         
       </ul>
