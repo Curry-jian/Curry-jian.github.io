@@ -63,6 +63,107 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Flask-Migrate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/08/Flask-Migrate/" class="article-date">
+  <time datetime="2020-02-08T12:03:10.000Z" itemprop="datePublished">2020-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/08/Flask-Migrate/">Flask-Migrate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.Flask-Migrate的作用：（代码在models_Migrate文件中）<br>    因为在主文件中采用了’db.create_all’之后，以后在class类中不能再对表格进行修改，<br>    如果需要修改就必须要先删除表格。<br>    Flask-migrate就是为了解决不能在表格中添加或者修改内容的作用，可以解决在修改模型后<br>    直接映射到表中。</p>
+<p>2.下载安装Flask-Migrate ： pip install flask-migrate</p>
+<p>3.flask-migrate必须要借助 flask-script ，这个包中MigrateCommand 中的关于数据库的命令</p>
+<p>4.flask-migrate 相关的命令：<br>    * python manage.py db init : 初始化迁移脚本的环境 只需要执行一次<br>    * python manage.py db migrate 生成迁移文件，每次修改都要执行<br>    * pythin manage.py db upgrade 将迁移的文件映射到数据中 每次需改都需要运行一次</p>
+<p>5.要将数据库中的模型 madols.py 导入到manage文件中，这样才会找到相关的模块</p>
+<p>6.各个文件的代码：<br>    config.py （同之前的一样）</p>
+<pre><code>models_Migrate.py文件 ：
+
+    from flask import Flask
+    # 引入exts中的db
+    from exts import db
+    import config
+    from models import Aritcle
+
+    app = Flask(__name__)
+    app.config.from_object(config)
+    #防止循环引用 初始化app
+    db.init_app(app)
+
+    &apos;&apos;&apos;
+    #手动将app推到服务器的栈里面（重点）
+    with app.app_context():
+        #这里通过db 将 models文件放入其中了（重点）
+        db.create_all()
+    &apos;&apos;&apos;
+
+    @app.route(&apos;/&apos;)
+    def hello_world():
+        return &apos;Hello World!&apos;
+
+
+    if __name__ == &apos;__main__&apos;:
+        app.run(debug=True)
+
+manage.py文件（重点）
+
+    from flask_script import Manager
+    from models_Migrate import app
+    from flask_migrate import Migrate,MigrateCommand
+    from exts import db
+    from models import Aritcle
+
+    manage = Manager(app)
+    #1.要使用flasj_migrate 必须绑定app和db
+    migrate = Migrate(app,db)
+
+    #2. 把MigrateCommand 命令添加到 manager中
+    manage.add_command(&apos;db&apos;,MigrateCommand)
+
+    if __name__ == &apos;__main__&apos;:
+        manage.run()
+
+exts.py文件：（是为了防止循环应用app）
+    from flask_sqlalchemy import SQLAlchemy
+    db = SQLAlchemy()
+
+models.py 文件：
+    #引入exts 中的 db
+    from exts import db
+    class Aritcle(db.Model):
+        id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+        title = db.Column(db.String(100),nullable=False)
+        content = db.Column(db.Text,nullable=False)
+        tags = db.Column(db.String(100),nullable=False)</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/08/Flask-Migrate/" data-id="ck6dlbr88000018v36z2w2nw3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%9C%A8models-Migrate%E6%96%87%E4%BB%B6%E4%B8%AD/" rel="tag">代码在models_Migrate文件中</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Flask-Script" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/07/Flask-Script/" class="article-date">
@@ -232,6 +333,10 @@ db_script中的内容：
 <p>10.while语句：<br>    是符合该条件的情况下才会执行(注意 是需要一个结束的语句) 下面相关的内容<br>    while 条件：<br>        do sth<br>        break<br>    continue: 是指跳到循环的开头<br>    break: 表示退出循环</p>
 <hr>
 <p>11.for循环语句：<br>    for item in rang(3):<br>        do sth<br>    表循环几次  指定循环的次数</p>
+<hr>
+<ol start="12">
+<li>自增长问题：<br>a+=i : a = a+1<br>a-=1 : a = a-1<br>自有在for循环语句中遍历出数字来 才能实现自增长的作用</li>
+</ol>
 
       
     </div>
@@ -698,7 +803,38 @@ def hello_world():
 
 if __name__ == &apos;__main__&apos;:
     app.run(debug=True)</code></pre><hr>
+<p>8.在分开models中解决循环引用<br>     分开models 的目的： 是为了更好的管理代码<br>     解决循环引用的方法：  是将add文件 分割开来  可以同时被几个文件引用 不会产生循环</p>
+<pre><code>models.sep文件：（主文件）
+    from flask import Flask
+    # 引入models中的 Ariticle
+    from models import Ariticle
+    # 引入exts中的db
+    from exts import db
 
+    app = Flask(__name__)
+    #防止循环引用 初始化app
+    db.init_app(app)
+
+    db.create_all()
+
+    @app.route(&apos;/&apos;)
+    def hello_world():
+        return &apos;Hello World!&apos;
+
+    if __name__ == &apos;__main__&apos;:
+        app.run()
+
+exts文件：
+    from flask_sqlalchemy import SQLAlchemy
+    db = SQLAlchemy()
+
+models.py 文件：
+    #引入exts 中的 db
+    from exts import db
+    class Ariticle(db.Model):
+        __table__ = &apos;article&apos;
+        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+        title = db.Column(db.String(100), nullable=False)</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -1442,7 +1578,7 @@ if __name__ == &apos;__main__&apos;:
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Li-jian/" rel="tag">Li jian</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Li-jian/" rel="tag">Li jian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%9C%A8models-Migrate%E6%96%87%E4%BB%B6%E4%B8%AD/" rel="tag">代码在models_Migrate文件中</a></li></ul>
     </div>
   </div>
 
@@ -1452,7 +1588,7 @@ if __name__ == &apos;__main__&apos;:
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Li-jian/" style="font-size: 10px;">Li jian</a>
+      <a href="/tags/Li-jian/" style="font-size: 10px;">Li jian</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%9C%A8models-Migrate%E6%96%87%E4%BB%B6%E4%B8%AD/" style="font-size: 10px;">代码在models_Migrate文件中</a>
     </div>
   </div>
 
@@ -1474,6 +1610,10 @@ if __name__ == &apos;__main__&apos;:
       <ul>
         
           <li>
+            <a href="/2020/02/08/Flask-Migrate/">Flask-Migrate</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/07/Flask-Script/">Flask-Script</a>
           </li>
         
@@ -1487,10 +1627,6 @@ if __name__ == &apos;__main__&apos;:
         
           <li>
             <a href="/2020/02/03/Flask-jinja%E6%A8%A1%E6%9D%BF/">Flask--Jinja模板</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask--urls和视图</a>
           </li>
         
       </ul>
