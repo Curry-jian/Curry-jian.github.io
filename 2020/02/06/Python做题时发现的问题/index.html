@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="1.枚举函数的使用：enumerate()    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)    具体用用法实例: 类型一：     tmplist &#x3D; [1234, 5677, 8899]     for index,app_id in enumerate(tmplist):         print index, app">
 <meta property="article:published_time" content="2020-02-06T02:40:56.000Z">
-<meta property="article:modified_time" content="2020-02-08T07:54:53.974Z">
+<meta property="article:modified_time" content="2020-02-09T13:28:07.092Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -145,6 +145,8 @@
 <ol start="12">
 <li>自增长问题：<br>a+=i : a = a+1<br>a-=1 : a = a-1<br>自有在for循环语句中遍历出数字来 才能实现自增长的作用</li>
 </ol>
+<hr>
+<p>13.find()函数的用法：<br>    find()方法检测字符串S中是否包含子字符串sub，如果指定start（开始）和end（结束）范围，<br>    则检查是否包含在指定范围内，如果包含子字符串返回开始的索引值(如果包含多个字串，只返回最左边出现的索引值)，查找失败返回-1。<br>    以本题为例：<br>    s=”abcd1234”<br>    s.find(“cd”)，在字符串s中查找字串”cd”第一次出现时s中的索引值，因为索引从0开始，所以结果为2，注意s中出现多次cd的情况，例如：<br>    s=”abcd1234cd”<br>    s.find(“cd”)的结果依然是2，找不到时返回-1，比如：<br>    s=”1234”<br>    s.find(“cd”)的结果为-1</p>
 
       
     </div>
