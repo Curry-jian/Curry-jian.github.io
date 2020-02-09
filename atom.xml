@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-08T12:25:28.437Z</updated>
+  <updated>2020-02-09T03:44:50.308Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端学习随笔记录</title>
+    <link href="http://yoursite.com/2020/02/09/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/2020/02/09/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-02-09T02:55:00.000Z</published>
+    <updated>2020-02-09T03:44:50.308Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.css样式中：<br>    * id选择器： #id<br>    * class选择器： .class<br>    * 普通选择器： <h><br>    * 注意：如果想优先使用一个样式：在样式后面加入 ！important<br>    * 浮动： float left 左浮动  是将两行的东西放到同一行<br>            float right 右浮动  是将两行的东西放到同一行</p><hr><p>2.盒子模型：<br>    Margin(外边距) - 清除边框外的区域，外边距是透明的。<br>    Border(边框) - 围绕在内边距和内容外的边框。<br>    Padding(内边距) - 清除内容周围的区域，内边距是透明的。<br>    Content(内容) - 盒子的内容，显示文本和图像。</p><hr><p>3.css选择器<br>    * 分组选择器: h1,p1,h2<br>    * 后代选择器：.class p        .class div p<br>    * 相邻选择器 ： div+p<br>    * 普通兄弟选择器： div~p<br>    * 包含title属性对象选择器： [title],[id]<br>    * 伪类选择器： 标签名：自己定义的名字（使有相同的标签名的css精细化）</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1.css样式中：&lt;br&gt;    * id选择器： #id&lt;br&gt;    * class选择器： .class&lt;br&gt;    * 普通选择器： &lt;h&gt;&lt;br&gt;    * 注意：如果想优先使用一个样式：在样式后面加入 ！important&lt;br&gt;    * 浮动： float
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Flask-Migrate</title>
