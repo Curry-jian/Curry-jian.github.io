@@ -907,6 +907,14 @@ print(&quot;网站名：{0[0]}, 地址 {0[1]}&quot;.format(my_list))  # &quot;0&
 <p>19.匿名函数： 不需要命名的函数 只能有一个表达式 不用写return（一次性使用）<br>    lambda arg1(参数1) ，arg2(参数2):表达式（要返回的数据）</p>
 <hr>
 <p>20.sorted(iterable,key,reverse) 函数 ： 起到排序的作用<br>    key -&gt; 是指定一个排序的方式(可以放入函数)   iterable -&gt;是变量名  reverse -&gt; 是否逆序<br>            .join的作用是排列方式用 ‘’来隔开<br>     例子： mystr = “aaAbmcDikLNog”<br>           print(‘’.join(sorted(mtstr,key=str.upper)))</p>
+<hr>
+<ol start="21">
+<li>在字符串中的replace函数：<br>replace()方法语法：str.replace(old, new,[max])<br>参数:<pre><code>old -- 将被替换的子字符串。
+new -- 新字符串，用于替换old子字符串。
+max -- 可选字符串, 替换不超过 max 次</code></pre>例子：<pre><code>str = &quot;this is string example....wow!!! this is really string&quot;;
+print str.replace(&quot;is&quot;, &quot;was&quot;）
+结果-&gt;thwas was string example....wow!!! thwas was really string</code></pre></li>
+</ol>
 
       
     </div>
