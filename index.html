@@ -863,6 +863,50 @@ db_script中的内容：
 </ol>
 <hr>
 <p>13.find()函数的用法：<br>    find()方法检测字符串S中是否包含子字符串sub，如果指定start（开始）和end（结束）范围，<br>    则检查是否包含在指定范围内，如果包含子字符串返回开始的索引值(如果包含多个字串，只返回最左边出现的索引值)，查找失败返回-1。<br>    以本题为例：<br>    s=”abcd1234”<br>    s.find(“cd”)，在字符串s中查找字串”cd”第一次出现时s中的索引值，因为索引从0开始，所以结果为2，注意s中出现多次cd的情况，例如：<br>    s=”abcd1234cd”<br>    s.find(“cd”)的结果依然是2，找不到时返回-1，比如：<br>    s=”1234”<br>    s.find(“cd”)的结果为-1</p>
+<hr>
+<p>14.zip()函数的用法：<br>    该函数配合 for循环语句进行使用  for i in zip(* 列表)<br>    具体的用法例子演示：</p>
+<pre><code>&gt;&gt;&gt;a = [1,2,3]
+&gt;&gt;&gt; b = [4,5,6]
+&gt;&gt;&gt; c = [4,5,6,7,8]
+&gt;&gt;&gt; zipped = zip(a,b)     # 打包为元组的列表
+[(1, 4), (2, 5), (3, 6)]
+
+&gt;&gt;&gt; a = [&quot;abc&quot;, &quot;abd&quot;, &quot;bbb&quot;]
+&gt;&gt;&gt; b = zip(a)
+&gt;&gt;&gt; for each in b:
+...     print(each)
+...
+(&apos;abc&apos;,)
+(&apos;abd&apos;,)
+(&apos;bbb&apos;,)
+如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 * 号操作符，可以将元组解压为列表
+&gt;&gt;&gt; b = zip(*a)
+&gt;&gt;&gt; for each in b:
+...     print(each)
+...
+(&apos;a&apos;, &apos;a&apos;, &apos;b&apos;)
+(&apos;b&apos;, &apos;b&apos;, &apos;b&apos;)
+(&apos;c&apos;, &apos;d&apos;, &apos;b&apos;)</code></pre><hr>
+<p>15.set函数的使用（目前使用到的是他的去重的作用）<br>    x = set(‘worlld’)<br>    print(x):{‘r’,’o’,’l’,’w’,’d’}(形成了一个集合 并且去除了重复的项)<br>    还可以使用add和update对集合进行修改和添加</p>
+<hr>
+<p>16.python中随机生成一个数的函数：<br>    import random<br>    print(random.random())<br>    输出结果：0.9437475481805455</p>
+<hr>
+<p>17.python中format函数 ：<br>    一种格式化字符串的函数 str.format()，它增强了字符串格式化的功能：</p>
+<pre><code>print(&quot;网站名：{name}, 地址 {url}&quot;.format(name=&quot;菜鸟教程&quot;, url=&quot;www.runoob.com&quot;))
+# 通过字典设置参数
+site = {&quot;name&quot;: &quot;菜鸟教程&quot;, &quot;url&quot;: &quot;www.runoob.com&quot;}
+print(&quot;网站名：{name}, 地址 {url}&quot;.format(**site))
+网站名：菜鸟教程, 地址 www.runoob.com
+
+# 通过列表索引设置参数
+my_list = [&apos;菜鸟教程&apos;, &apos;www.runoob.com&apos;]
+print(&quot;网站名：{0[0]}, 地址 {0[1]}&quot;.format(my_list))  # &quot;0&quot; 是必须的
+网站名：菜鸟教程, 地址 www.runoob.com</code></pre><hr>
+<p>18.pack和unpack<br>    星号具有打包的功能 a,*b = (1,2,3,4,5) =&gt; a = 1  b = [2,3,4,5]</p>
+<hr>
+<p>19.匿名函数： 不需要命名的函数 只能有一个表达式 不用写return（一次性使用）<br>    lambda arg1(参数1) ，arg2(参数2):表达式（要返回的数据）</p>
+<hr>
+<p>20.sorted(iterable,key,reverse) 函数 ： 起到排序的作用<br>    key -&gt; 是指定一个排序的方式(可以放入函数)   iterable -&gt;是变量名  reverse -&gt; 是否逆序<br>            .join的作用是排列方式用 ‘’来隔开<br>     例子： mystr = “aaAbmcDikLNog”<br>           print(‘’.join(sorted(mtstr,key=str.upper)))</p>
 
       
     </div>
