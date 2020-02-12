@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="1.枚举函数的使用：enumerate()    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)    具体用用法实例: 类型一：     tmplist &#x3D; [1234, 5677, 8899]     for index,app_id in enumerate(tmplist):         print index, app">
 <meta property="article:published_time" content="2020-02-06T02:40:56.000Z">
-<meta property="article:modified_time" content="2020-02-11T04:02:12.046Z">
+<meta property="article:modified_time" content="2020-02-12T08:40:01.474Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -203,6 +203,17 @@ print str.replace(&quot;is&quot;, &quot;was&quot;）
 dict.get(key, default=None)  如果没有key值 就会返回一个None</code></pre> pop方法：<pre><code>pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值
 list.pop([index=-1]) 默认移除列表中最后一个值</code></pre></li>
 </ol>
+<hr>
+<h2 id="24-global是表示全局变量-咳可以在局部变量里面设置global就会变成全局变量"><a href="#24-global是表示全局变量-咳可以在局部变量里面设置global就会变成全局变量" class="headerlink" title="24.global是表示全局变量  咳可以在局部变量里面设置global就会变成全局变量"></a>24.global是表示全局变量  咳可以在局部变量里面设置global就会变成全局变量</h2><p>25.val()函数的功能： 将一组字符型数据的数字部分转换成相应的数值型数据<br>            例如：   x = “12 5fdsa DA456”;<br>                    那么 val(x)应该返回125 后面的456不能返回来</p>
+<pre><code>x= &apos;123 456&apos; 
+那么val(x)返回的是123456</code></pre><hr>
+<p>26.next()函数：将迭代器里面的函数依次的返回出来<br>    b=[1,2,3,4]<br>    a=iter(b)<br>    next(a)会依次返回1,2,3,4，StopIteration，StopIteration..</p>
+<hr>
+<h2 id="27-可迭代对象：str-list-dict-tuple-set"><a href="#27-可迭代对象：str-list-dict-tuple-set" class="headerlink" title="27.可迭代对象：str list dict tuple set"></a>27.可迭代对象：str list dict tuple set</h2><p>28.在字典中 .get 方法 是会判断字典中是否有查找的这个值，如果没有<br>    就会返回一个None  或者自己设定一个值： .get(‘key’,’设定值’)<br>    字典中：删除的方法： dicts.pop(key):删出指定的字典key的值<br>                       dicts.popitem():删除键值对的  默认最后一个<br>    字典合并：dict1.update(dict2) =&gt;将dict2合并到dict1中<br>            dict(dict1,** dict2) =&gt;将dict1与dict2合并到生成的一个新字典中<br>    in与not in : 比较的是字典中key的比较<br>                或则进行 dict.values() 获取values值<br>    items() : 是可以获取 key和values 值</p>
+<hr>
+<p>29.集合：set()<br>    集合是无序的 不重复的数据组合<br>    集合是一个只包含key的字典   （hash对象就是不可变对象）<br>    集合会自动的去重<br>    集合坐添加的操作：s.add(iteme) =&gt; 添加一项<br>                     s.update(iteme) =&gt; 添加多项   s.update([10,37,42])<br>    集合的移除： s.remove()  =&gt; 如果移除的项没有在集合中 则会报错<br>                s.discard() =&gt; 移除的项么有在集合中 也不会报错<br>    集合的并集(|)和交集(&amp;)： 并集就是将两个集合加在一起  交集就是去公共部分<br>                            union 也是表示并集的方法<br>                            intersection  表示交际的方法<br>    集合的差集(-)：返回set中s中有t中没有的元素<br>                   s.different(t)      s-t<br>    集合的对称差集： 返回没有没有同时出现在两个集合中的元素<br>                    s.symmetric_different(t)       s^t</p>
+<hr>
+<p>30.JSON<br>    JSON(javaScript Object Notation)是一种轻量级的数据交换格式<br>    使用的时候需要导入  import JSON<br>    可以使用bejson 进行格式化的校验<br>    dumps 是将python中的字典转化为json中的str<br>    loads 是将json 中的实例 转化为 python中的 project  需要用’’’json 字符串’’’</p>
 
       
     </div>
