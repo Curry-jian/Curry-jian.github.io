@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>flask_jinja2 | Curry-jian</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="base.html 文件：   &lt;!DOCTYPE html&gt;    &lt;html lang&#x3D;&quot;en&quot;&gt;         &lt;head&gt;             &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;             &lt;title&gt;{% block title %}{% endblock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask_jinja2">
+<meta property="og:url" content="http://yoursite.com/2020/02/13/flask-jinja2/index.html">
+<meta property="og:site_name" content="Curry-jian">
+<meta property="og:description" content="base.html 文件：   &lt;!DOCTYPE html&gt;    &lt;html lang&#x3D;&quot;en&quot;&gt;         &lt;head&gt;             &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;             &lt;title&gt;{% block title %}{% endblock">
+<meta property="article:published_time" content="2020-02-13T14:29:13.000Z">
+<meta property="article:modified_time" content="2020-02-13T14:29:56.836Z">
+<meta property="article:author" content="li jian">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Curry-jian" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Curry-jian</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-flask-jinja2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/13/flask-jinja2/" class="article-date">
+  <time datetime="2020-02-13T14:29:13.000Z" itemprop="datePublished">2020-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      flask_jinja2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>base.html 文件：
+
+ &lt;!DOCTYPE html&gt;
+   &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;{% block title %}{% endblock %}</title>
+			        <style>
+			        .nav{
+			            background: #3a3a3a;
+			            height: 65px;
+			        }
+			        ul{
+			            overflow: hidden;
+			        }
+			        ul li{
+			            float: left;
+			            list-style: none;
+			            padding: 0 10px;
+			            line-height: 65px;
+			        }
+			        ul li a{
+			            color: white;
+			        }
+			    </style>
+			</head>
+			<body>
+			    <div class="nav">
+			    <ul>
+			        <li><a href="#">首页</a></li>
+			        <li><a href="#">发布问答</a></li>
+			    </ul>
+			</div>
+			{% block main %}{% endblock %}
+        &lt;/body&gt;
+        &lt;/html&gt;
+
+    login.html:
+        {% extends 'base.html' %}
+        {% block title %}
+			    登陆页面
+			{% endblock %}
+        {% block main %}
+			    <p>这是登陆页面</p>
+			{% endblock %}
+
+    index.html:
+        {% extends 'base.html' %}
+        {% block title %}
+			    首页
+			{% endblock %}
+        {% block main %}
+			    <p>这是首页面</p>
+			{% endblock %}
+
+6.URL链接和加载静态文件
+    * 加载静态文件语法：&apos;url_for(&apos;static&apos;，filename=&apos;路径&apos;)&apos;
+    * 静态文件 flask会在static文件夹中开始寻找，所有不需要再写static这个路径
+    * 可以加载css文件，js文件 image文件
+    image文件：
+    &lt;img src=&quot;{{ url_for('static',filename='images/lijian.jpg') }}&quot; alt=&quot;&quot;&gt;
+
+    js文件：
+     &lt;script src=&quot;{{ url_for('static',filename='js/index.js') }}&quot;&gt;&lt;/script&gt;
+
+    css文件：
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ url_for('static',filename='css/index.css') }}&quot;&gt;
+
+*url链接：使用url_for(视图函数名)，从而反转url 跳转页面
+        &lt;a href=&quot;{{ url_for('login') }}&quot;&gt;登陆&lt;/a&gt;
+
+url链接和加载静态文件的例子：
+    Py文件：
+        from flask import Flask,render_template
+
+        app = Flask(__name__)
+
+
+        @app.route(&apos;/&apos;)
+        def index():
+            return render_template(&apos;index.html&apos;)
+
+        @app.route(&apos;/login/&apos;)
+        def login():
+            return render_template(&apos;login.html&apos;)
+
+        if __name__ == &apos;__main__&apos;:
+            app.run(debug=True)
+
+    index.html文件：
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;Title&lt;/title&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ url_for('static',filename='css/index.css') }}&quot;&gt;
+            &lt;script src=&quot;{{ url_for('static',filename='js/index.js') }}&quot;&gt;&lt;/script&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+        &lt;a href=&quot;{{ url_for('login') }}&quot;&gt;登陆&lt;/a&gt;
+        &lt;img src=&quot;{{ url_for('static',filename='images/lijian.jpg') }}&quot; alt=&quot;&quot;&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+
+
+    index.js文件：
+        /**
+         * Created by 栩森 on 2020/2/4.
+         */
+
+        alert(&apos;我是李坚&apos;)
+
+    index.css文件：
+           a{
+                background: red;
+            }
+
+    login.html 文件：
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;en&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;title&gt;Title&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;这是登陆页面&lt;/h1&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/13/flask-jinja2/" data-id="ck6kub5740000bgv3c91zdoff" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/09/Flask-jinja/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Flask-jinja</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Li-jian/" rel="tag">Li jian</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%9C%A8models-Migrate%E6%96%87%E4%BB%B6%E4%B8%AD/" rel="tag">代码在models_Migrate文件中</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Li-jian/" style="font-size: 10px;">Li jian</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%9C%A8models-Migrate%E6%96%87%E4%BB%B6%E4%B8%AD/" style="font-size: 10px;">代码在models_Migrate文件中</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/13/flask-jinja2/">flask_jinja2</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/Flask-jinja/">Flask-jinja</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/">前端学习随笔记录</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/08/Flask-Migrate/">Flask-Migrate</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/07/Flask-Script/">Flask-Script</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 li jian<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
