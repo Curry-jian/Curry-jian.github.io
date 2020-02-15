@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="1.枚举函数的使用：enumerate()    枚举函数的作用：枚举函数可以在一个列表中遍历，遍历出来的内容是index(下标)和item(这个下标表示的数)    具体用用法实例: 类型一：     tmplist &#x3D; [1234, 5677, 8899]     for index,app_id in enumerate(tmplist):         print index, app">
 <meta property="article:published_time" content="2020-02-06T02:40:56.000Z">
-<meta property="article:modified_time" content="2020-02-14T14:10:40.280Z">
+<meta property="article:modified_time" content="2020-02-15T04:46:10.015Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -296,7 +296,15 @@ rename_files(&apos;test03&apos;,&apos;[李坚]-&apos;)</code></pre><hr>
 <hr>
 <p>48.断言：  assert     一般在做测试的时候使用<br>        assert 1+2==5,’出错了’  =&gt;  显示：AssertionError：出错了</p>
 <hr>
-<p>49.异常处理<br>    try:<br>        执行的代码<br>    except 错误类型 as 接收错误详细的变量:（指定接受的错误类型）  except:(所有的错误类型)<br>        处理的内容<br>    except 错误类型 as 接收错误详细的变量(ex):（指定接受的错误类型）<br>        处理的内容                                                        </p>
+<p>49.异常处理<br>    try:<br>        执行的代码<br>    except 错误类型 as 接收错误详细的变量:（指定接受的错误类型）  except:(所有的错误类型)<br>        处理的内容<br>    except 错误类型 as 接收错误详细的变量(ex):（指定接受的错误类型）<br>        处理的内容<br>    else:（不经常用）<br>        没有发生异常额时候<br>    finally:（不经常用）<br>        不管是否出现错误都会执行<br>raise:引发一个错误    raise NameError(‘出错了’)  手动引发错误<br>        在函数中使用的较多<br>在 try,except中使用retrun进行返回 还是会执行finally中的return 并且返回的值还是finally中retun的值   如果finally中没有return 就会反回自身的return</p>
+<h2 id="在finally-中要小心使用return-因为会导致异常丢失（重点）"><a href="#在finally-中要小心使用return-因为会导致异常丢失（重点）" class="headerlink" title="在finally 中要小心使用return  因为会导致异常丢失（重点）"></a>在finally 中要小心使用return  因为会导致异常丢失（重点）</h2><p>50.常见的异常错误：<br>    NameError      尝试访问一个没有审明的变量<br>    ZeroDivisionError  除数为0<br>    SynataxError     语法错误<br>    IndexError       索引超出序列范围<br>    KeyError         请求一个不存在的字典关键字<br>    IOError          输入输出错误<br>    AttributeError   尝试访问未知的对象属性<br>    ValueError       传递函数的参数类型不正确<br>    AssertionError   断言错误</p>
+<hr>
+<p>51.获取引用计数：getrefcount()<br>    from sys import getrefcount<br>    a = [1,2,3]<br>    print(getrefcount(a))  =&gt; 2   用户调用了一次  系统调用了一次 一共两次<br>    b = a<br>    print(getrefcount(b))  =&gt; 3<br>在不可边对象中 ：  系统自动的引用机制为2次<br>在可边对象中：     系统自动的引用机制为1次<br>引用类机制的引用次数就会增加   删除类机制引用次数会减少</p>
+<hr>
+<p>52.python垃圾回收<br>    当Python的某个对象的引用计数降为0的时候，就可以进行垃圾回收了<br>   gc机制： 自动内存管理机制  找到内存中无用的垃圾  清除垃圾让出内存</p>
+<p>  三种情况下会触发垃圾回收：<br>     (引用计数为0后)                        import gc<br>      调用gc.collect()                        print(gc.get_threshold) =》(700,10,10)<br>       GC达到阈值时(700,10,10)<br>      程序退出时<br>53.字符串的intern机制：<br>    python对于短小的，只包含字母和数字的字符串会自动触发缓存机制 </p>
+<hr>
+<p>54.深拷贝与浅拷贝<br>    浅拷贝：a.copy()<br>    深拷贝：     improt copy    copy.deepcody(a)</p>
 
       
     </div>
