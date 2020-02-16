@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="title: python笔录date: 2020-02-15 16:54:55tags:  1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3    对于range()函数循环取值后：(包前不包后)">
 <meta property="article:published_time" content="2020-02-15T08:54:55.732Z">
-<meta property="article:modified_time" content="2020-02-16T03:48:39.113Z">
+<meta property="article:modified_time" content="2020-02-16T09:29:41.782Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -120,6 +120,35 @@ for i in week:
 <p>8.生成器：<br>    生成器是一种特殊的迭代器，它不需要手动编写<strong>iter</strong>() 和 <strong>next</strong>()方法，只需要一个<br>    yiled 关键字     （生成器一定是迭代器，反之不成立）<br>  生成器表达式：<br>       1.使用()生成generator(生成器) 将两表推到式的[]改为()即可得到生成器<br>           a = (x for x in range(10 ** 9))<br>       2.yield： 包含yield表达式的函数是特殊的函数，叫做生成器函数<br>                 被调用时将返回一个迭代器，调用时用next 或者 send(msg)<br>                 ~ 一个生成器中可以有多个yield<br>                 ~ 一旦遇到yield 就会保存当前状态 然后返回yield后面的值<br>                 例子： def max1(i)<br>                             yield i       yield执行后就会保存状态，下次从yield开始执行<br>                           print(manx(1))  =&gt;  生成一个生成器<br>                           print(next(max1))  =&gt;  依次取值<br>       3.send数据：<br>           用户可以使用send 来跟生成器进行交互  send的数据会输入到生成器yield的位置<br>       4.yield from:<br>           当我们想从一个生成器取到内部的数据的时候<br>  ~生成器的好处：<br>          可以用更少的中间变量写流式代码<br>          相比其他容器对象他能节省内存<br>          可以减少代码的使用</p>
 <hr>
 <p>9.关于查看程序执行时间的方法  时间戳<br>    import time<br>    #时间戳   从1970.1.1 0点0时0秒<br>    start = time.time()<br>    a = [x for x in range(10*9)]<br>    print(time.time()-start)</p>
+<hr>
+<ol start="10">
+<li>常见的编程范式：<ul>
+<li>面向过程编程</li>
+<li>面向对象编程</li>
+<li>函数式编程： 如果一个函数可以接受函数作为参数，并且返回一个结果，这个函数为函数式编程</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="11">
+<li>高阶函数： 一个函数中把另一个函数作为参数传入，这个参数为函数的函数为高阶函数</li>
+</ol>
+<ul>
+<li><p>map函数：  map( 函数名[方法] , 可迭代对象 )   一一映射进行处理 返回值为迭代器<br>  例子：   def f(x):                        ret = map(lambda x:x*x,range(10))</p>
+<pre><code>    return x*x
+ret = map(f,range(10))
+print(list(ret))</code></pre></li>
+<li><p>filter函数(过滤)： filter( 函数名[方法] , 可迭代对象 )  返回值为迭代器    </p>
+<pre><code>filter把传入的函数依次作用于每个元素，然后根据返回值式Ture还是False决定保留还是丢弃 保留True</code></pre><p>  例子：    num1 = [1,2,3,4]</p>
+<pre><code># 0=&gt;Fales   1=&gt;Ture
+ret = filter(lambda x:x%2,num1)
+print(list(ret))</code></pre></li>
+<li><p>sorted函数(排序)：  sort(可迭代对象，函数名[方法])<br>  例子： sorted([2,3,4,-1],key = abs)    返回值为list</p>
+</li>
+<li><p>reduce函数():把结果继续和序列的下一个元素做累加计算</p>
+<pre><code>reduce(函数，可迭代对象)</code></pre><p>  例子：from functools import reduce</p>
+<pre><code>reduce(lambda x,y:x*10+y,[1,3,7,5,9])    =&gt;13759</code></pre></li>
+</ul>
 
       
     </div>
