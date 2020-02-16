@@ -7,14 +7,14 @@
   
   <title>python笔录 | Curry-jian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: python笔录date: 2020-02-15 16:54:55tags:—  推导式 就是把 str list tuple dict set  之间进行转换1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3">
+  <meta name="description" content="title: python笔录date: 2020-02-15 16:54:55tags:  1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3    对于range()函数循环取值后：(包前不包后)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python笔录">
 <meta property="og:url" content="http://yoursite.com/2020/02/15/python%E7%AC%94%E5%BD%95/index.html">
 <meta property="og:site_name" content="Curry-jian">
-<meta property="og:description" content="title: python笔录date: 2020-02-15 16:54:55tags:—  推导式 就是把 str list tuple dict set  之间进行转换1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3">
+<meta property="og:description" content="title: python笔录date: 2020-02-15 16:54:55tags:  1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3    对于range()函数循环取值后：(包前不包后)">
 <meta property="article:published_time" content="2020-02-15T08:54:55.732Z">
-<meta property="article:modified_time" content="2020-02-15T13:53:32.544Z">
+<meta property="article:modified_time" content="2020-02-16T03:48:39.113Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -88,9 +88,38 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>title: python笔录<br>date: 2020-02-15 16:54:55<br>tags:<br>—  推导式 就是把 str list tuple dict set  之间进行转换<br>1.做列表类的题目心得：(踩过好多坑)<br>    len() 函数的用法： 例子  num1 = [1,2,3]<br>                            print(len(num1))  =&gt;  3<br>    对于range()函数循环取值后：(包前不包后)<br>                            for i in range(len(num1)):<br>                                print(i)  =&gt;    0,1,2<br>    可迭代对象是指 可以使用for语句进行循环取值的对象：<br>            list tuple dict set  str    可迭代对象之间是可以相互转化的  list(str)</p>
+<p>title: python笔录<br>date: 2020-02-15 16:54:55<br>tags:</p>
 <hr>
-<p>2.列表推导式：<br>基本格式：variable = [‘out_exp_res’ for out_exp in input list if ‘out_exp == 2]<br>        out_exp_res: 列表生成元素表达式  或则反回值<br>        for put_exp in input_list  迭代input_list 将out_exp 传入 out_exp_res<br>        if out_exp == 2            根据条件过滤哪些值<br>    例子： 将字符串变成列表  条件 只将大写输出：<br>            mystr = ‘abcABC’<br>            mylist = [item for item in mystr if item.isupper()]<br>            print(mylist)                                       =&gt;[‘A’, ‘B’, ‘C’]<br>3.字典推导式：（集合推导式  就只需要需要key）<br>基本格式：variable = {out_key:out_value for out_key,out_value in input if out_exp==2}</p>
+<p>1.做列表类的题目心得：(踩过好多坑)<br>    len() 函数的用法： 例子  num1 = [1,2,3]<br>                            print(len(num1))  =&gt;  3<br>    对于range()函数循环取值后：(包前不包后)<br>                            for i in range(len(num1)):<br>                                print(i)  =&gt;    0,1,2<br>    可迭代对象是指 可以使用for语句进行循环取值的对象：<br>            list tuple dict set  str    可迭代对象之间是可以相互转化的  list(str)</p>
+<hr>
+<p>2.列表推导式：推导式 就是把  list  dict set  之间进行转换  没有元组推导式<br>基本格式：variable = [‘out_exp_res’ for out_exp in input list if ‘out_exp == 2]<br>        out_exp_res: 列表生成元素表达式  或则反回值<br>        for put_exp in input_list  迭代input_list 将out_exp 传入 out_exp_res<br>        if out_exp == 2            根据条件过滤哪些值<br>    例子： 将字符串变成列表  条件 只将大写输出：<br>            mystr = ‘abcABC’<br>            mylist = [item for item in mystr if item.isupper()]<br>            print(mylist)                                       =&gt;[‘A’, ‘B’, ‘C’]<br>3.字典推导式：（集合推导式  就只需要需要key）<br>基本格式：variable = {out_key:out_value for out_key,out_value in input if out_exp==2}</p>
+<hr>
+<p>4.可迭代对象的判断：<br>    from collections.abc import Iterable<br>         isinstance(a,Iterable) =&gt; Ture<br>    或者取dir 查看这个对象是否具有 <strong>iter</strong>这个对象</p>
+<hr>
+<ol start="5">
+<li>迭代器：<br> 迭代器是有状态的，可以被next()调用，函数调用并不断返回下一个值的对象=&gt;迭代器<br> x = [1,2,3]<br> y = iter(x)   =&gt;   y = x.<strong>iter</strong>() 可以在可迭代对象中相互转换<br> print(next(y)) =&gt; 1      next表示一次取出迭代器里面的元素一次取一个元素<pre><code>当取完了就不能再取了  就会报错StopIteration</code></pre>for 后面要接可迭代对象的原因： 可迭代对象 =&gt; 生成一个迭代器 =&gt; 里面有Next方法 依次取值<br>迭代器的特点：  迭代器是有next方法的<pre><code>迭代器的数据不是立即生成的  当用户显示或隐式方法调用__next__()才会才会成数据 迭代器中只存放了下一个数据的计算方法</code></pre>迭代器的使用情景： 1. 数据量很大  2. 按顺序取值</li>
+</ol>
+<hr>
+<ol start="6">
+<li><p>迭代器生成一个无限序列：</p>
+<pre><code>from itertools import count
+#生成一个无限大的序列，从start开始
+counter = count(start = 10)
+print(counter, type(counter))
+print(next(counter))  =&gt; 无限取值</code></pre><p>迭代器从一个有限序列中生成一个无限序列：</p>
+<pre><code>   from itertools import cycle
+import  time
+week = cycle([1,2,3,4,5,6,7,8,9])
+for i in week:
+    print(i)
+    time.sleep(1)</code></pre></li>
+</ol>
+<hr>
+<p>7.可迭代对象与迭代器的区别：</p>
+<h1 id="取值：-index-key-随机取值-只能通过next方法进行向下取值"><a href="#取值：-index-key-随机取值-只能通过next方法进行向下取值" class="headerlink" title="取值：  index/key 随机取值                    只能通过next方法进行向下取值"></a>取值：  index/key 随机取值                    只能通过next方法进行向下取值</h1><h1 id="存储：-一次性占用内存-适合数据量小的时候使用-只存储下一次取值的计算方法（惰性取值）"><a href="#存储：-一次性占用内存-适合数据量小的时候使用-只存储下一次取值的计算方法（惰性取值）" class="headerlink" title="存储：  一次性占用内存(适合数据量小的时候使用)   只存储下一次取值的计算方法（惰性取值）"></a>存储：  一次性占用内存(适合数据量小的时候使用)   只存储下一次取值的计算方法（惰性取值）</h1><h1 id="迭代器的好处：-在瞬时间-占用的内存少-计算量小"><a href="#迭代器的好处：-在瞬时间-占用的内存少-计算量小" class="headerlink" title="迭代器的好处：  在瞬时间 占用的内存少  计算量小"></a>迭代器的好处：  在瞬时间 占用的内存少  计算量小</h1><hr>
+<p>8.生成器：<br>    生成器是一种特殊的迭代器，它不需要手动编写<strong>iter</strong>() 和 <strong>next</strong>()方法，只需要一个<br>    yiled 关键字     （生成器一定是迭代器，反之不成立）<br>  生成器表达式：<br>       1.使用()生成generator(生成器) 将两表推到式的[]改为()即可得到生成器<br>           a = (x for x in range(10 ** 9))<br>       2.yield： 包含yield表达式的函数是特殊的函数，叫做生成器函数<br>                 被调用时将返回一个迭代器，调用时用next 或者 send(msg)<br>                 ~ 一个生成器中可以有多个yield<br>                 ~ 一旦遇到yield 就会保存当前状态 然后返回yield后面的值<br>                 例子： def max1(i)<br>                             yield i       yield执行后就会保存状态，下次从yield开始执行<br>                           print(manx(1))  =&gt;  生成一个生成器<br>                           print(next(max1))  =&gt;  依次取值<br>       3.send数据：<br>           用户可以使用send 来跟生成器进行交互  send的数据会输入到生成器yield的位置<br>       4.yield from:<br>           当我们想从一个生成器取到内部的数据的时候<br>  ~生成器的好处：<br>          可以用更少的中间变量写流式代码<br>          相比其他容器对象他能节省内存<br>          可以减少代码的使用</p>
+<hr>
+<p>9.关于查看程序执行时间的方法  时间戳<br>    import time<br>    #时间戳   从1970.1.1 0点0时0秒<br>    start = time.time()<br>    a = [x for x in range(10*9)]<br>    print(time.time()-start)</p>
 
       
     </div>
