@@ -121,8 +121,8 @@ for i in week:
 <hr>
 <ol start="10">
 <li>常见的编程范式：<ul>
-<li>面向过程编程</li>
-<li>面向对象编程</li>
+<li>面向过程编程：根据操作数据的语句块来实现功能</li>
+<li>面向对象编程：把数据和功能结合起来，用称为对象的东西包裹起来组织程序的方法</li>
 <li>函数式编程： 如果一个函数可以接受函数作为参数，并且返回一个结果，这个函数为函数式编程</li>
 </ul>
 </li>
@@ -147,6 +147,161 @@ print(list(ret))</code></pre></li>
 <pre><code>reduce(函数，可迭代对象)</code></pre><p>  例子：from functools import reduce</p>
 <pre><code>reduce(lambda x,y:x*10+y,[1,3,7,5,9])    =&gt;13759</code></pre></li>
 </ul>
+<hr>
+<ol start="12">
+<li><p>类(class):类里面的变量称为类属性(每个实例都可以使用)   类中函数里面的变量称为实例属性 </p>
+<pre><code>      每个类中都有一个__init__ 方法(自动调用) 作用是来初始化类的 调用的时候直接：
+      solution = 类名(类对象)
+例子： class Soultion(object):
+        def __init__(self,age,name,sex):
+            self.age = age
+            self.name = name
+            self.sex = sex 
+    solution = Soultion(age=10,name=&apos;lijian&apos;,sex=&apos;男&apos;)
+    print(solution.name)
+    print(solution.age)
+    print(solution.sex)</code></pre><p><strong>new</strong> 方法：  开始创建实例  def <strong>new</strong> (cls,* args, ** kwargs):</p>
+<pre><code>                return object.__new__(cls)
+这样就会创建一个实例 后面的__init__方法就会初始化创建出来的实例</code></pre><p>注意： object 中包含了<strong>new</strong> <strong>init</strong> 这两个方法 一般不需要自行写入</p>
+<pre><code>类和方法是可以动态添加属性和方法的    
+bus317.color = green  这样就给实例添加了一个属性
+Bus317.color = blue   这样就给类添加了一个属性
+一个实例有自己的属性的时候 先使用自己的 再使用公共的</code></pre></li>
+</ol>
+<hr>
+<p>13.用类创建迭代器：<br>    利用菲不拉契数列例子：<br>        class Fib(object):<br>    def <strong>init</strong>(self):<br>        self.prev = 0<br>        self.current = 1</p>
+<pre><code>def __next__(self):
+    self.prev,self.current = self.current,self.prev + self.current
+    return self.prev
+# 创建迭代器  只需要放回他自己就好
+def __iter__(self):
+    return self
+
+fib = Fib()
+print(fib.__next__())</code></pre><hr>
+<h2 id="14-类-self-表示调用该方法的实例本身"><a href="#14-类-self-表示调用该方法的实例本身" class="headerlink" title="14.类-self: 表示调用该方法的实例本身"></a>14.类-self: 表示调用该方法的实例本身</h2><p>15.类的继承：<br>    在一个继承类中，如果父类有一个方法而子类也有一个相同的方法，在执行的时候子类会先用自己的方法，符合就近原则。但是子类没有该方法 就会自动的去查找父类和object中是否有该方法。如果<br>    都没有的话就会出现AttributeError这样的错误</p>
+<pre><code>super().sports()      在子类于父类有同样的方法的时候，要求子类在调用该方法的时候先去父类调用该方法</code></pre><hr>
+<p>16.装饰器(类方法)  @classmethod  在一个类里面定义只作用于这个类的方法<br>    @classmethod<br>    def add(cls):      cls是出现在那个类里面就表示哪个类<br>        cls.count += 1    </p>
+<hr>
+<p>17 定义一个异常类;  异常类都继承于 Exception<br>     #异常类的定义<br>    class ListLenghtError(Exception):<br>        pass</p>
+<pre><code>li = list(range(8))
+if len(li) &gt;= 10:
+    raise ListLenghtError
+else:
+    print(&quot;列表正确&quot;)</code></pre><hr>
+<p>18.类的继承中的多态<br>    多态：多种状态，在面向对象语言中，接口的多种不同的实现方式<br>    python是一种多态语言，裳称鸭子类型</p>
+<pre><code>def talk_with(self,obj):      obj:是子类中的某个类
+    obj.talk()               
+有了这个多态 就可以用现在处在的这个类直接调用别的类中的talk方法    
+父类名.某个子类中的方法()   就可实现调用</code></pre><hr>
+<p>19.经典类与新式类：<br>    python2： 经典类是按照深度优先来继承的   新式类是按照C3算法来继承的<br>    python3： 同意按照C3算法来继承<br>            MRO: 方法解析顺序  解决当定义了多个同名的方法/属性的时候让用户找到正确的对象所实现的一种算法<br>            C3算法： * 子类会先于父类被检查<br>                     * 多个父类会根据他们在列表中的顺序被检查<br>                     * 如果对下一个类存在两个合法的选择，选择第一个父类<br>                     mro() :  可以直接退出C3 算法 </p>
+<hr>
+<p>20  * 实例方法： def <strong>init</strong>():    这个方法是给实例用的 一定要传递一个实例或者调用<br>    * 静态方法： @staticmethod<br>    * 类方法： @classmethod  cls表示类本身   在哪个类里面就表示哪个类  </p>
+<pre><code>在方法中，没有使用实例信息，也没有使用类信息     @staticmethod 静态方法
+在方法中，没有使用实例信息，使用到了类信息       @classmathod  类方法
+在方法中，用到实例信息，没有使用到类信息         普通实例方法
+在方法中，用到实例信息和类信息                  实例方法+类方法
+
+例子：
+
+    class Tst(object):
+    #类属性(静态属性)
+    class_attribute = &apos;A&apos;
+
+    def __init__(self):
+        #实例属性
+        self.instance_attrubute = &apos;B&apos;
+    #实例方法
+    def instance_method(self):
+        print(&apos;这是一个实例方法&apos;)
+        print(self.instance_attrubute)
+        print(self.class_attribute)
+
+    # 类方法    =》 装饰器
+    #把classmethod下面的方法变为类方法
+    @classmethod
+    def class_method(cls):
+        print(&apos;这是个类方法&apos;)
+        #类方法只能调用类属性
+        print(cls.class_attribute)
+
+    #静态方法
+    @staticmethod
+    def static_method():
+        print(&apos;这是个静态方法&apos;)
+        print(Tst.class_attribute)
+
+    #用实例来调用实例方法
+    tst = Tst()
+    tst.instance_method()
+
+    #用类来调用类方法
+    Tst.class_method()
+    #用实例来调用方法
+    tst.class_method()
+
+    #用实例来调用静态方法
+    tst.static_method()
+    #用类来调用静态方法
+    Tst.static_method()</code></pre><hr>
+<p>21.属性包装 ：@ property   将方法转化为属性来使用<br>        当生成一个包装后 python会自动生成 @类名.setter  @类名.delete 等包装<br>    例子：</p>
+<pre><code>    class Person(object):
+def __init__(self,name,age):
+    self.name = name
+    self._age = age
+
+@property
+def age(self):
+    print(&apos;property_age&apos;)
+    return self._age
+
+# 这是用做修改的功能
+@age.setter
+def age(self,value):
+      if 0&lt;value&lt;100:
+        self._age = value
+    else:
+        raise ValueError(&apos;超出范围&apos;)
+
+# 这是删除的功能
+@age.deleter
+def age(self):
+    del self._age
+
+p1 =  Person(&apos;cali&apos;,19)
+#当作属性可以直接访问
+print(p1.age)
+p1.age = 10
+print(p1.age)</code></pre><hr>
+<p>22.类中的下划线：   _age 表示是私有的     <strong>age 表示是强制不能使用的<br>                                       强行访问的方式  obj._classname</strong>foo<br>                                       obj 实例名   classname 类名</p>
+<hr>
+<ol start="23">
+<li>魔术方法：<ul>
+<li><strong>new</strong> 创建实例:<br>  def <strong>new</strong>(cls,* args, ** kwargs):<pre><code>return upper().__new__(cls)</code></pre></li>
+<li><strong>init</strong> 初始化实例：<br>  def <strong>init</strong>(self):<pre><code>return 初始化实例</code></pre></li>
+<li><strong>del</strong> 删除方法：<br>  def <strong>del</strong>(self):<pre><code>return 删除方法   自动调用    </code></pre></li>
+<li><strong>getitem</strong> 获取数据</li>
+<li><strong>setitem</strong> 设置数据</li>
+<li><strong>iter</strong>    可迭代</li>
+<li><strong>eq</strong>(self,other)     符号 ==<pre><code>tst1.__eq__(txt2)    self.tst1 == other.tst2</code></pre></li>
+<li><strong>ne</strong> (self,other)    !=</li>
+<li><strong>it</strong> (self,other)    &lt;</li>
+<li><strong>gt</strong> (self,other)    &lt;=</li>
+<li><strong>add</strong>(self,other)    +</li>
+<li><strong>mul</strong>(self,other)    *</li>
+<li><strong>len</strong> (self)  长度</li>
+<li><strong>str</strong> (self)  友好的输出实例信息=&gt;非正式</li>
+<li><strong>repr</strong>(self)  友好的输出实例信息=&gt;正式  结果放在列表中</li>
+<li><strong>dict</strong>(self)  类的属性</li>
+<li><strong>doc</strong> (self)  类的文档</li>
+<li><strong>name</strong>(self)  类名</li>
+<li><strong>module</strong>(self)  类定义所在的模块</li>
+<li><strong>bases</strong> (self)  类所有父类构成元素</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>24.自省: 检查某些事务以确定他是什么 他是干什么的能做什么<br>         类似于：dir()    typle()<br>    自省的方法：<br>        * getattr(obj,’name’):获取成员<br>            getattr(实例名，属性值)<br>        * hasattr(obj,’name’):检查是否含有成员<br>            hasattr(实例名，属性值)<br>        * setattr(obj,’age’,value): 设置成员<br>            getattr(实例名，属性值,修改值)<br>        * delattr(obj,’name’):删除成员<br>            delattr(实例名，属性值)</p>
 
       
     </div>
