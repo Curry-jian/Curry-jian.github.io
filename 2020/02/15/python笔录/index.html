@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="title: python笔录date: 2020-02-15 16:54:55tags:  1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3    对于range()函数循环取值后：(包前不包后)">
 <meta property="article:published_time" content="2020-02-15T08:54:55.732Z">
-<meta property="article:modified_time" content="2020-02-17T13:16:56.735Z">
+<meta property="article:modified_time" content="2020-02-18T13:48:52.703Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -304,7 +304,54 @@ print(p1.age)</code></pre><hr>
 </ol>
 <hr>
 <p>24.自省: 检查某些事务以确定他是什么 他是干什么的能做什么<br>         类似于：dir()    typle()<br>    自省的方法：<br>        * getattr(obj,’name’):获取成员<br>            getattr(实例名，属性值)<br>        * hasattr(obj,’name’):检查是否含有成员<br>            hasattr(实例名，属性值)<br>        * setattr(obj,’age’,value): 设置成员<br>            getattr(实例名，属性值,修改值)<br>        * delattr(obj,’name’):删除成员<br>            delattr(实例名，属性值)</p>
+<hr>
+<p>25.python元类：  元类就是用来创建类的类   类是由type创建的  type是默认的一个元类<br>    type创建类    type(类名，(object),{方法:函数})<br>        第一个参数： 是写出类名<br>        第二个参数： 继承自谁<br>        第三个参数： ‘方法名’:函数(方法)</p>
+<hr>
+<p>26.抽象基类：  from abc import ABCmeta,abstractmethod        metaclass = ABCMeta<br>            @abstractmethod  下面的函数可以在子类中出现了该方法就可以直接调用</p>
+<hr>
+<p>27.闭包：在函数中可以(嵌套)<br>    定义另外一个函数，如果内部函数引用了外部的函数变量，则可能产生闭包<br>    闭包可以用来在一个函数于一组“私有”变量之间创建关联关系<br>    在给定函数被多次调用的过程中，这些私有变量能够保持其持久性<br>闭包形成的条件：<br>    * 有一个内嵌的函数<br>    * 内部函数必须要引用外部函数的变量<br>    * 外部函数返回内部函数(函数名)<br>闭包的特点：闭合范围内的变量是有状态的 随着调用 会不断的更新     </p>
+<p>例子：<br>    def func01():<br>    a = 1<br>    def func02():<br>        # 表示使用上一层函数的变量<br>        nonlocal a<br>        #从右往左计算 那么a就没有值<br>        a = a+1<br>        print(a)<br>    return func02()</p>
+<hr>
+<p>28.编写装饰器;<br>    编写装饰器的固定模板：</p>
+<pre><code>import functools
+def 装饰器名(func):
+    @functools.wraps(实例函数)
+    def _dec(*args,**kwargs)
+        你想添加的功能
+        result = func(*args,**kwargs)
+        你想添加的功能
+        return result
+return _dec
 
+带参数的装饰器的模板：
+def permission_required(user):
+    def dec(func):
+        def _dec(*args,**kwargs):
+            # 你想添加的功能
+            result = func(*args,**kwargs)
+            # 你想添加的功能
+            return result
+        return _dec
+    return dec
+
+
+例子：import functools
+    def login_required(func):
+        @functools.wraps(func)   =》 是可以提示哪个函数被调用
+        def _dec(a,b,*args,** kwargs):
+            if name == &apos;root&apos;:
+                print(f&quot;{func.__name__}被调用&quot;)
+                return func(a,b,*args,** kwargs) =&gt; 
+                                可变长参数   不用管函数传入的参数什么样子
+            else:
+                print(&apos;有问题&apos;)
+                return False
+        return _dec
+    @login_required
+    def add(a,b,*args,** kwargs):
+        print(a+b)
+        return a+b
+    add(1,2,&apos;root&apos;)</code></pre>
       
     </div>
     <footer class="article-footer">
