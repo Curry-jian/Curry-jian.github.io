@@ -310,7 +310,7 @@ print(p1.age)</code></pre><hr>
 <p>27.闭包：在函数中可以(嵌套)<br>    定义另外一个函数，如果内部函数引用了外部的函数变量，则可能产生闭包<br>    闭包可以用来在一个函数于一组“私有”变量之间创建关联关系<br>    在给定函数被多次调用的过程中，这些私有变量能够保持其持久性<br>闭包形成的条件：<br>    * 有一个内嵌的函数<br>    * 内部函数必须要引用外部函数的变量<br>    * 外部函数返回内部函数(函数名)<br>闭包的特点：闭合范围内的变量是有状态的 随着调用 会不断的更新     </p>
 <p>例子：<br>    def func01():<br>    a = 1<br>    def func02():<br>        # 表示使用上一层函数的变量<br>        nonlocal a<br>        #从右往左计算 那么a就没有值<br>        a = a+1<br>        print(a)<br>    return func02()</p>
 <hr>
-<p>28.编写装饰器;<br>    编写装饰器的固定模板：</p>
+<p>28.编写装饰器;（作用：给函数添加功能）<br>    编写装饰器的固定模板：</p>
 <pre><code>import functools
 def 装饰器名(func):
     @functools.wraps(实例函数)
@@ -349,7 +349,71 @@ def permission_required(user):
     def add(a,b,*args,** kwargs):
         print(a+b)
         return a+b
-    add(1,2,&apos;root&apos;)</code></pre>
+    add(1,2,&apos;root&apos;)</code></pre><hr>
+<p>29.用类来实现装饰器<br>    <strong>init</strong> 初始化类         <strong>call</strong>  传入参数的时候使用</p>
+<p>例子：</p>
+<pre><code>class logging(object):
+def __init__(self,func):
+    self.func = func
+
+# 当函数中有参数的时候  会调用__call__ 方法
+def __call__(self, *args, **kwargs):
+    reslut  =  self.func(*args,**kwargs)
+    print(f&apos;{self.func.__name__}被调用&apos;)
+    return reslut</code></pre><p>@logging<br>def add(a,b):<br>    return a+b<br>print(add(1,2))</p>
+<hr>
+<p> 30.上下文管理器： 上下文管理器是一个包装任意代码块的对象<br>     进入上下文管理器时，每次代码执行的一致性<br>     当退出上下文管理器时，相关的资源会被正确回收 即使内部代码出错，退出步骤也会执行<br>     上下文管理器用的最多的就是  作为确保资源正确清理的一种方式<br>     重点：编写上写文管理器的时候 必须要有 <strong>enter</strong> <strong>exit</strong> 属性</p>
+<p> with语句： 仅仅能对上下文管理协议的对象使用<br>             with语句的作用是返回一个遵循特定协议的的对象，具体来说就是必须要定义一个<br>             <strong>enter</strong>方法和<strong>exit</strong>方法</p>
+<p>with的工作原理：<br>    with open() as f:            with context_expras cm:<br>        # obj.<strong>enter</strong>()                dosomething<br>        f.read()<br>        # obj.<strong>exit</strong>()</p>
+<ul>
+<li>在进入代码块之前会执行obj.<strong>enter</strong>()语句（自动调用）</li>
+<li>在退出代码块之前会执行obj.<strong>exit</strong>()语句（自动调用）</li>
+</ul>
+<p>编写上下文管理器：   重点：编写上写文管理器的时候 必须要有 <strong>enter</strong> <strong>exit</strong> 属性<br>例子：<br>    class A(object):<br>        def <strong>init</strong>(self):                                  =&gt;第一步<br>        pass<br>        def <strong>enter</strong>(self):                                =&gt;第二步<br>        pass<br>        def <strong>exit</strong>(self, exc_type, exc_val, exc_tb):        =&gt;第四步<br>        pass<br>    with A() as a:<br>        print(‘xxx’)                                        =&gt;第三步</p>
+<hr>
+<p>31.上下文自动管理模块： contextlib 可以用简单的方法创建上下文管理器(没弄懂)<br>    @cotextlib.contextmanage  这是一个上下文管理的装饰器</p>
+<hr>
+<h2 id="32-while-Ture-是表示一直循环下去-死循环-当遇到break-的时候就会退出"><a href="#32-while-Ture-是表示一直循环下去-死循环-当遇到break-的时候就会退出" class="headerlink" title="32.while Ture   是表示一直循环下去(死循环) 当遇到break 的时候就会退出"></a>32.while Ture   是表示一直循环下去(死循环) 当遇到break 的时候就会退出</h2><p>33.logging日志的记录:</p>
+<pre><code>import logging
+#配置loging
+#level 记录等级比自己高的日志
+logging.basicConfig(level=logging.INFO,format=&apos;%(asctime)s-%(name)s-%(message)s&apos;)
+#创建日子记录器
+logger= logging.getLogger(&apos;cali_game&apos;)
+#记日志
+logging.debug(&quot;这是一个debug&quot;)
+logging.info(&quot;这是一个info&quot;)
+logging.warning(&quot;这是一个warning&quot;)
+logging.error(&quot;这是一个error&quot;)
+logging.critical(&quot;这是一个critical&quot;)
+try:
+    raise ValueError(&apos;value error&apos;)
+except Exception as ex:
+    logging.exception(ex)
+print(&quot;finished&quot;)</code></pre><p>将日志放入log文件中</p>
+<pre><code>import logging
+#创建日志记录器
+logger = logging.getLogger(__name__)
+#为logger做日志配置
+logger.setLevel(level=logging.INFO)
+#把内容输出到文件中去
+filehander = logging.FileHandler(&apos;log.txt&apos;)
+filehander.setLevel(level=logging.DEBUG)
+formatter = logging.Formatter(&apos;%(asctime)s -%(name)s:[%(levelname)s]:%(message)s&apos;)
+filehander.setFormatter(formatter)
+#给日志记录器添加存储位置
+logger.addHandler(filehander)
+
+logging.debug(&quot;这是一个debug&quot;)
+logging.info(&quot;这是一个info&quot;) 
+logging.warning(&quot;这是一个warning&quot;)
+logging.error(&quot;这是一个error&quot;)
+logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
+<p>34.调试方式：asset断言<br>    assert expression ,(arguments)<br>    assert 表达式 参数                 直接报错退出</p>
+<p>例子：<br>    score = input(“输入”)<br>    assert score.isdigit(),”输入的有问题”</p>
+<hr>
+<p>35.pdb 调试器<br>    可以直接使用启动调试器<br>        python -m pdb mypdb_base.py<br>    pdb 指令<br>        下一条语句  n next<br>        打印变量信息： p 变量名<br>        打印脚本信息： l<br>        退出pdb  q<br>        查看帮助  h</p>
+
       
     </div>
     <footer class="article-footer">
