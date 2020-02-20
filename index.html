@@ -413,6 +413,64 @@ logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
 <p>例子：<br>    score = input(“输入”)<br>    assert score.isdigit(),”输入的有问题”</p>
 <hr>
 <p>35.pdb 调试器<br>    可以直接使用启动调试器<br>        python -m pdb mypdb_base.py<br>    pdb 指令<br>        下一条语句  n next<br>        打印变量信息： p 变量名<br>        打印脚本信息： l<br>        退出pdb  q<br>        查看帮助  h</p>
+<hr>
+<p>36.列表中的数 自由排列  排列数列  从4个里面选出3个 排列<br>    import itertools<br>    mylist = list(itertools.permutations([1,2,3,4],3))<br>    print(mylist)<br>    print(len(mylist))</p>
+<hr>
+<p>37.列表中的数自由组合<br>    import itertools<br>    mylist = list(itertools.permutations([1,2,3,4],3))<br>    print(mylist)<br>    print(len(mylist))</p>
+<hr>
+<p>38.排列组合  生成密码<br>    import itertools<br>    mylist = list(itertools.product([1,2,3,4],repeat=3))<br>    print(mylist)<br>    print(len(mylist))</p>
+<hr>
+<p>39.正则表达式：<br>    re模块使python有了正则的功能 就是根据一种模式 来提取某些地方的数据</p>
+<p>re.match函数：  match(pattern,string,flags = 0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：尝试从字符串的起始位置开始匹配的一个模式，如果不是起始位置匹配成功的话，返回None<br>例子：   import re<br>        print(re.match(‘www’,’wwW.baidu.com’,flags=re.I))  re.I :表示忽略大小写</p>
+<!-- 结果：    <re.Match object; span=(0, 3), match='wwW'> -->
+
+<p>re.search函数：  search(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串，会现显示前面的那段<br>      如果匹配不成功的话会返回None<br>例子：   import re<br>        print(re.search(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
+<!-- 结果：<re.Match object; span=(7, 10), match='wwW'> -->
+
+<p>re.findall函数：findall(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个列表，<br>    如果没有则会返回None<br>例子：  import re<br>        print(re.findall(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))<br>结果：    [‘wwW’, ‘wwW’]</p>
+<hr>
+<p>40.正则表达式：匹配单个字符和数字<br> .  匹配除换行符以外的任意字符<br>        例子：   import re<br>                print(re.search(‘.’,’lijian is a good man’))<br>        <!-- 结果：   <re.Match object; span=(0, 1), match='l'> --></p>
+<p> [] 字符集合，表示匹配方括号中所包含的任意一个字符<br>    [a-z]: 匹配任意小写字母</p>
+<!--      [A-Z]: 匹配任意大写字母
+         [0-9]: 匹配任意数字
+         [0-9a-zA-Z] : 匹配任意数字于字母
+         [^lijian]:匹配出了lijian这几个字符意外的所有字符  -->
+<pre><code> ^: 脱字符 表示不匹配集合中的字符    
+ \d: 匹配所有的数字 效果同[0-9]
+ \D:    匹配所有的非数字 效果同[^\d]
+ \w: 匹配所有的数字 字母 下划线
+ \W: 匹配非数字 字母 下划线
+ \s: 匹配任意的空白符（空格，换行，回车，换页，制表）效果同：[ \f\n\r\t]
+ \S: 匹配任非任意的空白符 [^ \f\n\r\t]
+
+ 例子：  import re
+       print(re.search(&apos;[0-9]&apos;,&apos;lijian is a good man 2&apos;))
+&lt;!-- 结果：&lt;re.Match object; span=(21, 22), match=&apos;2&apos;&gt; --</code></pre><hr>
+<p>41.正则表达式：匹配锚字符（边界字符）<br>  ^  行首匹配  筛选某个字符串开头的方式   每行的开头<br>                   import re<br>               print(re.search(‘^lijian’,’lijian is a good man 2’))<br>        <!-- 结果：<re.Match object; span=(0, 6), match='lijian'> --><br>  $  行尾匹配  筛选某个字符串结尾的方式    每行的开头<br>                  import re<br>               print(re.search(‘2&amp;’,’lijian is a good man 2’))<br>         <!-- 结果：<re.Match object; span=(21, 22), match='2'> --><br>  \A  匹配字符串的开始     换行后的第一字符串也不行  就是整个字符串的开头<br>          re.M(换行模式)模式下不会匹配他的行首<br>                  import re<br>                print(re.findall(‘\Alijian’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘lijian’]<br>  \Z   匹配字符串的结束     换行后的最后一个字符串也不行  就是整个字符串的结尾<br>          re.M(换行模式)模式下不会匹配他的行尾<br>                  import re<br>                print(re.findall(‘manb\Z’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘manb’]<br>  \b   匹配以什么结尾的单词<br>                  import re<br>                  print(re.search(r’er\B’,’nerve’))  记得转义<br>              <!-- 结果： <re.Match object; span=(1, 3), match='er'> --><br>  \B   匹配中间含有什么的单词<br>                  import re<br>                  print(re.search(r’er\b’,’never’))   记得转义<br>              <!-- 结果：<re.Match object; span=(3, 5), match='er'> --></p>
+<hr>
+<p>42.正则表达式：匹配多个字符<br>    (x,y,x)   匹配括号里的xyz (把xyz看成一个整体)<br>                import re<br>                print(re.findall(‘(laugh)’,’never not to laugh myself’))<br>            <!-- 结果：<re.Match object; span=(13, 18), match='laugh'> --><br>    x？        匹配0个或者1个x  (就是将匹配的x一个一个显示出来)非贪婪匹配 尽可能少的匹配<br>                import re<br>                print(re.findall(‘x?’,’xxx’))<br>            <!-- 结果：['x', 'x', 'x', ''] --><br>    x*         匹配多个x   (就是将相邻的x合成一个字符串输出) 贪婪匹配 尽可能多的匹配<br>                import re<br>                print(re.findall (‘x*’, ‘xxx’))<br>            <!-- 结果：['xxx', ''] --><br>    x+         匹配至少一个x  (就是在有x的情况下 将相邻的x合成一个字符串输出)<br>                贪婪匹配 尽可能多的匹配</p>
+<pre><code>            import re
+            print(re.findall(&apos;x+&apos;,&apos;xxxbxxxx&apos;))
+        &lt;!-- 结果：[&apos;xxx&apos;, &apos;xxxx&apos;] --&gt;
+x{n}        匹配确定含有n个x的字符串（n 是一个非负整数） 贪婪匹配 将相邻的n个x一起打印
+            import re
+            print(re.findall(&apos;x{4}&apos;,&apos;xxxbxxxx&apos;))
+        &lt;!-- 结果：[&apos;xxxx&apos;] --&gt;
+x{n,}        匹配至少含有n个x的字符串 （n 是一个非负整数）贪婪匹配 将相邻的n个x一起打印
+            import re
+            print(re.findall(&apos;x{4,}&apos;,&apos;xxxbxxxxxx&apos;))
+        &lt;!-- 结果：[&apos;xxxxxx&apos;] --&gt;
+x{n,m}   匹配至少含有n个最多m个x的字符串（n，m是一个非负整数）
+            贪婪匹配 将符合要求的相邻的n个x一起打印
+            import re
+            print(re.findall(&apos;x{4,6}&apos;,&apos;xxxbxxxxxx&apos;))
+        &lt;!-- 结果：[&apos;xxxxxx&apos;] --&gt;
+x|y      匹配含有x或者y的字符串   
+            import re
+            print(re.findall(&apos;((x|y)aaa)&apos;,&apos;xaaa-yaaa&apos;))
+        &lt;!-- 结果：[(&apos;xaaa&apos;, &apos;x&apos;), (&apos;yaaa&apos;, &apos;y&apos;)] --&gt;</code></pre><hr>
+<p>43.正则表达式-特殊匹配<br>    * ？    + ？    x ？<br>    最小匹配，通长是尽可能多的匹配，可以使用这种解决贪婪匹配</p>
+<p>   (?:x)  类似(xyz)  但是不表示一个组</p>
 
       
     </div>
