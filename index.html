@@ -427,7 +427,10 @@ logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
 <p>re.search函数：  search(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串，会现显示前面的那段<br>      如果匹配不成功的话会返回None<br>例子：   import re<br>        print(re.search(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
 <!-- 结果：<re.Match object; span=(7, 10), match='wwW'> -->
 
-<p>re.findall函数：findall(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个列表，<br>    如果没有则会返回None<br>例子：  import re<br>        print(re.findall(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))<br>结果：    [‘wwW’, ‘wwW’]</p>
+<p>re.findall函数：findall(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个列表，<br>    如果没有则会返回None<br>例子：  import re<br>        print(re.findall(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
+<!-- 结果：    ['wwW', 'wwW'] -->
+
+<p>re.finditer函数： finditer(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个迭代器<br>    如果没有则会返回None<br>例子：   import re<br>        print(re.finditer(‘(lijian)’,’lijian a good man,lijian a handsome man’))<br>    <!-- 结果：<callable_iterator object at 0x0000024A9EC8ED30> --></p>
 <hr>
 <p>40.正则表达式：匹配单个字符和数字<br> .  匹配除换行符以外的任意字符<br>        例子：   import re<br>                print(re.search(‘.’,’lijian is a good man’))<br>        <!-- 结果：   <re.Match object; span=(0, 1), match='l'> --></p>
 <p> [] 字符集合，表示匹配方括号中所包含的任意一个字符<br>    [a-z]: 匹配任意小写字母</p>
@@ -470,8 +473,13 @@ x|y      匹配含有x或者y的字符串
             print(re.findall(&apos;((x|y)aaa)&apos;,&apos;xaaa-yaaa&apos;))
         &lt;!-- 结果：[(&apos;xaaa&apos;, &apos;x&apos;), (&apos;yaaa&apos;, &apos;y&apos;)] --&gt;</code></pre><hr>
 <p>43.正则表达式-特殊匹配<br>    * ？    + ？    x ？<br>    最小匹配，通长是尽可能多的匹配，可以使用这种解决贪婪匹配</p>
-<p>   (?:x)  类似(xyz)  但是不表示一个组</p>
-
+<h2 id="x-类似-xyz-但是不表示一个组"><a href="#x-类似-xyz-但是不表示一个组" class="headerlink" title="   (?:x)  类似(xyz)  但是不表示一个组    "></a>   (?:x)  类似(xyz)  但是不表示一个组    </h2><p>44.正则表达式-字符串的替换和修改<br> sub(pattern,repl,string,count=0,flags=0) =&gt; 打印的类型  str<br> subn(pattern,repl,sttring,count=0,flags=0) =&gt; 打印的类型 tuple<br> 例子：   sub<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.sub(‘good’,’nice’,str1))<br> <!--  结果：lijian a nice nice man --><br> 例子：   subn<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.subn(‘good’,’nice’,str1))<br> <!--  结果：('lijian a nice nice man', 2) --><br> pattern:正则表达式（规则）<br> repl : 指定的用来替换的字符串<br> string： 目标字符串<br> count：最多替换次数<br>功能：在目标字符串中按照匹配规则进行匹配字符串，然后在将字符串替换成指定的字符串，count可以指定替换的次数</p>
+<hr>
+<p>45.正则表达式-分组<br>    正则表达式除了简单的判断是否匹配之外，正则表达式还有提取子串的功能<br>    用（）表示的就是提取分组<br>    提取数据：  m.group(0)   最外层<br>               m.group(1)    依次往里取组</p>
+<hr>
+<p>46.正则表达式-编译   将正则表达式变成一个对象 对用户友好<br>    当我们使用正则表达式的时候 re模块<br>    1.编译正则表达式，如果正则表达式不和法，会报错<br>    2.用编译后的正则表达式去匹配对象<br>    compile(pattern,flags=0)<br>功能：将正则表达式进行封装 到时候去匹配的时候 如果是按照正则表示的规则来的就会输出 否则就会输出None   (最常用)</p>
+<p>例子：<br>    import re<br>    re_QQ = re.compile(r’[1-9]\d{5,9}$’)<br>    print(re_QQ.search(‘1234568789’))</p>
+<!-- 结果：<re.Match object; span=(0, 10), match='1234568789'> -->
       
     </div>
     <footer class="article-footer">
