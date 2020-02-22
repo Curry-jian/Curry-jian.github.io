@@ -1167,8 +1167,102 @@ url链接和加载静态文件的例子：
 <hr>
 <p>4.javascript：具有动态交互的时，需要使用的语言<br>    * 在函数中定义参数的时候 有var时就是局部变量  没有的是的就是全局变量<br>        function func01(){<br>            var func01 = a<br>    }</p>
 <hr>
-<p>5.js运算符中 三元运算符的格式   ？xx1:xx2<br>    voteable = (age&lt;18)?’年龄太小’：’年龄达到’</p>
-
+<p>5.js运算符中 三元运算符的格式   ？xx1:xx2<br>    voteable = (age&lt;18)?’年龄太小’：’年龄达到’  符合要求输出前面 否则输出后面<br>———————————————————————————–6</p>
+<p>6.js中弹窗的输出：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    // alert 弹窗 
+    alert(&apos;abc&apos;);
+    //弹出现在的使时间
+    alert(new Date().toLocaleString());
+&lt;/script&gt; </code></pre><hr>
+<p>7.JS中的其他输出</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;JS的输出&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1 id=&quot;title&quot;&gt;我是标题&lt;/h1&gt;
+        &lt;!-- 事件 双击 移动 --&gt;
+        &lt;button type=&quot;button&quot;&gt;点我&lt;/button&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            // 弹窗
+            window.alert(&apos;提示信息1&apos;);
+            // 写入内容到html文档
+            // 当使用document.write时 如果页面加载完毕，会覆盖整个内容
+            document.write(&apos;我是document_write_01\n&apos;);
+            document.write(&apos;我是document_write_01&apos;);
+            // 获取页面上ID=title的对象  并用inneHtml 修改对象的数据
+            document.getElementById(&apos;title&apos;).innerHTML=&apos;我是HIML标题&apos;;
+            console.log(&apos;这是一些console日记&apos;);
+            // 定义函数
+            function func01(){
+                document.write(&apos;我是函数&apos;);
+            }
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>————————————————————————————8.JS的函数：<br>    var a=1 =&gt; 这是一个局部变量    a = 1 =&gt; 这是一个全局变量</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;button onclick=&quot;sum02(1,2)&quot;&gt;点击计算&lt;/button&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            function sum02(arg1,arg2){
+                result = sum(arg1,arg2);
+                console.log(result)
+            }
+            function sum(arg1,arg2){
+                return arg1+arg2;
+            }
+            console.log(sum(1,2))
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><hr>
+<p>9.时间和函数的结合</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;事件与函数相结合&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;button onclick=&quot;this.innerHTML=Date()&quot;&gt;时间1&lt;/button&gt;&lt;br/&gt;
+        &lt;button onclick=&quot;func01(this)&quot;&gt;看看时间2&lt;/button&gt;&lt;br/&gt;
+        &lt;button onclick=&quot;func01(this)&quot;&gt;看看时间3&lt;/button&gt;&lt;br/&gt;
+        &lt;button onmousedown=&quot;func01(this)&quot;&gt;看看时间4&lt;/button&gt;&lt;br/&gt;
+        &lt;button onmouseover=&quot;func01(this)&quot;&gt;看看时间4&lt;/button&gt;&lt;br/&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function func01(obj){
+            obj.innerHTML = Date()
+        }
+    &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><hr>
+<p>10.js中的json字符串：json 是各个语言之间进行数据交互的桥梁</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;事件与函数相结合&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;button onclick=&quot;this.innerHTML=Date()&quot;&gt;时间1&lt;/button&gt;&lt;br/&gt;
+        &lt;button onclick=&quot;func01(this)&quot;&gt;看看时间2&lt;/button&gt;&lt;br/&gt;
+        &lt;button onclick=&quot;func01(this)&quot;&gt;看看时间3&lt;/button&gt;&lt;br/&gt;
+        &lt;button onmousedown=&quot;func01(this)&quot;&gt;看看时间4&lt;/button&gt;&lt;br/&gt;
+        &lt;button onmouseover=&quot;func01(this)&quot;&gt;看看时间4&lt;/button&gt;&lt;br/&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function func01(obj){
+            obj.innerHTML = Date()
+        }
+    &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
       
     </div>
     <footer class="article-footer">
