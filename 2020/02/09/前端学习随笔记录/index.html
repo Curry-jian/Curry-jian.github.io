@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="1.css样式中：    * id选择器： #id    * class选择器： .class    * 普通选择器：     * 注意：如果想优先使用一个样式：在样式后面加入 ！important    * 浮动： float left 左浮动  是将两行的东西放到同一行            float right 右浮动  是将两行的东西放到同一行  2.盒子模型：    Margin(外边">
 <meta property="article:published_time" content="2020-02-09T02:55:00.000Z">
-<meta property="article:modified_time" content="2020-02-22T03:45:29.657Z">
+<meta property="article:modified_time" content="2020-02-22T15:43:33.433Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -190,7 +190,74 @@
         }
     &lt;/script&gt;
     &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+&lt;/html&gt;</code></pre><hr>
+<p>11.js中获取元素的方式：</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+// 获取元素的第一种方式 getElementById  
+var demo = document.getElementById(id=&apos;demo&apos;);
+console.log(demo);
+// 通过本来就有的标签来获取元素
+var h1s = document.getElementsByTagName(&apos;h1&apos;)
+console.log(h1s)
+// 通过class名来获取元素
+var sty01s = document.getElementsByClassName(&apos;sty01&apos;)
+console.log(sty01s)
+// 通过标签名来获取元素
+var nov1 = document.getElementsByName(&apos;nov&apos;)
+console.log(nov1)
+// 通过索引的方式来读取获取元素里面的内容
+console.log(nov1[0].innerHTML)
+// 获取一个div下的第一元素
+console.log(demo.firstElementChild);
+// 获取一个div下的第一元素的名字
+console.log(demo.firstElementChild.nodeName)
+// 获取一个div下的第一元素的文本内容
+console.log(demo.firstElementChild.innerHTML)
+// 修改div下的第一元素里的内容
+demo.firstElementChild.innerHTML = &apos;2020-02-09&apos;
+&lt;/script&gt;</code></pre><hr>
+<p>12.js中事件及其元素的获取</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- 添加事件的一种方式 --&gt;
+        &lt;h1 onclick=&quot;changetext(this)&quot;&gt;添加事件方法一 &lt;/h1&gt;        
+        &lt;!-- 添加元素的第二种方式 --&gt;
+        &lt;h1&gt;添加事件方法二&lt;/h1&gt;
+        &lt;button id=&quot;myBtn1&quot;&gt;点我1&lt;/button&gt;
+        &lt;p id=&apos;content&apos;&gt;这是要修改的内容&lt;/p&gt;        
+        &lt;!-- 添加事件方法3 --&gt;
+        &lt;button id=&quot;myBtn3&quot;&gt;点我&lt;/button&gt;
+        &lt;p id=&quot;content1&quot;&gt;这是要修改的内容&lt;/p&gt;            
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            function changetext(obj){
+                obj.innerHTML = &apos;这里被点击了&apos;
+            }
+            function changecontent(){
+                document.getElementById(&apos;content&apos;).innerHTML = &apos;添加事件修改类容&apos;
+            }
+            // 添加事件的方法二
+            document.getElementById(&apos;myBtn1&apos;).onclick = changecontent
+            // 添加事件方法三
+            document.getElementById(&apos;myBtn3&apos;).addEventListener(&apos;click&apos;,function(){
+                document.getElementById(&apos;content1&apos;).innerHTML = &apos;这是修改后的内容&apos;
+            })
+            // document.getElementById(&apos;myBtn3&apos;).removeEventListener(&apos;onclick&apos;,changecontent)
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><hr>
+<p>13.在仿照百度页面的时候注意的问题<br>    事件监听：  onfocus 获取焦点   onblur 失去焦点<br>        * 用户名的input =&gt; onfocus 获取焦点 =&gt; 执行函数<br>        * 用户名的input =&gt; onblur  失去焦点  =&gt; 检查<br>    this =&gt; 在事件监控器中，默认又一个this的变量，表示的监听的对象本身<br>            当输入为空的时候，删除提示的信息</p>
+<hr>
+<p>14.Jquery<br>    Jquery是Javascript的一个库<br>    资源来源是   下载到本地 或者直接引用网络地址<br>    安装/导入/加载  <!--  <script src=""></script>> --><br>    jquery-1.10.2.min.js   压缩资源 =&gt; 线上环境<br>    jquery-1.10.2.js       非压缩资源 =&gt;开发环境<br>jquery的安装  是直接导入就好      </p>
+<!-- <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"> -->
+<p>基础的语法：     $(selector).action()<br>                美元符号定义 jQuery<br>                选择符（selector）”查询”和”查找” HTML 元素<br>                jQuery 的 action() 执行对元素的操作<br>选择器：在页面中选取所有 p 元素:    $(“p”)<br>        console.log($(‘p’))<br>        通过id来选择元素          $(‘#idname’)<br>        console.log($(‘#username’))<br>        通过类来选择元素          $(‘.classname’)<br>        console.log($(‘.register’))</p>
+<hr>
+<p>15.升级pip 就可以直接配置国内源<br>    python -m pip install –upgrade pip<br>    pip config set global.index-url <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+
       
     </div>
     <footer class="article-footer">
