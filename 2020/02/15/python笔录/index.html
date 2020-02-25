@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Curry-jian">
 <meta property="og:description" content="title: python笔录date: 2020-02-15 16:54:55tags:  1.做列表类的题目心得：(踩过好多坑)    len() 函数的用法： 例子  num1 &#x3D; [1,2,3]                            print(len(num1))  &#x3D;&gt;  3    对于range()函数循环取值后：(包前不包后)">
 <meta property="article:published_time" content="2020-02-15T08:54:55.732Z">
-<meta property="article:modified_time" content="2020-02-21T16:35:08.689Z">
+<meta property="article:modified_time" content="2020-02-25T13:38:47.573Z">
 <meta property="article:author" content="li jian">
 <meta name="twitter:card" content="summary">
   
@@ -423,16 +423,18 @@ logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
 <p>38.排列组合  生成密码<br>    import itertools<br>    mylist = list(itertools.product([1,2,3,4],repeat=3))<br>    print(mylist)<br>    print(len(mylist))</p>
 <hr>
 <p>39.正则表达式：<br>    re模块使python有了正则的功能 就是根据一种模式 来提取某些地方的数据</p>
-<p>re.match函数：  match(pattern,string,flags = 0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：尝试从字符串的起始位置开始匹配的一个模式，如果不是起始位置匹配成功的话，返回None<br>例子：   import re<br>        print(re.match(‘www’,’wwW.baidu.com’,flags=re.I))  re.I :表示忽略大小写</p>
+<p>re.match函数：  match(pattern,string,flags = 0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>match.group: 返回匹配的字符串<br>match.start: 返回的是匹配的开始的位置<br>match.end:   返回的是匹配的结束的位置<br>match.groups:返回分组的全部内容 （””,””,,””）</p>
+<p>功能：尝试从字符串的起始位置开始匹配的一个模式，如果不是起始位置匹配成功的话，返回None<br>例子：   import re<br>        print(re.match(‘www’,’wwW.baidu.com’,flags=re.I))  re.I :表示忽略大小写</p>
 <!-- 结果：    <re.Match object; span=(0, 3), match='wwW'> -->
 
 <p>re.search函数：  search(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串，会现显示前面的那段<br>      如果匹配不成功的话会返回None<br>例子：   import re<br>        print(re.search(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
 <!-- 结果：<re.Match object; span=(7, 10), match='wwW'> -->
 
-<p>re.findall函数：findall(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个列表，<br>    如果没有则会返回None<br>例子：  import re<br>        print(re.findall(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
+<p>re.findall函数：findall(pattern,string,flags=0)    <!-- (\)记得转义 --><br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个列表，<br>    如果没有则会返回None<br>例子：  import re<br>        print(re.findall(‘www’,’.baidu.wwW.wwWcom’,flags=re.I))</p>
 <!-- 结果：    ['wwW', 'wwW'] -->
 
-<p>re.finditer函数： finditer(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个迭代器<br>    如果没有则会返回None<br>例子：   import re<br>        print(re.finditer(‘(lijian)’,’lijian a good man,lijian a handsome man’))<br>    <!-- 结果：<callable_iterator object at 0x0000024A9EC8ED30> --></p>
+<!-- ret = re.finditer(r'[a-c\-]at', message) -->  \的重要性  有特殊意义的都是需要转义
+<p>re.finditer函数： finditer(pattern,string,flags=0)<br>        pattern:匹配的正则表达式<br>        string:要匹配的字符串<br>        flags:标识位，用于控制正则表达式的匹配方式<br>                 re.I  忽略大小写<br>                 re.L  做本地户识别<br>                 re.M  多行匹配 影响^和$<br>                 re.S  是.匹配包括换行符在内的所欲字符<br>                 re.U  根据Unicode 字符集解析字符 影响\w \W \b \B<br>                 re.X  使我们以更加灵活的格式理解正则表达式<br>                 ?:i   是表示内联的标记<br>功能：在整个字符串中进行匹配的一种模式，如果出现相同的字符串则都会返回，返回的形式是个迭代器<br>    如果没有则会返回None<br>例子：   import re<br>        print(re.finditer(‘(lijian)’,’lijian a good man,lijian a handsome man’))<br>    <!-- 结果：<callable_iterator object at 0x0000024A9EC8ED30> --></p>
 <hr>
 <p>40.正则表达式：匹配单个字符和数字<br> .  匹配除换行符以外的任意字符<br>        例子：   import re<br>                print(re.search(‘.’,’lijian is a good man’))<br>        <!-- 结果：   <re.Match object; span=(0, 1), match='l'> --></p>
 <p> [] 字符集合，表示匹配方括号中所包含的任意一个字符<br>    [a-z]: 匹配任意小写字母</p>
@@ -440,7 +442,7 @@ logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
          [0-9]: 匹配任意数字
          [0-9a-zA-Z] : 匹配任意数字于字母
          [^lijian]:匹配出了lijian这几个字符意外的所有字符  -->
-<pre><code> ^: 脱字符 表示不匹配集合中的字符    
+<pre><code> ^: 脱字符 表示不匹配集合中的字符 取反
  \d: 匹配所有的数字 效果同[0-9]
  \D:    匹配所有的非数字 效果同[^\d]
  \w: 匹配所有的数字 字母 下划线
@@ -451,7 +453,7 @@ logging.critical(&quot;这是一个critical&quot;)</code></pre><hr>
  例子：  import re
        print(re.search(&apos;[0-9]&apos;,&apos;lijian is a good man 2&apos;))
 &lt;!-- 结果：&lt;re.Match object; span=(21, 22), match=&apos;2&apos;&gt; --</code></pre><hr>
-<p>41.正则表达式：匹配锚字符（边界字符）<br>  ^  行首匹配  筛选某个字符串开头的方式   每行的开头<br>                   import re<br>               print(re.search(‘^lijian’,’lijian is a good man 2’))<br>        <!-- 结果：<re.Match object; span=(0, 6), match='lijian'> --><br>  $  行尾匹配  筛选某个字符串结尾的方式    每行的开头<br>                  import re<br>               print(re.search(‘2&amp;’,’lijian is a good man 2’))<br>         <!-- 结果：<re.Match object; span=(21, 22), match='2'> --><br>  \A  匹配字符串的开始     换行后的第一字符串也不行  就是整个字符串的开头<br>          re.M(换行模式)模式下不会匹配他的行首<br>                  import re<br>                print(re.findall(‘\Alijian’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘lijian’]<br>  \Z   匹配字符串的结束     换行后的最后一个字符串也不行  就是整个字符串的结尾<br>          re.M(换行模式)模式下不会匹配他的行尾<br>                  import re<br>                print(re.findall(‘manb\Z’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘manb’]<br>  \b   匹配以什么结尾的单词<br>                  import re<br>                  print(re.search(r’er\B’,’nerve’))  记得转义<br>              <!-- 结果： <re.Match object; span=(1, 3), match='er'> --><br>  \B   匹配中间含有什么的单词<br>                  import re<br>                  print(re.search(r’er\b’,’never’))   记得转义<br>              <!-- 结果：<re.Match object; span=(3, 5), match='er'> --></p>
+<p>41.正则表达式：匹配锚字符（边界字符）<br>  ^  行首匹配  筛选某个字符串开头的方式   每行的开头<br>                   import re<br>               print(re.search(‘^lijian’,’lijian is a good man 2’))<br>        <!-- 结果：<re.Match object; span=(0, 6), match='lijian'> --><br>  $  行尾匹配  筛选某个字符串结尾的方式    每行的结尾<br>                  import re<br>               print(re.search(‘2&amp;’,’lijian is a good man 2’))<br>         <!-- 结果：<re.Match object; span=(21, 22), match='2'> --><br>  \A  匹配字符串的开始     换行后的第一字符串也不行  就是整个字符串的开头<br>          re.M(换行模式)模式下不会匹配他的行首<br>                  import re<br>                print(re.findall(‘\Alijian’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘lijian’]<br>  \Z   匹配字符串的结束     换行后的最后一个字符串也不行  就是整个字符串的结尾<br>          re.M(换行模式)模式下不会匹配他的行尾<br>                  import re<br>                print(re.findall(‘manb\Z’,’lijian is a good man manb\nlijian shifih  hishfkh manb’,re.M))<br>                结果：[‘manb’]<br>  \b   匹配以什么结尾的单词<br>                  import re<br>                  print(re.search(r’er\B’,’nerve’))  记得raw<br>              <!-- 结果： <re.Match object; span=(1, 3), match='er'> --><br>  \B   匹配中间含有什么的单词<br>                  import re<br>                  print(re.search(r’er\b’,’never’))   记得raw<br>              <!-- 结果：<re.Match object; span=(3, 5), match='er'> --></p>
 <hr>
 <p>42.正则表达式：匹配多个字符<br>    (x,y,x)   匹配括号里的xyz (把xyz看成一个整体)<br>                import re<br>                print(re.findall(‘(laugh)’,’never not to laugh myself’))<br>            <!-- 结果：<re.Match object; span=(13, 18), match='laugh'> --><br>    x？        匹配0个或者1个x  (就是将匹配的x一个一个显示出来)非贪婪匹配 尽可能少的匹配<br>                import re<br>                print(re.findall(‘x?’,’xxx’))<br>            <!-- 结果：['x', 'x', 'x', ''] --><br>    x*         匹配多个x   (就是将相邻的x合成一个字符串输出) 贪婪匹配 尽可能多的匹配<br>                import re<br>                print(re.findall (‘x*’, ‘xxx’))<br>            <!-- 结果：['xxx', ''] --><br>    x+         匹配至少一个x  (就是在有x的情况下 将相邻的x合成一个字符串输出)<br>                贪婪匹配 尽可能多的匹配</p>
 <pre><code>            import re
@@ -475,13 +477,81 @@ x|y      匹配含有x或者y的字符串
             print(re.findall(&apos;((x|y)aaa)&apos;,&apos;xaaa-yaaa&apos;))
         &lt;!-- 结果：[(&apos;xaaa&apos;, &apos;x&apos;), (&apos;yaaa&apos;, &apos;y&apos;)] --&gt;</code></pre><hr>
 <p>43.正则表达式-特殊匹配<br>    * ？    + ？    x ？<br>    最小匹配，通长是尽可能多的匹配，可以使用这种解决贪婪匹配</p>
-<h2 id="x-类似-xyz-但是不表示一个组"><a href="#x-类似-xyz-但是不表示一个组" class="headerlink" title="   (?:x)  类似(xyz)  但是不表示一个组    "></a>   (?:x)  类似(xyz)  但是不表示一个组    </h2><p>44.正则表达式-字符串的替换和修改<br> sub(pattern,repl,string,count=0,flags=0) =&gt; 打印的类型  str<br> subn(pattern,repl,sttring,count=0,flags=0) =&gt; 打印的类型 tuple<br> 例子：   sub<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.sub(‘good’,’nice’,str1))<br> <!--  结果：lijian a nice nice man --><br> 例子：   subn<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.subn(‘good’,’nice’,str1))<br> <!--  结果：('lijian a nice nice man', 2) --><br> pattern:正则表达式（规则）<br> repl : 指定的用来替换的字符串<br> string： 目标字符串<br> count：最多替换次数<br>功能：在目标字符串中按照匹配规则进行匹配字符串，然后在将字符串替换成指定的字符串，count可以指定替换的次数</p>
+<h2 id="x-类似-xyz-但是不表示一个组-？p-分组命名"><a href="#x-类似-xyz-但是不表示一个组-？p-分组命名" class="headerlink" title="   (?:x)  类似(xyz)  但是不表示一个组      ？p  分组命名"></a>   (?:x)  类似(xyz)  但是不表示一个组      ？p<name>  分组命名</h2><p>44.正则表达式-字符串的替换和修改<br> sub(pattern,repl,string,count=0,flags=0) =&gt; 打印的类型  str<br> subn(pattern,repl,sttring,count=0,flags=0) =&gt; 打印的类型 tuple<br> 例子：   sub<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.sub(‘good’,’nice’,str1))<br> <!--  结果：lijian a nice nice man --><br> 例子：   subn<br>     import re<br>    str1 = ‘lijian a good good man’<br>    print(re.subn(‘good’,’nice’,str1))<br> <!--  结果：('lijian a nice nice man', 2) --><br> pattern:正则表达式（规则）<br> repl : 指定的用来替换的字符串<br> string： 目标字符串<br> count：最多替换次数<br>功能：在目标字符串中按照匹配规则进行匹配字符串，然后在将字符串替换成指定的字符串，count可以指定替换的次数</p>
 <hr>
 <p>45.正则表达式-分组<br>    正则表达式除了简单的判断是否匹配之外，正则表达式还有提取子串的功能<br>    用（）表示的就是提取分组<br>    提取数据：  m.group(0)   最外层<br>               m.group(1)    依次往里取组</p>
 <hr>
 <p>46.正则表达式-编译   将正则表达式变成一个对象 对用户友好<br>    当我们使用正则表达式的时候 re模块<br>    1.编译正则表达式，如果正则表达式不和法，会报错<br>    2.用编译后的正则表达式去匹配对象<br>    compile(pattern,flags=0)<br>功能：将正则表达式进行封装 到时候去匹配的时候 如果是按照正则表示的规则来的就会输出 否则就会输出None   (最常用)</p>
 <p>例子：<br>    import re<br>    re_QQ = re.compile(r’[1-9]\d{5,9}$’)<br>    print(re_QQ.search(‘1234568789’))</p>
 <!-- 结果：<re.Match object; span=(0, 10), match='1234568789'> -->
+<hr>
+<p>47.踩坑记录：<br>    message = “a.jpg, a.gif, a.css, b.gif, b.css”<br>    ret = re.findall(r’[a-zA-Z0-9].(?:jpg|gif)’, message)   =》 ?: 表示不是一个组<br>    print(ret)   </p>
+<hr>
+<p>49.练习：<br>长度为8-10的用户名（以字母、下划线开头，由字母、数字、下划线组成）<br>    content = “””<br>    a<br>    1aaaaaaaa<br>    <em>a<br>    <em>1<br>    asdfasddf<br>    11<br>    ad_a<br>    asd+s<br>    abcdefghi<br>    1aaaaaa<em>a<br>    1aaaaaaa a<br>    aaa</em>aaa_aa<br>    1234562452<br>    a_______</em></em><br>    <strong><strong><strong>_____</strong></strong></strong><br>    “””<br>    # ^ 表示以什么开头    $ 表示以什么结尾  [字母或者下划线]   \w 字母 数字 下划线   {7,9}长度<br>    ret = re.findall(r”^[a-zA-Z_]\w{7,9}$”,content,re.M)<br>    print(ret)</p>
+<p>电子邮箱验证(<!-- xxx1@xxx2.xxx3 -->，xxx1、xxx2由字母数字下划线组成，xxx1长度为6-18)</p>
+<!--     mystr = """
+    a@163.com
+    aaaasdf@16.com
+    aaaasdf@16.net
+    asd*wwf@sdf.com
+    """ -->
+<!-- ^ 表示以什么开头  \w字母 数字 下划线   +一个以上  \. 将点转义  (?:com|net)？:是不将括号看为分组 |或
+ret = re.findall(r"^\w{6,18}@\w+\.[a-z]+$",mystr,re.M)
+ret = re.findall(r"^\w{6,18}@\w+\.(?:com|net)$",mystr,re.M)
+print(mystr) -->
+
+
+<!-- #  URL地址验证(http[s]://www.baidu.com[/?a=111&b=111], -->
+<p>mystr = “””</p>
+<!-- http://www.baidu.com
+http://baidu.com
+https://www.baidu.com
+https://t.cn
+https://www.baidu.com/?a=111&b=111 -->
+<!-- """
+ret = re.findall(r"^http[s]?://\w+\.\w+\.(?:com|cn)",mystr,re.M)
+print(ret) -->
+
+
+<!-- msg = """
+Feng Tel: 18392013983
+Feng Tel: 183 9201 3983
+Feng Tel: 183-9201-3983
+Feng Tel: (+86) 183 9201 3983
+Feng Tel: (+86) 18392013983
+Feng Tel: (+01)18392013983"""
+
+# (?:\(\+\d{2}\))? 一个整体是否存在(+86)   [ -]?空格和-中的一个  \d{3} 三个数字
+ret = re.findall(r"(?:\(\+\d{2}\)[ -]?)?\d{3}[ -]?\d{4}[ -]?\d{4}",msg,re.M)
+print(ret) -->
+
+<hr>
+<p>50.爬虫爬取网站照片：<br>    ### 总结 =&gt;<br>    ### 需求 =&gt; <a href="https://movie.douban.com/" target="_blank" rel="noopener">https://movie.douban.com/</a> =&gt; 图片保存当前目录的imgs目录下<br>    # 获取网页的内容<br>    import requests<br>    import os</p>
+<pre><code>headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0&quot;}
+
+response = requests.get(&quot;https://movie.douban.com/&quot;,
+                    headers=headers)
+# 添加headers的user-agent的目的是告诉douban，我不是一个脚本，我是Firefox浏览器
+html = response.text
+# 从html页面中获取所有的图片链接
+# &lt;img src=&quot;https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2581067467.jpg&quot;
+all_imgs_link = re.findall(r&apos;src=&quot;(.*?\.(jpg|png|gif|bmp|webp))&quot;&apos;, html)
+# 路径 。扩展名
+# print(all_imgs_link)
+# 将这些图片保存到当前目录的imgs目录下
+output_dir = &apos;./imgs&apos;
+if not os.path.exists(output_dir):
+    os.mkdir(output_dir)
+
+for i,pic_url in enumerate(all_imgs_link):
+    # 把图片存在本地 =&gt; 二进制文件 =&gt; content
+    #                            =&gt; text =&gt; content转化成str
+    img = requests.get(pic_url[0], headers=headers).content
+    # filepath = output_dir/i.pic_url[1]
+    filepath = f&quot;{output_dir}/{i}.{pic_url[1]}&quot;
+    print(filepath)
+    with open(filepath, &apos;wb&apos;) as f:
+        f.write(img)</code></pre>
       
     </div>
     <footer class="article-footer">
