@@ -549,7 +549,9 @@ for i,pic_url in enumerate(all_imgs_link):
     filepath = f&quot;{output_dir}/{i}.{pic_url[1]}&quot;
     print(filepath)
     with open(filepath, &apos;wb&apos;) as f:
-        f.write(img)</code></pre>
+        f.write(img)</code></pre><hr>
+<p>51.断言：（存在问题）</p>
+
       
     </div>
     <footer class="article-footer">
@@ -1580,6 +1582,130 @@ demo.firstElementChild.innerHTML = &apos;2020-02-09&apos;
 <p>5.CORS和JSONP的区别<br>    JSONP 优点： 没有简便  没有兼容性问题<br>    JSONP 缺点： 只支持GET请求<br>    CORE：支持所有的类型HTTP请求  只需要服务端做处理</p>
 <p>6.什么是Ajax<br>    AJAX  与服务器进行数据交换并更新部分网页的艺术，在不重新加载整个页面的情况下<br>    AJAX    =    异步 JavaScript 和 XML<br>7.为什么要用AJAX？<br>    在不重新加载页面的情况下进行数据的交互</p>
 <p>8.什么场景下使用Ajax?<br>    例如在触发某个事件的时候 需要提取后台的数据时</p>
+<hr>
+<p>21.表单提交 submit与butten 的区别<br>    input =&gt; button 和 submit 的区别<br>    button 只是一个普通的按钮<br>    submit 当点击时，会自动用method的方式提交表单到action<br>    提交表单中带有name属性的元素的表单控制的值<br>    get =&gt; 参数直接加到url末尾？name = value$name=value<br>    post =&gt; request-headers</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form&gt;
+            &lt;p&gt;&lt;label&gt;用户名&lt;/label&gt;&lt;input type=&quot;text&quot;/&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;label&gt;密码&lt;/label&gt;&lt;input type=&quot;password&quot;/&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;input type=&quot;button&quot; value=&quot;button&quot;/&gt; &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;&lt;/p&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>表单提交的方法： post 与get   submit button</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form id=&quot;form1&quot; method=&quot;post&quot; action=&quot;/login/&quot;&gt;
+            &lt;p&gt;&lt;label&gt;用户名&lt;/label&gt;&lt;input name=&quot;user&quot; type=&quot;text&quot;/&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;label&gt;密码&lt;/label&gt;&lt;input name=&quot;password&quot; type=&quot;password&quot;/&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;input id=&quot;bt_button&quot; type=&quot;button&quot; value=&quot;button&quot;/&gt; &lt;input id=&quot;bt_submit&quot; type=&quot;submit&quot; value=&quot;submit&quot; /&gt;&lt;/p&gt;
+        &lt;/form&gt;
+        &lt;script src=&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            $(&quot;#bt_submit&quot;).click(function(){
+                // 只有返回true 才会提交表单
+                // 判断的语句
+                return true
+                // 判断的语句
+                return false
+            })
+
+            $(&quot;#bt_button&quot;).click(function(){
+                return $(&quot;#form1&quot;).submit()
+            })
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><hr>
+<p>22.bootstrap ： 基于HTML css Javascript  框架<br> css: 写好了一些样式<br> JS : 写好了一些事件 函数等<br>在使用bootstrap时候 可以直接连接网上资源：<br>    当只要css样式的时候 可以只加载bootstrap.css文件<br>    当要有交互的内容的时候  可以加载bootstrap.js文件 当时之前要加载jq文件</p>
+<pre><code>&lt;!-- 最新版本的 Bootstrap 核心 CSS 文件 --&gt;    
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css&quot; integrity=&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot; crossorigin=&quot;anonymous&quot;&gt;
+
+&lt;!-- 可选的 Bootstrap 主题文件（一般不用引入） --&gt;
+&lt;!-- 注意 bookstrap是基于javaquary 的   我们要先加载jq资源 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css&quot; integrity=&quot;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&quot; crossorigin=&quot;anonymous&quot;&gt;
+
+&lt;!-- 加载jq --&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js&quot; integrity=&quot;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</code></pre><hr>
+<p>23.栅格系统：<br>    * bootstrap 把元素分成12等分<br>    * 响应式： 可以根据屏幕的大小，展示不同的大小内容<br>例子：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css&quot; integrity=&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot; crossorigin=&quot;anonymous&quot;&gt;
+        &lt;style&gt;
+            [class*=&quot;col-&quot;] {
+                /*padding-top: 15px;*/
+                /*padding-bottom: 15px;*/
+                /*background-color: #eee;*/
+                background-color: rgba(86, 61, 124, .15);
+                /*border: 1px solid #ddd;*/
+                border: 1px solid rgba(86, 61, 124, .2);
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- 创建一个容器 --&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;h1&gt;你好，世界&lt;/h1&gt;
+            &lt;h2&gt;1.栅格系统&lt;/h2&gt;
+            &lt;div class=&quot;row&quot;&gt;
+                &lt;div class=&quot;col-xs-4&quot;&gt;md4&lt;/div&gt;
+                &lt;div class=&quot;col-xs-6&quot;&gt;md6&lt;/div&gt;
+                &lt;div class=&quot;col-xs-2&quot;&gt;md2&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!-- 响应式 --&gt;
+            &lt;h3&gt;2.响应式例子：&lt;/h3&gt;
+            &lt;div class=&quot;row&quot;&gt;
+                &lt;div class=&quot;col-md-4 col-xs-6&quot;&gt;md4&lt;/div&gt;
+                &lt;div class=&quot;col-md-6 col-xs-6&quot;&gt;md6&lt;/div&gt;
+                &lt;div class=&quot;col-md-2 col-xs-6&quot;&gt;md2&lt;/div&gt;
+                &lt;div class=&quot;col-md-2 col-xs-6&quot;&gt;md2&lt;/div&gt;
+            &lt;/div&gt; 
+            &lt;!-- 小练习 --&gt;
+            &lt;h3&gt;3.小练习&lt;/h3&gt;
+            &lt;div class=&quot;row&quot;&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;1&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;2&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;3&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;4&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;5&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;6&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;7&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;8&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;9&lt;/div&gt;
+                &lt;div class=&quot;col-xs-12 col-sm-6 col-md-4&quot;&gt;10&lt;/div&gt;        
+            &lt;/div&gt;
+            &lt;h3&gt;4.列偏移&lt;/h3&gt;
+            &lt;div class=&quot;raw&quot;&gt;
+                &lt;div class=&quot;col-md-4&quot;&gt;1&lt;/div&gt;
+                &lt;div class=&quot;col-md-4 col-md-offset-2&quot;&gt;2&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h3&gt;5.列嵌套&lt;/h3&gt;
+            &lt;!-- 将被嵌套的对象看成一个目标 进行切分 --&gt;
+            &lt;div class=&quot;raw&quot;&gt;
+                &lt;div class=&quot;col-xs-5&quot;&gt;1&lt;/div&gt;
+                &lt;div class=&quot;col-xs-7&quot;&gt;
+                    &lt;div class=&quot;col-xs-6&quot;&gt;2&lt;/div&gt;
+                    &lt;div class=&quot;col-xs-6&quot;&gt;3&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>栅格系统还有一些格式 可以参考<a href="https://v3.bootcss.com/css/#type" target="_blank" rel="noopener">https://v3.bootcss.com/css/#type</a></p>
 
       
     </div>
