@@ -63,6 +63,147 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Linux基本命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/05/Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-03-05T14:40:31.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/05/Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">Linux基本命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.系统信息<br>    arch 显示机器的处理器架构(1)<br>    uname -m 显示机器的处理器架构(2)<br>    uname -r 显示正在使用的内核版本<br>    dmidecode -q 显示硬件系统部件 - (SMBIOS / DMI)<br>    hdparm -i /dev/hda 罗列一个磁盘的架构特性<br>    hdparm -tT /dev/sda 在磁盘上执行测试性读取操作<br>    cat /proc/cpuinfo 显示CPU info的信息<br>    cat /proc/interrupts 显示中断<br>    cat /proc/meminfo 校验内存使用<br>    cat /proc/swaps 显示哪些swap被使用<br>    cat /proc/version 显示内核的版本<br>    cat /proc/net/dev 显示网络适配器及统计<br>    cat /proc/mounts 显示已加载的文件系统<br>    lspci -tv 罗列 PCI 设备<br>    lsusb -tv 显示 USB 设备<br>    date 显示系统日期<br>    cal 2007 显示2007年的日历表<br>    date 041217002007.00 设置日期和时间 - 月日时分年.秒<br>    clock -w 将时间修改保存到 BIOS </p>
+<p>2.关机 (系统的关机、重启以及登出 )<br>    shutdown -h now 关闭系统(1)<br>    init 0 关闭系统(2)<br>    telinit 0 关闭系统(3)<br>    shutdown -h hours:minutes &amp; 按预定时间关闭系统<br>    shutdown -c 取消按预定时间关闭系统<br>    shutdown -r now 重启(1)<br>    reboot 重启(2)<br>    logout 注销 </p>
+<p>3.文件和目录<br>    cd /home 进入 ‘/ home’ 目录’<br>    cd .. 返回上一级目录<br>    cd ../.. 返回上两级目录<br>    cd 进入个人的主目录<br>    cd ~user1 进入个人的主目录<br>    cd - 返回上次所在的目录<br>    pwd 显示工作路径<br>    ls 查看目录中的文件<br>    ls -F 查看目录中的文件<br>    ls -l 显示文件和目录的详细资料<br>    ls -a 显示隐藏文件<br>    ls <em>[0-9]</em> 显示包含数字的文件名和目录名<br>    tree 显示文件和目录由根目录开始的树形结构(1)<br>    lstree 显示文件和目录由根目录开始的树形结构(2)<br>    mkdir dir1 创建一个叫做 ‘dir1’ 的目录’<br>    mkdir dir1 dir2 同时创建两个目录<br>    mkdir -p /tmp/dir1/dir2 创建一个目录树<br>    rm -f file1 删除一个叫做 ‘file1’ 的文件’<br>    rmdir dir1 删除一个叫做 ‘dir1’ 的目录’<br>    rm -rf dir1 删除一个叫做 ‘dir1’ 的目录并同时删除其内容<br>    rm -rf dir1 dir2 同时删除两个目录及它们的内容<br>    mv dir1 new_dir 重命名/移动 一个目录<br>    cp file1 file2 复制一个文件<br>    cp dir/* . 复制一个目录下的所有文件到当前工作目录<br>    cp -a /tmp/dir1 . 复制一个目录到当前工作目录<br>    cp -a dir1 dir2 复制一个目录<br>    ln -s file1 lnk1 创建一个指向文件或目录的软链接<br>    ln file1 lnk1 创建一个指向文件或目录的物理链接<br>    touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm)<br>    file file1 outputs the mime type of the file as text<br>    iconv -l 列出已知的编码<br>    iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding.<br>    find . -maxdepth 1 -name *.jpg -print -exec convert “{}” -resize 80x60 “thumbs/{}” ; batch resize files in the current directory and send them to a thumbnails directory (requires convert from Imagemagick) </p>
+<p>4.文件搜索<br>     find / -name file1 从 ‘/‘ 开始进入根文件系统搜索文件和目录<br>    find / -user user1 搜索属于用户 ‘user1’ 的文件和目录<br>    find /home/user1 -name *.bin 在目录 ‘/ home/user1’ 中搜索带有’.bin’ 结尾的文件<br>    find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件<br>    find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件<br>    find / -name *.rpm -exec chmod 755 ‘{}’ ; 搜索以 ‘.rpm’ 结尾的文件并定义其权限<br>    find / -xdev -name *.rpm 搜索以 ‘.rpm’ 结尾的文件，忽略光驱、捷盘等可移动设备<br>    locate *.ps 寻找以 ‘.ps’ 结尾的文件 - 先运行 ‘updatedb’ 命令<br>    whereis halt 显示一个二进制文件、源码或man的位置<br>    which halt 显示一个二进制文件或可执行文件的完整路径 </p>
+<p>5.挂载一个文件系统<br>    mount /dev/hda2 /mnt/hda2 挂载一个叫做hda2的盘 - 确定目录 ‘/ mnt/hda2’ 已经存在<br>    umount /dev/hda2 卸载一个叫做hda2的盘 - 先从挂载点 ‘/ mnt/hda2’ 退出<br>    fuser -km /mnt/hda2 当设备繁忙时强制卸载<br>    umount -n /mnt/hda2 运行卸载操作而不写入 /etc/mtab 文件- 当文件为只读或当磁盘写满时非常有用<br>    mount /dev/fd0 /mnt/floppy 挂载一个软盘<br>    mount /dev/cdrom /mnt/cdrom 挂载一个cdrom或dvdrom<br>    mount /dev/hdc /mnt/cdrecorder 挂载一个cdrw或dvdrom<br>    mount /dev/hdb /mnt/cdrecorder 挂载一个cdrw或dvdrom<br>    mount -o loop file.iso /mnt/cdrom 挂载一个文件或ISO镜像文件<br>    mount -t vfat /dev/hda5 /mnt/hda5 挂载一个Windows FAT32文件系统<br>    mount /dev/sda1 /mnt/usbdisk 挂载一个usb 捷盘或闪存设备<br>    mount -t smbfs -o username=user,password=pass //WinClient/share /mnt/share 挂载一个windows网络共享 </p>
+<p>6.磁盘空间<br>    df -h 显示已经挂载的分区列表<br>    ls -lSr |more 以尺寸大小排列文件和目录<br>    du -sh dir1 估算目录 ‘dir1’ 已经使用的磁盘空间’<br>    du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小<br>    rpm -q -a –qf ‘%10{SIZE}t%{NAME}n’ | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统)<br>    dpkg-query -W -f=’${Installed-Size;10}t${Package}n’ | sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统) </p>
+<p>7.用户和群组<br>    groupadd group_name 创建一个新用户组<br>    groupdel group_name 删除一个用户组<br>    groupmod -n new_group_name old_group_name 重命名一个用户组<br>    useradd -c “Name Surname “ -g admin -d /home/user1 -s /bin/bash user1 创建一个属于 “admin” 用户组的用户<br>    useradd user1 创建一个新用户<br>    userdel -r user1 删除一个用户 ( ‘-r’ 排除主目录)<br>    usermod -c “User FTP” -g system -d /ftp/user1 -s /bin/nologin user1 修改用户属性<br>    passwd 修改口令<br>    passwd user1 修改一个用户的口令 (只允许root执行)<br>    chage -E 2005-12-31 user1 设置用户口令的失效期限<br>    pwck 检查 ‘/etc/passwd’ 的文件格式和语法修正以及存在的用户<br>    grpck 检查 ‘/etc/passwd’ 的文件格式和语法修正以及存在的群组<br>    newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 </p>
+<p>8.文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消<br>    ls -lh 显示权限<br>    ls /tmp | pr -T5 -W$COLUMNS 将终端划分成5栏显示<br>    chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r ）、写(w)和执行(x)的权限<br>    chmod go-rwx directory1 删除群组(g)与其他人(o)对目录的读写执行权限<br>    chown user1 file1 改变一个文件的所有人属性<br>    chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性<br>    chgrp group1 file1 改变文件的群组<br>    chown user1:group1 file1 改变一个文件的所有人和群组属性<br>    find / -perm -u+s 罗列一个系统中所有使用了SUID控制的文件<br>    chmod u+s /bin/file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限<br>    chmod u-s /bin/file1 禁用一个二进制文件的 SUID位<br>    chmod g+s /home/public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的<br>    chmod g-s /home/public 禁用一个目录的 SGID 位<br>    chmod o+t /home/public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件<br>    chmod o-t /home/public 禁用一个目录的 STIKY 位 </p>
+<ol start="9">
+<li>chattr +a file1 只允许以追加方式读写文件<br> chattr +c file1 允许这个文件能被内核自动压缩/解压<br> chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件<br> chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接<br> chattr +s file1 允许一个文件被安全地删除<br> chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘<br> chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件<br> lsattr 显示特殊的属性 </li>
+</ol>
+<p>10.打包和压缩文件<br>    bunzip2 file1.bz2 解压一个叫做 ‘file1.bz2’的文件<br>    bzip2 file1 压缩一个叫做 ‘file1’ 的文件<br>    gunzip file1.gz 解压一个叫做 ‘file1.gz’的文件<br>    gzip file1 压缩一个叫做 ‘file1’的文件<br>    gzip -9 file1 最大程度压缩<br>    rar a file1.rar test_file 创建一个叫做 ‘file1.rar’ 的包<br>    rar a file1.rar file1 file2 dir1 同时压缩 ‘file1’, ‘file2’ 以及目录 ‘dir1’<br>    rar x file1.rar 解压rar包<br>    unrar x file1.rar 解压rar包<br>    tar -cvf archive.tar file1 创建一个非压缩的 tarball<br>    tar -cvf archive.tar file1 file2 dir1 创建一个包含了 ‘file1’, ‘file2’ 以及 ‘dir1’的档案文件<br>    tar -tf archive.tar 显示一个包中的内容<br>    tar -xvf archive.tar 释放一个包<br>    tar -xvf archive.tar -C /tmp 将压缩包释放到 /tmp目录下<br>    tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包<br>    tar -jxvf archive.tar.bz2 解压一个bzip2格式的压缩包<br>    tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包<br>    tar -zxvf archive.tar.gz 解压一个gzip格式的压缩包<br>    zip file1.zip file1 创建一个zip格式的压缩包<br>    zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包<br>    unzip file1.zip 解压一个zip格式压缩包 </p>
+<p>11.RPM 包 - （Fedora, Redhat及类似系统）<br>     rpm -ivh package.rpm 安装一个rpm包<br>    rpm -ivh –nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告<br>    rpm -U package.rpm 更新一个rpm包但不改变其配置文件<br>    rpm -F package.rpm 更新一个确定已经安装的rpm包<br>    rpm -e package_name.rpm 删除一个rpm包<br>    rpm -qa 显示系统中所有已经安装的rpm包<br>    rpm -qa | grep httpd 显示所有名称中包含 “httpd” 字样的rpm包<br>    rpm -qi package_name 获取一个已安装包的特殊信息<br>    rpm -qg “System Environment/Daemons” 显示一个组件的rpm包<br>    rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表<br>    rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表<br>    rpm -q package_name –whatrequires 显示与一个rpm包存在依赖关系的列表<br>    rpm -q package_name –whatprovides 显示一个rpm包所占的体积<br>    rpm -q package_name –scripts 显示在安装/删除期间所执行的脚本l<br>    rpm -q package_name –changelog 显示一个rpm包的修改历史<br>    rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供<br>    rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表<br>    rpm –import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书<br>    rpm –checksig package.rpm 确认一个rpm包的完整性<br>    rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性<br>    rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间<br>    rpm -Va 检查系统中所有已安装的rpm包- 小心使用<br>    rpm -Vp package.rpm 确认一个rpm包还未安装<br>    rpm2cpio package.rpm | cpio –extract –make-directories <em>bin</em> 从一个rpm包运行可执行文件<br>    rpm -ivh /usr/src/redhat/RPMS/<code>arch</code>/package.rpm 从一个rpm源码安装一个构建好的包<br>    rpmbuild –rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 </p>
+<p>12.YUM 软件包升级器 - （Fedora, RedHat及类似系统）<br>    yum install package_name 下载并安装一个rpm包<br>    yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系<br>    yum update package_name.rpm 更新当前系统中所有安装的rpm包<br>    yum update package_name 更新一个rpm包<br>    yum remove package_name 删除一个rpm包<br>    yum list 列出当前系统中安装的所有包<br>    yum search package_name 在rpm仓库中搜寻软件包<br>    yum clean packages 清理rpm缓存删除下载的包<br>    yum clean headers 删除所有头文件<br>    yum clean all 删除所有缓存的包和头文件 </p>
+<p>13.DEB 包 (Debian, Ubuntu 以及类似系统)<br>    dpkg -i package.deb 安装/更新一个 deb 包<br>    dpkg -r package_name 从系统删除一个 deb 包<br>    dpkg -l 显示系统中所有已经安装的 deb 包<br>    dpkg -l | grep httpd 显示所有名称中包含 “httpd” 字样的deb包<br>    dpkg -s package_name 获得已经安装在系统中一个特殊包的信息<br>    dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表<br>    dpkg –contents package.deb 显示尚未安装的一个包所提供的文件列表<br>    dpkg -S /bin/ping 确认所给的文件由哪个deb包提供 </p>
+<p>14.APT 软件工具 (Debian, Ubuntu 以及类似系统)<br>    apt-get install package_name 安装/更新一个 deb 包<br>    apt-cdrom install package_name 从光盘安装/更新一个 deb 包<br>    apt-get update 升级列表中的软件包<br>    apt-get upgrade 升级所有已安装的软件<br>    apt-get remove package_name 从系统删除一个deb包<br>    apt-get check 确认依赖的软件仓库正确<br>    apt-get clean 从下载的软件包中清理缓存<br>    apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 </p>
+<p>15.查看文件内容<br>    cat file1 从第一个字节开始正向查看文件的内容<br>    tac file1 从最后一行开始反向查看一个文件的内容<br>    more file1 查看一个长文件的内容<br>    less file1 类似于 ‘more’ 命令，但是它允许在文件中和正向操作一样的反向操作<br>    head -2 file1 查看一个文件的前两行<br>    tail -2 file1 查看一个文件的最后两行<br>    tail -f /var/log/messages 实时查看被添加到一个文件中的内容</p>
+<p>16.文本处理<br>    cat file1 file2 … | command &lt;&gt; file1_in.txt_or_file1_out.txt general syntax for text manipulation using PIPE, STDIN and STDOUT<br>    cat file1 | command( sed, grep, awk, grep, etc…) &gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个新文件中<br>    cat file1 | command( sed, grep, awk, grep, etc…) &gt;&gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个已有的文件中<br>    grep Aug /var/log/messages 在文件 ‘/var/log/messages’中查找关键词”Aug”<br>    grep ^Aug /var/log/messages 在文件 ‘/var/log/messages’中查找以”Aug”开始的词汇<br>    grep [0-9] /var/log/messages 选择 ‘/var/log/messages’ 文件中所有包含数字的行<br>    grep Aug -R /var/log/* 在目录 ‘/var/log’ 及随后的目录中搜索字符串”Aug”<br>    sed ‘s/stringa1/stringa2/g’ example.txt 将example.txt文件中的 “string1” 替换成 “string2”<br>    sed ‘/^$/d’ example.txt 从example.txt文件中删除所有空白行<br>    sed ‘/ <em>#/d; /^$/d’ example.txt 从example.txt文件中删除所有注释和空白行<br>    echo ‘esempio’ | tr ‘[:lower:]’ ‘[:upper:]’ 合并上下单元格内容<br>    sed -e ‘1d’ result.txt 从文件example.txt 中排除第一行<br>    sed -n ‘/stringa1/p’ 查看只包含词汇 “string1”的行<br>    sed -e ‘s/ *$//‘ example.txt 删除每一行最后的空白字符<br>    sed -e ‘s/stringa1//g’ example.txt 从文档中只删除词汇 “string1” 并保留剩余全部<br>    sed -n ‘1,5p;5q’ example.txt 查看从第一行到第5行内容<br>    sed -n ‘5p;5q’ example.txt 查看第5行<br>    sed -e ‘s/00</em>/0/g’ example.txt 用单个零替换多个零<br>    cat -n file1 标示文件的行数<br>    cat example.txt | awk ‘NR%2==1’ 删除example.txt文件中的所有偶数行<br>    echo a b c | awk ‘{print $1}’ 查看一行第一栏<br>    echo a b c | awk ‘{print $1,$3}’ 查看一行的第一和第三栏<br>    paste file1 file2 合并两个文件或两栏的内容<br>    paste -d ‘+’ file1 file2 合并两个文件或两栏的内容，中间用”+”区分<br>    sort file1 file2 排序两个文件的内容<br>    sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份)<br>    sort file1 file2 | uniq -u 删除交集，留下其他的行<br>    sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件)<br>    comm -1 file1 file2 比较两个文件的内容只删除 ‘file1’ 所包含的内容<br>    comm -2 file1 file2 比较两个文件的内容只删除 ‘file2’ 所包含的内容<br>    comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分</p>
+<p>17.字符设置和文件格式转换<br>    dos2unix filedos.txt fileunix.txt 将一个文本文件的格式从MSDOS转换成UNIX<br>    unix2dos fileunix.txt filedos.txt 将一个文本文件的格式从UNIX转换成MSDOS<br>    recode ..HTML &lt; page.txt &gt; page.html 将一个文本文件转换成html<br>    recode -l | more 显示所有允许的转换格式 </p>
+<p>18.文件系统分析<br>    badblocks -v /dev/hda1 检查磁盘hda1上的坏磁块<br>    fsck /dev/hda1 修复/检查hda1磁盘上linux文件系统的完整性<br>    fsck.ext2 /dev/hda1 修复/检查hda1磁盘上ext2文件系统的完整性<br>    e2fsck /dev/hda1 修复/检查hda1磁盘上ext2文件系统的完整性<br>    e2fsck -j /dev/hda1 修复/检查hda1磁盘上ext3文件系统的完整性<br>    fsck.ext3 /dev/hda1 修复/检查hda1磁盘上ext3文件系统的完整性<br>    fsck.vfat /dev/hda1 修复/检查hda1磁盘上fat文件系统的完整性<br>    fsck.msdos /dev/hda1 修复/检查hda1磁盘上dos文件系统的完整性<br>    dosfsck /dev/hda1 修复/检查hda1磁盘上dos文件系统的完整性</p>
+<p>19.初始化一个文件系统<br>    mkfs /dev/hda1 在hda1分区创建一个文件系统<br>    mke2fs /dev/hda1 在hda1分区创建一个linux ext2的文件系统<br>    mke2fs -j /dev/hda1 在hda1分区创建一个linux ext3(日志型)的文件系统<br>    mkfs -t vfat 32 -F /dev/hda1 创建一个 FAT32 文件系统<br>    fdformat -n /dev/fd0 格式化一个软盘<br>    mkswap /dev/hda3 创建一个swap文件系统 </p>
+<p>20.SWAP文件系统<br>    mkswap /dev/hda3 创建一个swap文件系统<br>    swapon /dev/hda3 启用一个新的swap文件系统<br>    swapon /dev/hda2 /dev/hdb3 启用两个swap分区 </p>
+<p>21.备份<br>    dump -0aj -f /tmp/home0.bak /home 制作一个 ‘/home’ 目录的完整备份<br>    dump -1aj -f /tmp/home0.bak /home 制作一个 ‘/home’ 目录的交互式备份<br>    restore -if /tmp/home0.bak 还原一个交互式备份<br>    rsync -rogpav –delete /home /tmp 同步两边的目录<br>    rsync -rogpav -e ssh –delete /home ip_address:/tmp 通过SSH通道rsync<br>    rsync -az -e ssh –delete ip_addr:/home/public /home/local 通过ssh和压缩将一个远程目录同步到本地目录<br>    rsync -az -e ssh –delete /home/local ip_addr:/home/public 通过ssh和压缩将本地目录同步到远程目录<br>    dd bs=1M if=/dev/hda | gzip | ssh user@ip_addr ‘dd of=hda.gz’ 通过ssh在远程主机上执行一次备份本地磁盘的操作<br>    dd if=/dev/sda of=/tmp/file1 备份磁盘内容到一个文件<br>    tar -Puf backup.tar /home/user 执行一次对 ‘/home/user’ 目录的交互式备份操作<br>    ( cd /tmp/local/ &amp;&amp; tar c . ) | ssh -C user@ip_addr ‘cd /home/share/ &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个目录内容<br>    ( tar c /home ) | ssh -C user@ip_addr ‘cd /home/backup-home &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个本地目录<br>    tar cf - . | (cd /tmp/backup ; tar xf - ) 本地将一个目录复制到另一个地方，保留原有权限及链接<br>    find /home/user1 -name ‘<em>.txt’ | xargs cp -av –target-directory=/home/backup/ –parents 从一个目录查找并复制所有以 ‘.txt’ 结尾的文件到另一个目录<br>    find /var/log -name ‘</em>.log’ | tar cv –files-from=- | bzip2 &gt; log.tar.bz2 查找所有以 ‘.log’ 结尾的文件并做成一个bzip包<br>    dd if=/dev/hda of=/dev/fd0 bs=512 count=1 做一个将 MBR (Master Boot Record)内容复制到软盘的动作<br>    dd if=/dev/fd0 of=/dev/hda bs=512 count=1 从已经保存到软盘的备份中恢复MBR内容 </p>
+<p>22.光盘<br>    cdrecord -v gracetime=2 dev=/dev/cdrom -eject blank=fast -force 清空一个可复写的光盘内容<br>    mkisofs /dev/cdrom &gt; cd.iso 在磁盘上创建一个光盘的iso镜像文件<br>    mkisofs /dev/cdrom | gzip &gt; cd_iso.gz 在磁盘上创建一个压缩了的光盘iso镜像文件<br>    mkisofs -J -allow-leading-dots -R -V “Label CD” -iso-level 4 -o ./cd.iso data_cd 创建一个目录的iso镜像文件<br>    cdrecord -v dev=/dev/cdrom cd.iso 刻录一个ISO镜像文件<br>    gzip -dc cd_iso.gz | cdrecord dev=/dev/cdrom - 刻录一个压缩了的ISO镜像文件<br>    mount -o loop cd.iso /mnt/iso 挂载一个ISO镜像文件<br>    cd-paranoia -B 从一个CD光盘转录音轨到 wav 文件中<br>    cd-paranoia – “-3” 从一个CD光盘转录音轨到 wav 文件中（参数-3）<br>    cdrecord –scanbus 扫描总线以识别scsi通道<br>    dd if=/dev/hdc | md5sum 校验一个设备的md5sum编码，例如一张 CD </p>
+<p>23.网络 - （以太网和WIFI无线）<br>     ifconfig eth0 显示一个以太网卡的配置<br>    ifup eth0 启用一个 ‘eth0’ 网络设备<br>    ifdown eth0 禁用一个 ‘eth0’ 网络设备<br>    ifconfig eth0 192.168.1.1 netmask 255.255.255.0 控制IP地址<br>    ifconfig eth0 promisc 设置 ‘eth0’ 成混杂模式以嗅探数据包 (sniffing)<br>    dhclient eth0 以dhcp模式启用 ‘eth0’<br>    route -n show routing table<br>    route add -net 0/0 gw IP_Gateway configura default gateway<br>    route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1 configure static route to reach network ‘192.168.0.0/16’<br>    route del 0/0 gw IP_gateway remove static route<br>    echo “1” &gt; /proc/sys/net/ipv4/ip_forward activate ip routing<br>    hostname show hostname of system<br>    host <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(1)<br>    nslookup <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(2)<br>    ip link show show link status of all interfaces<br>    mii-tool eth0 show link status of ‘eth0’<br>    ethtool eth0 show statistics of network card ‘eth0’<br>    netstat -tup show all active network connections and their PID<br>    netstat -tupl show all network services listening on the system and their PID<br>    tcpdump tcp port 80 show all HTTP traffic<br>    iwlist scan show wireless networks<br>    iwconfig eth1 show configuration of a wireless network card<br>    hostname show hostname<br>    host <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> lookup hostname to resolve name to ip address and viceversa<br>    nslookup <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> lookup hostname to resolve name to ip address and viceversa<br>    whois <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> lookup on Whois database</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/05/Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" data-id="ck7ev3v670000c0v33utfee58" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux高级" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/05/linux%E9%AB%98%E7%BA%A7/" class="article-date">
+  <time datetime="2020-03-05T02:28:55.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/05/linux%E9%AB%98%E7%BA%A7/">linux高级</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/05/linux%E9%AB%98%E7%BA%A7/" data-id="ck7ev3v7v0001c0v31ooh48u4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/04/linux%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2020-03-04T13:07:16.000Z" itemprop="datePublished">2020-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/04/linux%E5%9F%BA%E7%A1%80/">linux基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.查看虚拟机的编码：<br>    locale<br>    echo $LANG<br>2. echo：是查看后面的内容<br>    [root@localhost ~]# echo people<br>    people</p>
+<hr>
+<ol start="3">
+<li>$ : 表示某个变量的值<br> [root@localhost ~]# shuaige=lijian<br> [root@localhost ~]# echo $shuaige<br> lijian</li>
+</ol>
+<hr>
+<h2 id="4-pwd-查看当前在那个路径"><a href="#4-pwd-查看当前在那个路径" class="headerlink" title="4.pwd: 查看当前在那个路径"></a>4.pwd: 查看当前在那个路径</h2><p>5.快照：创建一个linux系统好的状态，一旦系统出了问题的时候，可以恢复到当时创建快照时好的系统状态<br>  挂起： 将虚拟机暂停在某个时间点</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/04/linux%E5%9F%BA%E7%A1%80/" data-id="ck7ev3v7x0002c0v3bbopbd3i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-python笔录" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/15/python%E7%AC%94%E5%BD%95/" class="article-date">
@@ -2168,742 +2309,12 @@ rename_files(&apos;test03&apos;,&apos;[李坚]-&apos;)</code></pre><hr>
 
 
   
-    <article id="post-Flask-SQLAlchemy-DateBase" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/04/Flask-SQLAlchemy-DateBase/" class="article-date">
-  <time datetime="2020-02-04T07:21:13.000Z" itemprop="datePublished">2020-02-04</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/04/Flask-SQLAlchemy-DateBase/">Flask-SQLAlchemy-DateBase</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.MySQL-python中间件的介绍和安装<br>     * 在mac上可以直接输入  ‘sudo pip install mysql-python’进行安装<br>     * 在window下需要到’<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python3&#39;" target="_blank" rel="noopener">https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysql-python3&#39;</a><br>      这个网址下载对应的python版本的中间件<br>          对应的命令： pip install mysqlclient-1.4.6-cp38-cp38-win_amd64.whl<br>     * 注意：如果与python的版本不符合就会出现报错的现象</p>
-<p>2.ORM与Flask-SQLALchemy的安装和介绍<br>    * ORM: Objct Relationship Mapping (模型关系映射)<br>    * flask-aqlalchemy是一套ORM框架<br>    * ORM的好处：可以不适用sql语句进行对数据的修改 ，可以直接使用类的语句就好.一个表<br>        就是一个类，一条数据就是一个对象<br>    * 安装Flask-SQLALchemy： pip install flask-sqlalchemy</p>
-<pre><code>例子： class Ariticle(Moble):
-        id = int()
-        title = String()
-        content = Text()
-       #实例化
-           article = Article(id = 1,title = &apos;aaa&apos;,content = &apos;bbb&apos;)
-       #加入表格或者说类中
-            add(article)
-       #修改数据内容
-             article.title = &apos;ccc&apos;
-             update(article)
-       #删除内容
-             delete(article)</code></pre><p>3.SQLALchemy连接数据库<br>    SQLALchemy :SQLAlchemy采用简单的Python语言，为高效和高性能的数据库访问设计<br>                是访问和操作数据库的开源脚本<br>    * 在实际操作过程中遇到的问题：<br>        * 在Mysql workbeath 中修改连接密码：右键出现Edit connections 进行点击 进入后点击store in Vault 就可以进行修改<br>        * 如何进入Mysql 命令行的形式：找到Mysql sever 下的bin目录 再就如命令行输入<br>            ./mysql -u root -p<br>        * 创建一个新的数据库 命令     creat datebase  数据库名  charset  utf8<br>    使用flask_sqlalchemy中的SQLALchemy进行初始化：</p>
-<pre><code>    #调用函数
-    from flask_sqlalchemy import SQLAlchemy
-    app = Flask(__name__)
-    #初始化一个对象
-    db = SQLAlchemy(app)
-
-设置配置文件&apos;config.py&apos;文件中添加一下配置
-#dialect+driver://username:password@host:post/database
-
-
-    DIALECT = &apos;mysql&apos;
-    DRIVER = &quot;mysqldb&quot;
-    USERNAME = &apos;root&apos;
-    PASSWORD = &apos;root&apos;
-    HOST = &apos;127.0.0.1&apos;
-    PORT = &apos;3306&apos;
-    DATABASE = &apos;db_demo1&apos;
-    SQLALCHEMY_DATABASE_URI = &quot;{}+{}://{}:{}@{}:{}/{}?charset=utf8&quot;.format(DIALECT,
-                                                   DRIVER,USERNAME,
-                                                   PASSWORD,HOST,PORT,
-                                                   DATABASE)
-    #去除警告信息
-    SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><p>   在app文件中，添加配置文件，并且进行测试</p>
-<pre><code>from flask import Flask
-   #调用函数
-from flask_sqlalchemy import SQLAlchemy
-#引入config文件
-import config
-app = Flask(__name__)
-#重点（不明白）
-app.config.from_object(config)
-#初始化一个对象
-db = SQLAlchemy(app)
-#进行测试
-db.create_all()</code></pre><p>4.SQLALchemy模型与表映射<br>    * 创建的这个表可以称作为一个类，这个类必须要继承自’db.Model’，然后映射到表中的时候<br>       必须写成’db.Column’的数据类型<br>    * 数据类型：<br>        * ‘db.Integer’代表的是整型（int）<br>        * ‘db.String’ 代表的是’varcher’,需要指定最长的长度<br>        * ‘db.Text’代表的是 ‘text’<br>    * 参数类型：<br>        * ‘primary_key’:代表的是将字段是否设置为主键<br>        * ‘autoincrement’: 代表的是这个主键是否为自增长的<br>        * ‘nullable’ : 表示该字段是否可以为空，数据库默认是能为空<br>    * 最后需要用’db.create_all’来将模型真正的创建到数据库中</p>
-<p>   在实践过程中遇到的问题：</p>
-<ul>
-<li><p>对数据库的连接不熟练，以及配置文件的编写</p>
-<pre><code>from flask import Flask</code></pre><p>   from flask_sqlalchemy import SQLAlchemy<br>   import config<br>   app = Flask(<strong>name</strong>)<br>   app.config.from_object(config)<br>   #初始化对象<br>   db = SQLAlchemy(app)</p>
-<p>配置文件的编写：</p>
-<h1 id="dialect-driver-username-password-host-post-database"><a href="#dialect-driver-username-password-host-post-database" class="headerlink" title="dialect+driver://username:password@host:post/database"></a>dialect+driver://username:password@host:post/database</h1><p>   DIALECT = ‘mysql’<br>   DRIVER = ‘mysqldb’<br>   USERNAME = ‘root’<br>   PASSWORD = ‘root’<br>   HOST = ‘127.0.0.1’<br>   POST = ‘3306’<br>   DATABASE = ‘db_mode2’<br>   SQLALCHEMY_DATABASE_URI = ‘{}+{}://{}:{}@{}:{}/{}?charset=utf8’.format(DIALECT,</p>
-<pre><code>DRIVER,USERNAME,PASSWORD,HOST,POST,DATABASE)</code></pre><p>   SQLALCHEMY_TRACK_MODIFICATIONS = False</p>
-</li>
-<li><p>在数据库中需要使用的语句：</p>
-<pre><code>创建数据库： create database 数据库名 charset utf8
-查看数据库中的表 ： show tables 
-查看表的内容： desc 表名
-使用那个数据库： use 数据库名
-展现创建的表格： show create table 表名
-删除表格： drop table 表名</code></pre><ul>
-<li><p>将SQL语句转化为py文件中类的语句<br>  ‘’’<br>SQL语句中创建表格<br>   create table article(</p>
-<pre><code>id int primary key autoincrement,
-title varchar(100) not null,
-content text not null,</code></pre><p>   )<br>‘’’</p>
-<p>class Article(db.Model):<br>   <strong>tablename</strong> =’article’<br>   id = db.Column(db.Integer,primary_key=True,autoincrement=True)<br>   title = db.Column(db.String(100),nullable=False)<br>   content = db.Column(db.Text,nullable=False)</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>创建一个表的例子：</p>
-<pre><code>from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import config
-app = Flask(__name__)
-app.config.from_object(config)
-#初始化对象
-db = SQLAlchemy(app)
-&apos;&apos;&apos;
-SQL语句中创建表格
-    create table article(
-        id int primary key autoincrement,
-        title varchar(100) not null,
-        content text not null,
-    )
-&apos;&apos;&apos;
-class Article(db.Model):
-    __tablename__ =&apos;article&apos;
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    title = db.Column(db.String(100),nullable=False)
-    content = db.Column(db.Text,nullable=False)
-db.create_all()
-@app.route(&apos;/&apos;)
-def hello_world():
-    return &apos;Hello World!&apos;
-if __name__ == &apos;__main__&apos;:
-    app.run()</code></pre><p>config 配置文件</p>
-<pre><code># dialect+driver://username:password@host:post/database
-DIALECT = &apos;mysql&apos;
-DRIVER = &apos;mysqldb&apos;
-USERNAME = &apos;root&apos;
-PASSWORD = &apos;root&apos;
-HOST = &apos;127.0.0.1&apos;
-POST = &apos;3306&apos;
-DATABASE = &apos;db_mode2&apos;
-SQLALCHEMY_DATABASE_URI = &apos;{}+{}://{}:{}@{}:{}/{}?charset=utf8&apos;.format(DIALECT,
-                               DRIVER,USERNAME,PASSWORD,HOST,POST,DATABASE)
-SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><p>5.SQLALchemy 数据库的增删查改</p>
-<pre><code>#数据库增加数据
-    article = Article(title = &apos;aaa&apos;,content = &apos;bbb&apos;)
-    db.session.add(article)
-    #事务相应（操作的开关）
-    db.session.commit()
-
-#数据库查找数据
-    #SQL： select * from article where article.title=&apos;aaa&apos;;
-    #query:查找   fileter：过滤
-    article1 = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-    #返回的是一个列表 之后的操作可以根据列表的操作进行
-    print(&apos;title:%s&apos; % article1.title)
-    print(&apos;content:%s&apos; % article1.content)
-
-#数据的修改
-    #1.先要查找出修改的数据
-    article1 = Article.query.filter(Article.title==&apos;aaa&apos;)[0,1]
-    #2.在需要修改的地方进行修改
-    article1.title = &apos;new title&apos;
-    #3.提交事务
-    db.session.commit()
-
-#删除数据
-    #1.把需要删除的数据查找出来
-    article1 = Article.query.filter(Article.content == &apos;bbb&apos;)[0]
-     #2.删除数据
-    db.session.delete(article1)
-    #3.事务处理
-    db.session.commit()</code></pre><p>6.Flask-SQLALchemy 外键及其关系<br>    * 连接数据库（跟以上的操作一样）<br>    * 创建两个表（user article）</p>
-<pre><code> #创建用户表(user)
- &apos;&apos;&apos;
- SQL语句：
-         create table users(
-         id int primary key autoincrement,
-         username varchar(100) not null
- )
- &apos;&apos;&apos;
- class User(db.Model):
-     __tablename__ = &apos;user&apos;
-     id = db.Column(db.Integer,primary_key= True,autoincrement=True)
-     username = db.Column(db.String(100),nullable=True)
-
-  #创建文章表
-     &apos;&apos;&apos;
-     SQL语句：
-             create table article(
-                 id int primary key autoincrement,
-                 title varchar(100) not null,
-                 content text not null,
-                 author_id int,
-                 foreign key &apos;author_id&apos; references &apos;user_id&apos;
-     )        
-     &apos;&apos;&apos;
-     class Article(db.Model):
-         __tablename__ =&apos;article&apos;
-         id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-         title = db.Column(db.String(100),nullable=False)
-         content = db.Column(db.Text,nullable=False)
-         #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
-         author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
-
-    * 映射到数据库中：   db.create_all()
-        注意： db.create_all() 它只会部署一次，如果中途在类里面去需改表的属性是没有任何用处的，只有把表格进行删除，再
-        重新创建一个表格才能添加其他的属性
-
-* 在用户表中添加用户
-     user1 = User(username = &apos;lijian&apos;)
-     db.session.add(user1)
-     db.session.commit()</code></pre><ul>
-<li><p>在文章表中添加文章</p>
-<pre><code>article = Article(title=&apos;aaa&apos;,content=&apos;bbb&apos;,author_id=1)
-db.session.add(article)
-db.session.commit()</code></pre><ul>
-<li><p>实现需求：查找文章名称为aaa的作者</p>
-<pre><code>这是需求的普通写法:没有起到简化的作用 再Flask中不会使用
-    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-    print(article.author_id)
-    author_id = article.author_id
-    user = User.query.filter(User.id == author_id)[0]
-    print(user.username)
-
-再Flask-SQLALchemy-Darabases中使用的方法:
-    * 先要在class类中就行设置;
-
-            class Article(db.Model):
-            __tablename__ =&apos;article&apos;
-            id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-            title = db.Column(db.String(100),nullable=False)
-            content = db.Column(db.Text,nullable=False)
-            #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
-            author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
-    #重点：db.relationship是表述关系的连接参数  db.backre是表示关系反转的参数
-    #正向引用（relationship）与反向引用（backref）（User表与article表）        #正向关系：是只通过article表里面的外键来与User表中的主键进行连接             然后读取相关信息            
-    #通过文章名称找出作者名称
-    #反转关系：是只通过User中的主键来连接article中的外键，然后读取article中的相关信息             
-    #通过作者找出他写作的文章
-    #模块名=db.relationship(&apos;关联的类名&apos;，backref = db.backref(&apos;自定义参数&apos;))
-            author = db.relationship(&apos;User&apos;,backref = db.backref(&apos;articles&apos;))
-    * 实现通过文章名称查找作者：
-
-            article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-            #通过 article.author.usename 来找出文章的作者
-            print(article.author.username)</code></pre><ul>
-<li><p>实现需求：通过作者名找出其作品</p>
-<pre><code>user = User.query.filter(User.username == &apos;lijian&apos;)[0]
-#通过 user.articles.title 来查找作者的文章
-result = user.articles
-for article in result:
-    print(article.title)</code></pre></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>实例：数据库的连接 表的制作 数据的的添加 实现通过作者找出他的所有文章 通过文章找出作者</p>
-<pre><code>from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import config
-
-app = Flask(__name__)
-app.config.from_object(config)
-db = SQLAlchemy(app)
-#创建用户表
-&apos;&apos;&apos;
-SQL语句：
-        create table users(
-        id int primary key autoincrement,
-        username varchar(100) not null
-)
-&apos;&apos;&apos;
-class User(db.Model):
-    __tablename__ = &apos;user&apos;
-    id = db.Column(db.Integer,primary_key= True,autoincrement=True)
-    username = db.Column(db.String(100),nullable=True)
-#创建文章表
-&apos;&apos;&apos;
-SQL语句：
-        create table article(
-            id int primary key autoincrement,
-            title varchar(100) not null,
-            content text not null,
-            author_id int,
-            foreign key &apos;author_id&apos; references &apos;user_id&apos;
-)        
-&apos;&apos;&apos;
-class Article(db.Model):
-    __tablename__ =&apos;article&apos;
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    title = db.Column(db.String(100),nullable=False)
-    content = db.Column(db.Text,nullable=False)
-    #引用的代码：db.ForeignKey(&apos;表名.属性值&apos;)
-    author_id = db.Column(db.Integer,db.ForeignKey(&apos;user.id&apos;))
-    #正向引用（relationship）与反向引用（backref）
-    author = db.relationship(&apos;User&apos;,backref = db.backref(&apos;articles&apos;))
- #实现映射到表中
-db.create_all()
-##########
-@app.route(&apos;/&apos;)
-def hello_world():
-    &apos;&apos;&apos;
-    #在用户表中添加用户
-    user1 = User(username = &apos;lijian&apos;)
-    db.session.add(user1)
-    db.session.commit()
-    &apos;&apos;&apos;
-
-    #添加作品信息
-    &apos;&apos;&apos;
-    article = Article(title=&apos;aaa&apos;,content=&apos;bbb&apos;,author_id=1)
-    db.session.add(article)
-    db.session.commit()
-    &apos;&apos;&apos;
-    #需求：寻找标题文章为aaa的作者
-    &apos;&apos;&apos;
-    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-    print(article.author_id)
-    author_id = article.author_id
-    user = User.query.filter(User.id == author_id)[0]
-    print(user.username)
-    &apos;&apos;&apos;
-    #上述需求的简化:
-    #根据文章名称查找作者
-    article = Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-    print(article.author.username)
-    print(&quot;*&quot;*20)
-
-    #需求 找到lijian写过的所有的文章
-    user = User.query.filter(User.username == &apos;lijian&apos;)[0]
-    result = user.articles
-    for article in result:
-        print(article.title)
-    &apos;&apos;&apos;
-    #先添加一篇文章
-    article = Article(title=&apos;111&apos;,content=&apos;222&apos;,author_id=1 )
-    db.session.add(article)
-    db.session.commit()
-    &apos;&apos;&apos;
-    return &apos;Hello World!&apos;
-if __name__ == &apos;__main__&apos;:
-    app.run(debug=True)</code></pre><p> 数据库连接的config 文件：</p>
-<pre><code> #dialect+driver://username:password@host:post/database
-DIALECT = &apos;mysql&apos;
-DRIVER = &apos;mysqldb&apos;
-USERNAME = &apos;root&apos;
-PASSWORD = &apos;root&apos;
-HOST = &apos;127.0.0.1&apos;
-POST = &apos;3306&apos;
-DATABASE = &apos;db_demo3&apos;
-SQLALCHEMY_DATABASE_URI = &apos;{}+{}://{}:{}@{}:{}/{}?charset utf8&apos;.format(DIALECT,
-                            DRIVER,USERNAME,PASSWORD,HOST,POST,DATABASE)
-SQLALCHEMY_TRACK_MODIFICATIONS = False</code></pre><hr>
-<p>7.SQLALchemy连接数据库中多对多关系<br>    * 配置相关的config 文件 与之前一样</p>
-<pre><code>* 设置关联的语句（重点）（在class Aritcle 中进行设置）（secondary 设置中间表的连接）
-    article = db.relationship(&apos;Tag&apos;,secondary=article_tag ,backref = db.backref(&apos;articles&apos;))
-
-* 需要建立三个表格 article  tag  article_tag
-                                            article与tag 表格的建立与之前的一样.
-  article_tag 表格的建立：（db.Table 进行建立）
-      #关联表
-    article_tag = db.Table(&apos;article_tag&apos;,
-    db.Column(&apos;article_id&apos;,db.Integer,db.ForeignKey(&apos;article.id&apos;),primary_key=True,),
-    db.Column(&apos;tag_id&apos;,db.Integer,db.ForeignKey(&apos;tag.id&apos;),primary_key=True,)
-                   )
-
-    * 数据的插入：（ article1.article.append(tag1) 这个语句是重点）
-    article1 = Article(title = &apos;aaa&apos;)
-    article2 = Article(title = &apos;bbb&apos;)
-    tag1 = Tag(name = &apos;111&apos;)
-    tag2 = Tag(name = &apos;222&apos;)
-    #article1下有哪些标签  一个article1有多个标签（重点）
-    article1.article.append(tag1)
-    article1.article.append(tag2)
-    # article2下有哪些标签  一个article2有多个标签（重点）
-    article2.article.append(tag1)
-    article2.article.append(tag2)
-    db.session.add(article1)
-    db.session.add(article2)
-    db.session.add(tag1)
-    db.session.add(tag2)
-    db.session.commit()</code></pre><p>案例：连接数据库 创建表格包含中间表 插入数据 关联数据 实现通过文章找Tag(免去config文件)</p>
-<pre><code>from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import config
-
-app = Flask(__name__)
-app.config.from_object(config)
-db= SQLAlchemy(app)
-
-&quot;&quot;&quot;
-SQL语句：
-    创建article表
-    create table article(
-        id int primary key autoincrement
-        title varachar(100) not null
-    )
-    创建tag表
-    create table tag(
-        id int primary key autioncrement
-        name varachar(50) not null
-    )
-    创建中间表
-    create table article_tag(
-        article_id int
-        tag_id int
-        primay key (&apos;article_id&apos;,&apos;tag_id&apos;)
-        foreign_key &apos;article_id&apos; references &apos;article&apos;
-        foreign_key &apos;tag_id&apos; references &apos;tag&apos;
-    )
-
-&quot;&quot;&quot;
-#关联表
-article_tag = db.Table(&apos;article_tag&apos;,
-        db.Column(&apos;article_id&apos;,db.Integer,db.ForeignKey(&apos;article.id&apos;),primary_key=True,),
-        db.Column(&apos;tag_id&apos;,db.Integer,db.ForeignKey(&apos;tag.id&apos;),primary_key=True,)
-                       )
-
-class Article(db.Model):
-    __tablename__ = &apos;article&apos;
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    title = db.Column(db.String(100),nullable=False)
-    #这是外键的是指 以及表的关联过程  secondary
-    article = db.relationship(&apos;Tag&apos;,secondary=article_tag ,backref = db.backref(&apos;articles&apos;))
-
-class Tag(db.Model):
-    __tablename__ = &apos;tag&apos;
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    name = db.Column(db.String(50),nullable=False)
-
-db.create_all()
-
-@app.route(&apos;/&apos;)
-def hello_world():
-    &apos;&apos;&apos;
-    article1 = Article(title = &apos;aaa&apos;)
-    article2 = Article(title = &apos;bbb&apos;)
-    tag1 = Tag(name = &apos;111&apos;)
-    tag2 = Tag(name = &apos;222&apos;)
-    #article1下有哪些标签  一个article1有多个标签
-    article1.article.append(tag1)
-    article1.article.append(tag2)
-    # article2下有哪些标签  一个article2有多个标签
-    article2.article.append(tag1)
-    article2.article.append(tag2)
-    db.session.add(article1)
-    db.session.add(article2)
-    db.session.add(tag1)
-    db.session.add(tag2)
-    db.session.commit()
-    &apos;&apos;&apos;
-    article1= Article.query.filter(Article.title == &apos;aaa&apos;)[0]
-    tags = article1.article
-    for tag in tags:
-        print(tag.name)
-
-    return &apos;Hello World!&apos;
-
-if __name__ == &apos;__main__&apos;:
-    app.run(debug=True)</code></pre><hr>
-<p>8.在分开models中解决循环引用<br>     分开models 的目的： 是为了更好的管理代码<br>     解决循环引用的方法：  是将add文件 分割开来  可以同时被几个文件引用 不会产生循环</p>
-<pre><code>models.sep文件：（主文件）
-    from flask import Flask
-    # 引入models中的 Ariticle
-    from models import Ariticle
-    # 引入exts中的db
-    from exts import db
-
-    app = Flask(__name__)
-    #防止循环引用 初始化app
-    db.init_app(app)
-
-    db.create_all()
-
-    @app.route(&apos;/&apos;)
-    def hello_world():
-        return &apos;Hello World!&apos;
-
-    if __name__ == &apos;__main__&apos;:
-        app.run()
-
-exts文件：
-    from flask_sqlalchemy import SQLAlchemy
-    db = SQLAlchemy()
-
-models.py 文件：
-    #引入exts 中的 db
-    from exts import db
-    class Ariticle(db.Model):
-        __table__ = &apos;article&apos;
-        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-        title = db.Column(db.String(100), nullable=False)</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/04/Flask-SQLAlchemy-DateBase/" data-id="ck67xvsxx0000a8v3e3e4ga4b" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Flask--urls和视图" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/" class="article-date">
-  <time datetime="2020-02-02T09:32:35.000Z" itemprop="datePublished">2020-02-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/">Flask--urls和视图</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>1.对代码的解析：
-#encoding UTF-8
-#模块的导入
-from flask import Flask
-#初始化一个Flask对象
-#Flask()
-#需要传递一个参数__name__
-#1. 方便flask框架去寻找资源
-#2. 方便flask插件 比如Flask-Sqlalchemy出现错误的时候，去寻找问题所在的位置
-app = Flask(__name__)
-
-# @app.route是一个装饰器
-# @开头，并且在函数的上面，说明是一个装饰器
-# 这个装饰器的作用，是做一个URL与视图函数的映射
-# 127.0.0.1:5000/  去请求hello_woeld 这个函数  然后将结果返回到浏览器
-@app.route(&apos;/&apos;)
-def hello_world():
-    return &apos;我是第一个程序&apos;
-
-# 如果当前这个文件是作为入口程序进行运行， 那么就执行app.run()
-if __name__ == &apos;__main__&apos;:
-    #app.run()
-    #启动一个应用服务器  来接受用户的请求
-    #while True
-    #   listen()
-    #设置debug模式  将错误直接显示到网页上面
-    app.run(debug= True)
-
-2.设置debug模式
-    a.在app.run()中传入一个关键字参数debug,例如：run(debug = Ture)，就设置当前项目为debug模式。
-
-    b.debug模式的两大功能：
-        * 当程序出现问题的时候，可以在页面中看到错误的信息和出错的位置
-        * 只要修改项目中的python文件，程序就会自动的加载，不需要手动的重新启动服务器。
-      具体的案例如下：
-          from flask import Flask
-
-        app = Flask(__name__)
-
-        @app.route(&apos;/&apos;)
-        def hello_world():
-            return &apos;我是第一个程序&apos;
-
-        if __name__ == &apos;__main__&apos;:
-            #设置debug模式  将错误直接显示到网页上面
-            app.run(debug= True)
-
-3.使用配置文件
-    * 新建一个&apos;config.py&apos;文件
-    * 在主要的app文件中导入这个文件，并且配置到app文件中
-        &apos;&apos;&apos;
-        import config
-        app.config.from_object(config)
-        &apos;&apos;&apos;
-    * 还有许多的其他参数也可以放置在文件中，比如&apos;SECRET_KEY&apos; 和 &apos;SQLALCHEMY&apos;这些配置文件
-
-    主app文件实例如下：（其实主要的作用还是和debug模式一样的作用）
-        from flask import Flask
-        #导入config文件
-        import config
-
-        app = Flask(__name__)
-        #加入config文件的配置
-        app.config.from_object(config)
-
-        @app.route(&apos;/&apos;)
-        def hello_world():
-            return &apos;我是第一个程序&apos;
-
-        if __name__ == &apos;__main__&apos;:
-
-            app.run()
-
-    config文件的配置：（可以加入很多的参数 注意的是需要将文件导入和对文件配置的导入使用）
-        DEBUG = True
-
-
-4.url传递参数
-    * 参数的作用： 可以在相同的URL，当时不指定相同的参数，来加载不同的数据。
-                例如：http://127.0.0.1:5000/URL/参数        
-    * 在flask中如何使用参数：
-        &apos;&apos;&apos;
-            @app.route(&apos;/article/&lt;id&gt;&apos;)
-            def article(id):
-                return &apos;您请求的参数是 ： %S&apos; % id
-        &apos;&apos;&apos;
-           注意：参数必须放在&lt;&gt;中    
-                视图函数中需要放在和URL中的id相同的参数（就是函数括号里面的参数必须与id相同）
-
-    url传递参数的例子：
-            from flask import Flask
-            app = Flask(__name__)
-            #视图函数
-            @app.route(&apos;/login/&lt;id&gt;&apos;)
-            def login(id):
-                return &quot;您请求的参数是 % S&quot; % id
-
-            if __name__ == &apos;__main__&apos;:
-                app.run(debug=True)
-
-
-5.URL反转（需要一个模板：url_for）
-    * 什么叫做反转URL： 从视图函数到url的转换叫做反转URL
-      （根据视图的函数名字 可以直接切换到URL的参数）
-    * 反转URL的用处：
-        * 在页面重定向的时候，会使用url反转
-        * 在模板中，也会使用url反转
-
-    Url反转例子：
-            from flask import Flask,url_for
-
-            app = Flask(__name__)
-
-            @app.route(&apos;/&apos;)
-            def index():
-                print(url_for(&apos;my_list&apos;))
-                print(url_for(&apos;question&apos;),id = &quot;aaaa&quot;)
-                return &apos;这是首页&apos;
-
-            @app.route(&apos;/list/&apos;)
-            def my_list():
-                return &quot;这是登陆页面&quot;
-
-            @app.route(&apos;/question/&lt;id&gt;&apos;)
-            def question(id):
-                return &apos;这是发布问答的页面:%S&apos; % id
-
-            if __name__ == &apos;__main__&apos;:
-                app.run(debug= True)
-
-6.重定向和页面跳转：(需要两个模板： redirect  url_for)
-    * 用处： 在用户访问一些需要登陆的页面的时候，如果用户没有登陆用户则会跳转到用户的登陆界面
-    * 代码的实现：
-        &apos;&apos;&apos;
-            from flask import redirect,url_for
-            redirect(url_for(&apos;login&apos;))
-        &apos;&apos;&apos;
-
-    重定向和页面跳转的代码演示：
-        from flask import Flask,redirect,url_for
-
-        app = Flask(__name__)
-
-            @app.route(&apos;/&apos;)
-            def index():
-                   question_url = url_for(&apos;question&apos;,id = 1)
-                   return redirect(question_url)
-                   return &apos;这是首页&apos;
-
-            @app.route(&apos;/login/&apos;)
-            def login():
-                return &quot;这是登陆页面&quot;
-
-            @app.route(&apos;/question/&lt;id&gt;&apos;)
-            # 关键点   条件性代码
-            def question(id):
-                if id==&quot;1&quot;:
-                    return &apos;这是发布问答的页面&apos;
-                else:
-                    return redirect(url_for(&quot;login&quot;))
-            if __name__ == &apos;__main__&apos;:
-                app.run(debug=True)</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/02/Flask--urls%E5%92%8C%E8%A7%86%E5%9B%BE/" data-id="ck66f1y110000iov30i1r1qp6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="cost-hexo的基本操作" class="article article-type-cost" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2020-01-24T05:11:04.000Z" itemprop="datePublished">2020-01-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">hexo的基本操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.创建一个新的文件：<br>                hexo new post 文件名<br>                hexo new [layout(布局)] -p 路径 文件名</p>
-<p>2.上传到网页并且进行部署（同时出现在GitHub上面）:<br>                hexo d -g</p>
-<p>3.注意：在文档中有渲染的语法，或则有重定向的语法就会报错<br>        Template render error<br>        则需要进行注释或者标注</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/24/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" data-id="ck5rrkdl300009ov3a2yyhyw7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Li-jian/" rel="tag">Li jian</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -2935,7 +2346,7 @@ if __name__ == &apos;__main__&apos;:
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
     </div>
   </div>
 
@@ -2948,23 +2359,23 @@ if __name__ == &apos;__main__&apos;:
       <ul>
         
           <li>
+            <a href="/2020/03/05/Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">Linux基本命令</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/05/linux%E9%AB%98%E7%BA%A7/">linux高级</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/04/linux%E5%9F%BA%E7%A1%80/">linux基础</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/15/python%E7%AC%94%E5%BD%95/">python笔录</a>
           </li>
         
           <li>
             <a href="/2020/02/13/flask-jinja2/">flask_jinja2</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/09/Flask-jinja/">Flask-jinja</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/09/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/">前端学习随笔记录</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/08/Flask-Migrate/">Flask-Migrate</a>
           </li>
         
       </ul>
