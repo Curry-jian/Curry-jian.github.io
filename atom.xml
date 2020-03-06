@@ -43,9 +43,17 @@
     <link href="http://yoursite.com/2020/03/05/linux%E9%AB%98%E7%BA%A7/"/>
     <id>http://yoursite.com/2020/03/05/linux%E9%AB%98%E7%BA%A7/</id>
     <published>2020-03-05T02:28:55.000Z</published>
-    <updated>2020-03-05T02:28:55.749Z</updated>
+    <updated>2020-03-06T12:44:36.025Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>文件管理<br> 查看文件管理的内容<br> [root@localhost ~]# df -Th<br>文件系统                类型      容量  已用  可用 已用% 挂载点<br>/dev/mapper/centos-root xfs        17G  5.3G   12G   31% /<br>devtmpfs                devtmpfs  898M     0  898M    0% /dev<br>tmpfs                   tmpfs     910M     0  910M    0% /dev/shm<br>tmpfs                   tmpfs     910M  9.6M  901M    2% /run<br>tmpfs                   tmpfs     910M     0  910M    0% /sys/fs/cgroup<br>/dev/sda1               xfs      1014M  146M  869M   15% /boot<br>tmpfs                   tmpfs     182M     0  182M    0% /run/user/0</li></ol><hr><ol start="2"><li>文件=目录项+inode+数据块（block）<br>目录项： 正统的文件系统（ext2 ext3）一个文件有目录项 inode 和数据块组成<br>inode  文件索引节点，是文件基本信息存放地和数据块指针存放地<br>block 文件具体内容存放地</li></ol><hr><ol start="3"><li>常用的命令<br> du : 查看文件大小<br> fdisk : 分区<br> parted : 分区<br> mkfs.xfs : 格式化<br> mkfs.ext4 : 格式化<br> df : 挂载<br> umont : 挂载<br> mount : 挂载   = &gt;   mount 挂载的目标 挂载文件<br> dd: 备份<br> cp : 备份<br> tar : 备份<br> 格式化的命令： man mkfs.ext4<br> df -Th: 查看文件管理的内容<br> touch: 创建文本文件<br> dumpe2fs /dev/sde1|more： 查看超级块的详细信息<br> mkfs.ext4 /dev/sde1  ： 查看超级块部分信息<br> ln -s 文件名 链接文件名 ：创建软链接<br> ln 文件名 链接文件名 ： 创建硬链接<br> rm -rf :删除文件<br> ll: 查看文件具体内容<br> ll -i : 查看文件的inode<br> 查看日志文件  ll /dev/<br> df  -Th : 行看文件分区<br> mv 原文件 原文档 ： mv [OPTION]… SOURCE… DIRECTORY<br> fdisk 查看磁盘信息<br> mkfs 磁盘格式化</li></ol><hr><p>4.Linux 支持多种文件系统<br>    ext2 ： Linux 基本文件系统<br>    ext3： ext2 增强版本，是Linux的默认文件系统<br>    ext4 : ext文件系统的第四个版本</p><hr><p>5.当磁盘上显示没有空间的时候 但是查询的时候却还有空间的原因：<br>    因为inode 消耗完了</p><hr><p>6.文件系统的重要参数：<br>    superblock (超级块)： 记录此 file system的整体信息，包括inode/block的总量 使用量<br>    剩余量 以及文件系统的格式</p><pre><code>inode： 记录文件的属性 一个文件占用一个incode 同时记录此文件的数据所在的block编号 258字节block: 实际记录文件的内容 若文件太大时 会占用多个block</code></pre><hr><p>7.软链接与硬链接<br>    软链接: ln -s 文件名 软链接文件名<br>        把源文件删除后 链接文件不可以使用  使用不同的inode和block  但是block里面放的是目录项（文件名链接 找到 inode和block可以直接找到原文件<br>    硬链接： ln 文件名 硬链接文件名<br>        把源文件删除后 链接文件可以继续使用 创建的硬链接会指向原来的inode 和block</p><p>总结：  硬链接：不同的目录项，相同的inodeh和block<br>        软链接： 不同的目录项，不同的inode和block,但是软链接的block里存放的是链接的目录项<br>                可以找到原本的文件</p><hr><ol start="8"><li>34323835 -rw-r–r–. 2 root root 20 3月   6 17:14 caiaihui.txt<br> inode号    权限     链接次数    </li></ol><hr><p>9.xfs和ext4那个更好<br>    xfs更加好点：#  支持大文件和大分区<br>                #  读写文件速度块<br>    ext4 特点：  # boot分区的文件本来就不大<br>                # 启动时加载文件更快</p><hr><p>10.RAID：磁盘阵列<br>    磁盘阵列是由很多块独立的磁盘，组合成一个巨大的磁盘组，利用个别磁盘提供数据所产生加成效果<br>    提升整个磁盘系统效能<br>    读写能力的提升 部分磁盘坏了不会影响使用  容错性强</p><p>硬件RAID  速度块 性能好 支持热插拔<br>软件RAID  使用mdadm 软件仿真磁盘阵列功能</p><hr><p>11.linux系统的分区方案：<br>    标准分区<br>    1.centos8 经典方案：<br>        /        剩下的空间全备给根分区<br>        /boot    1000M左右–》用来存放启动系统所需要的文件–》相当于windows里的c盘<br>        swap     物理内存的2倍   用来临时存放数据，当物理内存不足<br>        /home    单独的分区<br>    2.自定义方案：<br>        /     xfs   剩下的空间<br>        /boot  ext4   1G  不需要特别大的空间<br>        swap   swap   物理内存的2倍<br>        /mysql_data xfs  200G  –&gt;专门存放数据库的数据的分区<br>        /home   xfs  单独</p><hr><p>12.分区扩容的方案<br>    #  把分区里的数据移动到其他的分区<br>    #  在添加一块磁盘 移动数据到新的磁盘</p><hr><p>13.新加磁盘的完整步骤<br>    fdisk分区 -&gt; mkfs格式化 -&gt; mount挂载</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;文件管理&lt;br&gt; 查看文件管理的内容&lt;br&gt; [root@localhost ~]# df -Th&lt;br&gt;文件系统                类型      容量  已用  可用 已用% 挂载点&lt;br&gt;/dev/mapper/centos-root xfs 
+      
     
     </summary>
     
