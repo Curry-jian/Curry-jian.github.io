@@ -219,7 +219,7 @@ block: 实际记录文件的内容 若文件太大时 会占用多个block</code
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>基本命令：<br>    hostname : 查看主机名<br>    hostname 主机名： 临时修改主机名<br>    su - 用户名 ： 切换用户登陆系统<br>    useradd 用户名： 增加一个用户<br>    pwd  : 查看当前的在哪个文件夹<br>    cd : 进入文件夹<br>    ls: 查看文件夹的内容<br>        -l(long format):显示详细信息  -a(all)：显示所有的文件夹和文件包括隐藏文件<br>    mkdir: 新建文件夹<br>        mkdir .文件名  建立隐藏文件夹<br>    echo :查看某个文档或则变量<br>    man bash:查看bash命令的使用方法和手册  / 进行查找   n 查找下一个<br>    reboot： 重启系统<br>    file : 查看文件的类型</p>
+        <p>基本命令：<br>    hostname : 查看主机名<br>    hostname 主机名： 临时修改主机名<br>    su - 用户名 ： 切换用户登陆系统<br>    useradd 用户名： 增加一个用户<br>    pwd  : 查看当前的在哪个文件夹<br>    cd : 进入文件夹<br>        cd ../../ 返回到上一级的上一级目录<br>        cd <del>用户： 进入某个用户的家目录<br>        cd - : 返回到上次工作的目录<br>    ls: 查看文件夹的内容<br>        -l(long format):显示详细信息  -a(all)：显示所有的文件夹和文件包括隐藏文件<br>        -R(recurisive) :递归显示     -d(directory) 文件名: 查看某个文件夹下某个文件的属性<br>        -h（human-readable）:人类可读大小的形式<br>    mkdir: 新建文件夹<br>        mkdir .文件名  建立隐藏文件夹<br>        -p : 当父文件夹不存在的时候，就新建父文件夹  mkdir -p changsha/{yuelushang，hu}<br>        mkdir lijian{1..10}:  代表建立10个李坚 序号由1</del>10<br>    echo :查看某个文档或则变量<br>    man bash:查看bash命令的使用方法和手册  / 进行查找   n 查找下一个<br>    reboot： 重启系统<br>    file : 查看文件的类型<br>    echo $SHELL : 查看Linux里面默认的shell<br>    which : 查看命令存放在哪里<br>    rpm -qf 命令目录： 查询命令是哪个软件安装过来的<br>    cat :查看文件夹或则文件的内容<br>    chmod +x(权限类型) 文件名：(change modle):修改文件的权限<br>    bsah 文件名：  执行shell 脚本<br>    locate * : 表示查找所有的以某个格式结尾的文件<br>    ln : 创建文件链接         ln -s lijian lijian.sort<br>        ln -s : 创建软链接<br>    alias：查看系统里面已经有了的别名 （临时有效）<br>        alias  c=’clear’   创建别名<br>    unalias: 取消别名<br>        unalias c<br>    source 文件目录  : 将修改的某个文件生效<br>    rmdir(remove directory) : 删除空的文件夹<br>    rm -rf（remove files or directories）(-r:recursive递归删除)(force：强制) ：表示强制删除文件<br>        rm -rf 强制删除的东西不会放在回收站内</p>
 <hr>
 <p>1.查看虚拟机的编码：<br>    locale<br>    echo $LANG<br>2. echo：是查看后面的内容<br>    [root@localhost ~]# echo people<br>    people</p>
 <hr>
@@ -250,8 +250,16 @@ block: 实际记录文件的内容 若文件太大时 会占用多个block</code
 <p>13.shell的作用：<br>    1. 识别我们输入的命令<br>    2. 帮助执行<br>    所有的可执行文件都放在 /bin 目录下</p>
 <hr>
 <ol start="14">
-<li>基本的硬件：<br> CPU 内存 硬盘 网卡 显卡 声卡 输入输出设备</li>
+<li>基本的硬件：<br> CPU 内存 硬盘 网卡 显卡 声卡 输入输出设备<br>Linux =&gt; 人-&gt;shell-&gt;系统调用-&gt;内核-&gt;硬件<br>1字节 = 8位<br>shell 是解释程序的总称<br>Linux 内部命令：属于Shell解释器的一部分，shell自带的命令，不要安装的命令<br>外部命令: 独立于shell解释器之外的程序文件，需要额外的安装命令</li>
 </ol>
+<hr>
+<p>15.Linux下的快捷键<br>    Tab 自动补齐<br>    Ctrl+C  终止当前进程<br>    Ctrl+L  清屏<br>    Ctrl+K  删除从光标到行末的所有字符<br>    Ctrl+U  删除从光标到行首的所有字符</p>
+<hr>
+<p>16.根据不同颜色来判断是什么文件<br>    黑色：代表普通文件<br>    蓝色：代表文件夹<br>    红色：代表压缩文件<br>    绿色： 代表可执行文件<br>    粉色：代表图片</p>
+<hr>
+<p>17.-rw-r–r–. 2 root root 20 3月   6 17:14 caiaihui.txt<br>第一个字符的表示意义 -<br>    - 代表普通文件<br>    d 代表文件夹<br>    l 代表链接文件<br>    c 代表字符设备文件<br>    b 代表块设备文件    </p>
+<hr>
+<p>18.alias加入命令的别名<br>    如果想永久的有效则需要进入文件里面进行修改<br>        ~/.bashrc  这个文件内进行修改 </p>
 
       
     </div>
